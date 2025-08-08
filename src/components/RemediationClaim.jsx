@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, AlertTriangle, Droplets, Flame, Shield, Bug, Car, X, ChevronLeft, ChevronRight, ChevronDown, Phone, Mail, MapPin, Clock } from 'lucide-react';
 import Footer from '../components/Footer';
-<<<<<<< HEAD
 import ContactForm from '../components/ContactForm';
 import References from '../components/References';
-=======
->>>>>>> origin/master
 import insuranceLogo from '../assets/images/insurance.png';
 import heroBackground from '../assets/images/car6.jpg';
 
@@ -390,10 +387,6 @@ const RemediationClaim = () => {
           backgroundRepeat: 'no-repeat'
         }}
       >
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
         <div className="relative z-20 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
           <div className="mb-8 flex justify-center">
             <div className="w-20 h-20 sm:w-24 sm:h-24 bg-[#1393c4] rounded-full flex items-center justify-center shadow-2xl border-4 border-white">
