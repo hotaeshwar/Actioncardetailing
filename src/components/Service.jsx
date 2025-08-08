@@ -80,7 +80,7 @@ import carwashing4 from '../assets/images/carwashing4.mp4';
 // Import the new award icon - BIGGER VERSION
 import awardHome from '../assets/images/Awardhome.png';
 
-// Custom Hook for Scroll Animations - FIXED to prevent modal auto-opening
+// Custom Hook for Scroll Animations
 const useScrollAnimation = () => {
   const [visibleElements, setVisibleElements] = useState(new Set());
   const observerRef = useRef(null);
@@ -158,12 +158,11 @@ const Service = ({ setCurrentView }) => {
   const [selectedService, setSelectedService] = useState(null);
   const modalRef = useRef(null);
 
-  // Flip card state and modal state for small screens - FIXED
+  // Flip card state and modal state for small screens
   const [flippedCards, setFlippedCards] = useState(new Set());
   const [isCardModalOpen, setIsCardModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const cardModalRef = useRef(null);
-  const [modalOpenedByScroll, setModalOpenedByScroll] = useState(false); // NEW: Track if modal was opened by scroll
 
   // Blue card modal state
   const [isBlueCardModalOpen, setIsBlueCardModalOpen] = useState(false);
@@ -519,31 +518,16 @@ const Service = ({ setCurrentView }) => {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-<<<<<<< HEAD
   // Flip card handler
   const handleFlipCard = (cardId, isUserAction = true) => {
-=======
-  // FIXED Flip card handler - prevent auto-opening on scroll
-  const handleFlipCard = (cardId, isUserAction = true) => {
-    // Only proceed if it's a user action (click/tap) and not from scroll
->>>>>>> origin/master
     if (!isUserAction) return;
 
     if (isMobile) {
       const cardInfo = cardData[cardId];
       if (cardInfo) {
-<<<<<<< HEAD
         setSelectedCard(cardInfo);
         setIsCardModalOpen(true);
         document.body.style.overflow = 'hidden';
-=======
-        setTimeout(() => {
-          setSelectedCard(cardInfo);
-          setIsCardModalOpen(true);
-          setModalOpenedByScroll(false); // User initiated
-          document.body.style.overflow = 'hidden';
-        }, 50);
->>>>>>> origin/master
       }
     } else {
       setFlippedCards(prev => {
@@ -558,49 +542,27 @@ const Service = ({ setCurrentView }) => {
     }
   };
 
-<<<<<<< HEAD
   // Blue card modal handlers
   const openBlueCardModal = (cardData, event) => {
     const isPremiumButtonClick = event?.target?.closest('.premium-button') !== null;
 
     if (isPremiumButtonClick) {
-=======
-  // NEW: Blue card modal handlers with button click effect
-  const openBlueCardModal = (cardData, event) => {
-    // Check if the premium button was clicked
-    const isPremiumButtonClick = event?.target?.closest('.premium-button') !== null;
-
-    if (isPremiumButtonClick) {
-      // Add click effect to the button
->>>>>>> origin/master
       const button = event.target.closest('.premium-button');
       if (button) {
         button.style.transform = 'scale(0.95)';
         button.style.transition = 'transform 0.1s ease';
 
-<<<<<<< HEAD
-=======
-        // Reset button after animation
->>>>>>> origin/master
         setTimeout(() => {
           button.style.transform = 'scale(1)';
         }, 150);
       }
 
-<<<<<<< HEAD
-=======
-      // Delay modal opening to show button effect
->>>>>>> origin/master
       setTimeout(() => {
         setSelectedBlueCard(cardData);
         setIsBlueCardModalOpen(true);
         document.body.style.overflow = 'hidden';
       }, 200);
     } else {
-<<<<<<< HEAD
-=======
-      // Regular card click - open modal immediately
->>>>>>> origin/master
       setSelectedBlueCard(cardData);
       setIsBlueCardModalOpen(true);
       document.body.style.overflow = 'hidden';
@@ -613,16 +575,11 @@ const Service = ({ setCurrentView }) => {
     document.body.style.overflow = 'auto';
   };
 
-<<<<<<< HEAD
   // FIXED Card modal handlers - SIMPLE VERSION
-=======
-  // FIXED Card modal handlers
->>>>>>> origin/master
   const closeCardModal = () => {
     console.log('closeCardModal called'); // Debug log
     setIsCardModalOpen(false);
     setSelectedCard(null);
-    setModalOpenedByScroll(false);
     document.body.style.overflow = 'auto';
   };
 
@@ -675,19 +632,10 @@ const Service = ({ setCurrentView }) => {
     }
   };
 
-<<<<<<< HEAD
   // SIMPLIFIED Click outside detection
   useEffect(() => {
     const handleClickOutside = (event) => {
       // Service modal
-=======
-  // FIXED Close modals when clicking outside - prevent auto-opening
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      // Only handle clicks, not scroll events
-      if (event.type !== 'mousedown' && event.type !== 'touchstart') return;
-
->>>>>>> origin/master
       if (modalRef.current && !modalRef.current.contains(event.target) && event.target.classList.contains('modal-backdrop')) {
         closeModal();
       }
@@ -926,11 +874,7 @@ const Service = ({ setCurrentView }) => {
     );
   };
 
-<<<<<<< HEAD
   // Blue Card Component
-=======
-  // FIXED Blue Card Component with Perfect iPad Alignment
->>>>>>> origin/master
   const renderBlueCard = (cardData, index = 0) => (
     <AnimatedSection
       animationId={`blue-card-${index}`}
@@ -954,16 +898,9 @@ const Service = ({ setCurrentView }) => {
         {/* Shine Effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 skew-x-12"></div>
 
-<<<<<<< HEAD
         {/* Content Container */}
         <div className="relative z-10 flex flex-col h-full justify-center text-center p-6">
           {/* Icon Section */}
-=======
-        {/* Content Container - FIXED STANDARDIZED LAYOUT */}
-        <div className="relative z-10 flex flex-col h-full justify-center text-center p-6">
-
-          {/* Icon Section - STANDARDIZED */}
->>>>>>> origin/master
           <div className="flex-shrink-0 flex justify-center pt-2">
             <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shadow-xl shadow-black/20 border border-white/30 group-hover:scale-110 transition-all duration-500">
               <img
@@ -979,22 +916,14 @@ const Service = ({ setCurrentView }) => {
             </div>
           </div>
 
-<<<<<<< HEAD
           {/* Title Section */}
-=======
-          {/* Title Section - STANDARDIZED */}
->>>>>>> origin/master
           <div className="flex-grow flex flex-col justify-center py-4">
             <h3 className="text-lg font-bold text-white mb-2 drop-shadow-lg leading-tight group-hover:scale-105 transition-transform duration-300">
               {cardData.title}
             </h3>
           </div>
 
-<<<<<<< HEAD
           {/* Tag Section */}
-=======
-          {/* Tag Section - STANDARDIZED */}
->>>>>>> origin/master
           <div className="flex-shrink-0 pb-2">
             <div className="scale-90 group-hover:scale-100 transition-all duration-500 opacity-80 group-hover:opacity-100">
               <span className="inline-block px-4 py-2 bg-white/25 backdrop-blur-sm rounded-full text-white text-sm border border-white/30 shadow-lg font-medium">
@@ -1010,26 +939,15 @@ const Service = ({ setCurrentView }) => {
     </AnimatedSection>
   );
 
-<<<<<<< HEAD
   // Blue Cards Grid Section
-=======
-  // FIXED Blue Cards Grid Section - Perfect 3-2 Layout for All iPads
->>>>>>> origin/master
   const BlueCardsSection = () => (
     <AnimatedSection
       animationId="blue-cards-grid"
       className="pb-8 md:pb-12 lg:pb-16 xl:pb-20 relative overflow-hidden bg-white -mt-4 blue-cards-container"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<<<<<<< HEAD
         <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10">
           {/* Top Row - 3 Cards */}
-=======
-        {/* Custom Grid Layout - FIXED 3-2 Pattern */}
-        <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10">
-
-          {/* Top Row - 3 Cards - PERFECTLY ALIGNED */}
->>>>>>> origin/master
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 xl:gap-10 justify-items-center place-items-center ipad-mini-top-row">
             {blueCardData.slice(0, 3).map((card, index) => (
               <div key={card.id || `blue-card-top-${index}`} className="w-full max-w-xs lg:max-w-sm ipad-mini-card">
@@ -1038,11 +956,7 @@ const Service = ({ setCurrentView }) => {
             ))}
           </div>
 
-<<<<<<< HEAD
           {/* Bottom Row - 2 Cards Centered */}
-=======
-          {/* Bottom Row - 2 Cards Centered - PERFECTLY ALIGNED */}
->>>>>>> origin/master
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 xl:gap-10 justify-items-center place-items-center max-w-2xl mx-auto ipad-mini-bottom-row">
             {blueCardData.slice(3, 5).map((card, index) => (
               <div key={card.id || `blue-card-bottom-${index}`} className="w-full max-w-xs lg:max-w-sm ipad-mini-card">
@@ -1055,14 +969,7 @@ const Service = ({ setCurrentView }) => {
     </AnimatedSection>
   );
 
-<<<<<<< HEAD
   // Flip Card Component
-=======
-  // COMPLETE IPAD BLUE CARDS COMPONENT WITH 3-2 LAYOUT FIX
-  // Replace your existing renderBlueCard function and CSS styles with this
-
-  // COMPLETE FLIP CARD COMPONENT - CONSISTENT BACK SIDE LAYOUT with BIGGER IMAGES
->>>>>>> origin/master
   const renderFlipCard = (id, frontTitle, iconOrComponent, backTitle, backContent, index = 0) => {
     const isFlipped = flippedCards.has(id);
     const icon = typeof iconOrComponent === 'object' && !React.isValidElement(iconOrComponent) ? iconOrComponent : faThumbsUp;
@@ -1081,20 +988,12 @@ const Service = ({ setCurrentView }) => {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-<<<<<<< HEAD
             handleFlipCard(id, true);
-=======
-            handleFlipCard(id, true); // Pass true to indicate user action
->>>>>>> origin/master
           }}
           onTouchStart={(e) => {
             e.preventDefault();
             e.stopPropagation();
-<<<<<<< HEAD
             handleFlipCard(id, true);
-=======
-            handleFlipCard(id, true); // Pass true to indicate user action
->>>>>>> origin/master
           }}
           className={`flip-card-inner relative w-full h-full transition-transform duration-700 transform-gpu ${isFlipped ? 'mobile-flip-card-flipped' : ''} ${!isMobile ? 'group-hover:rotate-y-180' : ''}`}
           style={{
@@ -1130,13 +1029,7 @@ const Service = ({ setCurrentView }) => {
                         src={cardData[id].customImage}
                         alt={frontTitle}
                         className={`object-contain ${id === 'card7' ?
-<<<<<<< HEAD
                           'w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32' :
-=======
-                          // Award Winning card - EVEN BIGGER SIZE
-                          'w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32' :
-                          // Other cards - BIGGER SIZE
->>>>>>> origin/master
                           'w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20'
                           }`}
                         onError={(e) => {
@@ -1240,11 +1133,7 @@ const Service = ({ setCurrentView }) => {
     );
   };
 
-<<<<<<< HEAD
   // Service Modal Component
-=======
-  // Service Modal Component - FIXED VERSION
->>>>>>> origin/master
   const ServiceModal = () => {
     if (!isModalOpen || !selectedService) return null;
 
@@ -1269,7 +1158,6 @@ const Service = ({ setCurrentView }) => {
                   playsInline
                 />
               </div>
-<<<<<<< HEAD
             ) : selectedService.title === "Professional Dent Repair" ? (
               <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                 <video
@@ -1332,85 +1220,7 @@ const Service = ({ setCurrentView }) => {
                 className="w-full h-full object-cover object-center"
               />
             )}
-=======
-            ) :
-              /* Professional Dent Repair */
-              selectedService.title === "Professional Dent Repair" ? (
-                <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                  <video
-                    src={dentRepairVideo}
-                    className="w-full h-full object-cover object-center"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                  />
-                </div>
-              ) :
-                /* Premium Auto Detailing */
-                selectedService.title === "Premium Auto Detailing" ? (
-                  <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                    <video
-                      src={autoDetailingVideo}
-                      className="w-full h-full object-cover object-center"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                    />
-                  </div>
-                ) :
-                  /* Paint Correction Polishing */
-                  selectedService.title === "Paint Correction Polishing" ? (
-                    <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                      <video
-                        src={paintCorrectionVideo}
-                        className="w-full h-full object-cover object-center"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                      />
-                    </div>
-                  ) :
-                    /* Automotive Window Film */
-                    selectedService.title === "Automotive Window Film" ? (
-                      <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                        <video
-                          src={windowTintingVideo}
-                          className="w-full h-full object-cover object-center"
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                        />
-                      </div>
-                    ) :
-                      /* Automotive Ceramic Coating */
-                      selectedService.title === "Automotive Ceramic Coating" ? (
-                        <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                          <video
-                            src={ceramicCoatingVideo}
-                            className="w-full h-full object-cover object-center"
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                          />
-                        </div>
-                      ) : (
-                        /* Fallback to image */
-                        <img
-                          src={selectedService.image}
-                          alt={selectedService.title}
-                          className="w-full h-full object-cover object-center"
-                        />
-                      )}
 
-            {/* REMOVED TEXT OVERLAY - NO MORE TEXT ON VIDEO */}
->>>>>>> origin/master
-
-            {/* BIGGER CLOSE BUTTON - FIXED FUNCTIONALITY */}
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -1468,11 +1278,7 @@ const Service = ({ setCurrentView }) => {
     );
   };
 
-<<<<<<< HEAD
   // FIXED Card Modal Component - SIMPLE AND WORKING
-=======
-  // FIXED Card Modal Component for ACTION CAR DETAILING cards - BIGGER CLOSE BUTTON
->>>>>>> origin/master
   const CardModal = () => {
     if (!isCardModalOpen || !selectedCard) return null;
 
@@ -1509,7 +1315,6 @@ const Service = ({ setCurrentView }) => {
           onClick={handleContentClick}
         >
           <div className="relative p-6 text-center border-b border-white/20">
-<<<<<<< HEAD
             {/* SIMPLE CLOSE BUTTON */}
             <button
               onClick={handleCloseModal}
@@ -1519,16 +1324,9 @@ const Service = ({ setCurrentView }) => {
                 minHeight: '48px',
                 minWidth: '48px'
               }}
-=======
-            {/* BIGGER CLOSE BUTTON */}
-            <button
-              onClick={closeCardModal}
-              className="absolute top-3 right-3 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 border border-white/30 shadow-lg hover:scale-110"
->>>>>>> origin/master
               aria-label="Close modal"
               type="button"
             >
-<<<<<<< HEAD
               <FontAwesomeIcon 
                 icon={faTimes} 
                 className="text-white text-xl"
@@ -1538,12 +1336,6 @@ const Service = ({ setCurrentView }) => {
             <h2 className="text-xl font-bold text-cyan-400 mb-2 drop-shadow-lg pt-4 pr-12">
               {selectedCard.backTitle}
             </h2>
-=======
-              <FontAwesomeIcon icon={faTimes} className="text-white text-xl" />
-            </button>
-
-            <h2 className="text-xl font-bold text-cyan-400 mb-2 drop-shadow-lg pt-4">{selectedCard.backTitle}</h2>
->>>>>>> origin/master
           </div>
 
           <div className="p-6 overflow-y-auto" style={{ maxHeight: '60vh' }}>
@@ -1593,11 +1385,7 @@ const Service = ({ setCurrentView }) => {
     );
   };
 
-<<<<<<< HEAD
   // Blue Card Modal Component
-=======
-  // NEW: Blue Card Modal Component for "Your Vehicle Deserves The Best" section - BIGGER CLOSE BUTTON
->>>>>>> origin/master
   const BlueCardModal = () => {
     if (!isBlueCardModalOpen || !selectedBlueCard) return null;
 
@@ -1614,7 +1402,6 @@ const Service = ({ setCurrentView }) => {
           }}
         >
           <div className="relative p-6 text-center border-b border-white/20">
-            {/* BIGGER CLOSE BUTTON */}
             <button
               onClick={closeBlueCardModal}
               className="absolute top-3 right-3 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 border border-white/30 shadow-lg hover:scale-110"
@@ -1823,11 +1610,7 @@ const Service = ({ setCurrentView }) => {
               ))}
             </div>
 
-<<<<<<< HEAD
             {/* Navigation Buttons */}
-=======
-            {/* Previous Button - NO BORDER, VERY SMALL */}
->>>>>>> origin/master
             <button
               onClick={prevSlide}
               className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 sm:w-7 sm:h-7 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-md hover:scale-110 z-20 group"
@@ -1838,10 +1621,6 @@ const Service = ({ setCurrentView }) => {
               </svg>
             </button>
 
-<<<<<<< HEAD
-=======
-            {/* Next Button - NO BORDER, VERY SMALL */}
->>>>>>> origin/master
             <button
               onClick={nextSlide}
               className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 sm:w-7 sm:h-7 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-md hover:scale-110 z-20 group"
@@ -1852,10 +1631,6 @@ const Service = ({ setCurrentView }) => {
               </svg>
             </button>
 
-<<<<<<< HEAD
-=======
-            {/* Play/Pause Button - NO BORDER, VERY SMALL */}
->>>>>>> origin/master
             <button
               onClick={handlePlayPause}
               className="absolute top-4 left-4 w-5 h-5 sm:w-6 sm:h-6 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-md hover:scale-110 z-20 group"
@@ -1914,11 +1689,7 @@ const Service = ({ setCurrentView }) => {
         </div>
       </AnimatedSection>
 
-<<<<<<< HEAD
       {/* Blue Cards Grid */}
-=======
-      {/* Blue Cards Grid - Custom 3-2 Layout - FIXED IPAD MINI LAYOUT */}
->>>>>>> origin/master
       <BlueCardsSection />
 
       {/* Section Divider */}
@@ -1958,11 +1729,7 @@ const Service = ({ setCurrentView }) => {
       <CardModal />
       <BlueCardModal />
 
-<<<<<<< HEAD
       {/* CSS Styles */}
-=======
-      {/* FIXED IPAD MINI CSS - Complete Styles */}
->>>>>>> origin/master
       <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
@@ -2172,7 +1939,6 @@ const Service = ({ setCurrentView }) => {
           }
         }
 
-<<<<<<< HEAD
         @media only screen and (min-width: 768px) and (max-width: 834px) {
           body .blue-cards-container .ipad-mini-top-row,
           html .blue-cards-container .ipad-mini-top-row {
@@ -2248,171 +2014,6 @@ const Service = ({ setCurrentView }) => {
           }
         }
 
-=======
-        /* CRITICAL IPAD MINI FIX - Blue Cards 3-2 Layout */
-        
-        /* Base Container */
-        .blue-cards-container {
-          width: 100%;
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        /* Standardized Card Content */
-        .blue-cards-container .aspect-square {
-          aspect-ratio: 1 / 1 !important;
-          width: 100% !important;
-          height: auto !important;
-        }
-
-        /* IPAD MINI SPECIFIC TARGETING - FORCE 3-2 LAYOUT */
-        @media (min-width: 768px) and (max-width: 834px) {
-          
-          /* Container-level targeting with higher specificity */
-          .blue-cards-container .ipad-mini-top-row {
-            display: grid !important;
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 1rem !important;
-            justify-items: center !important;
-            place-items: center !important;
-            width: 100% !important;
-          }
-          
-          .blue-cards-container .ipad-mini-bottom-row {
-            display: grid !important;
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 1.5rem !important;
-            justify-items: center !important;
-            place-items: center !important;
-            max-width: 420px !important;
-            margin: 0 auto !important;
-            width: 100% !important;
-          }
-          
-          /* Individual card sizing for iPad Mini */
-          .blue-cards-container .ipad-mini-card {
-            max-width: 180px !important;
-            width: 100% !important;
-          }
-          
-          /* Card content adjustments for iPad Mini */
-          .blue-cards-container .w-16.h-16 {
-            width: 3.5rem !important;
-            height: 3.5rem !important;
-          }
-          
-          .blue-cards-container .w-10.h-10 {
-            width: 2.25rem !important;
-            height: 2.25rem !important;
-          }
-          
-          /* Text sizing for iPad Mini */
-          .blue-cards-container h3 {
-            font-size: 1rem !important;
-            line-height: 1.2 !important;
-            margin-bottom: 0.5rem !important;
-            padding: 0 0.25rem !important;
-          }
-          
-          .blue-cards-container span {
-            font-size: 0.75rem !important;
-            padding: 0.375rem 0.75rem !important;
-          }
-          
-          /* Card padding adjustments for iPad Mini */
-          .blue-cards-container .p-6 {
-            padding: 1rem !important;
-          }
-          
-          /* Container gap for iPad Mini */
-          .blue-cards-container .flex.flex-col.gap-6 {
-            gap: 1.5rem !important;
-          }
-        }
-
-        /* High Specificity Override for iPad Mini - Ultimate Fix */
-        @media only screen and (min-width: 768px) and (max-width: 834px) {
-          
-          body .blue-cards-container .ipad-mini-top-row,
-          html .blue-cards-container .ipad-mini-top-row {
-            grid-template-columns: repeat(3, 1fr) !important;
-            display: grid !important;
-          }
-          
-          body .blue-cards-container .ipad-mini-bottom-row,
-          html .blue-cards-container .ipad-mini-bottom-row {
-            grid-template-columns: repeat(2, 1fr) !important;
-            display: grid !important;
-            max-width: 420px !important;
-            margin: 0 auto !important;
-          }
-
-          /* Ensure cards don't break layout */
-          .blue-cards-container .ipad-mini-card > div {
-            width: 100% !important;
-            height: auto !important;
-            aspect-ratio: 1 / 1 !important;
-          }
-        }
-
-        /* iPad Mini Portrait Device Specific Targeting - Backup Fix */
-        @media only screen 
-          and (min-device-width: 768px) 
-          and (max-device-width: 834px) 
-          and (-webkit-min-device-pixel-ratio: 1) 
-          and (orientation: portrait) {
-          
-          .blue-cards-container .ipad-mini-top-row {
-            grid-template-columns: repeat(3, minmax(160px, 180px)) !important;
-            justify-content: center !important;
-          }
-          
-          .blue-cards-container .ipad-mini-bottom-row {
-            grid-template-columns: repeat(2, minmax(180px, 200px)) !important;
-            justify-content: center !important;
-          }
-        }
-
-        /* iPad Air (835px - 1024px) */
-        @media (min-width: 835px) and (max-width: 1024px) {
-          .blue-cards-container .max-w-xs {
-            max-width: 240px !important;
-          }
-          
-          .blue-cards-container .lg\\:max-w-sm {
-            max-width: 260px !important;
-          }
-          
-          .blue-cards-container .grid {
-            gap: 2rem !important;
-          }
-          
-          .blue-cards-container .grid.sm\\:grid-cols-2:last-child {
-            max-width: 560px !important;
-          }
-        }
-
-        /* iPad Pro (1025px+) */
-        @media (min-width: 1025px) {
-          .blue-cards-container .max-w-xs {
-            max-width: 280px !important;
-          }
-          
-          .blue-cards-container .lg\\:max-w-sm {
-            max-width: 300px !important;
-          }
-          
-          .blue-cards-container .grid {
-            gap: 2.5rem !important;
-          }
-          
-          .blue-cards-container .grid.sm\\:grid-cols-2:last-child {
-            max-width: 640px !important;
-          }
-        }
-
-        /* Mobile Responsive */
->>>>>>> origin/master
         @media (max-width: 640px) {
           .blue-cards-container .grid {
             gap: 1rem !important;
@@ -2424,10 +2025,6 @@ const Service = ({ setCurrentView }) => {
           }
         }
 
-<<<<<<< HEAD
-=======
-        /* Small Tablets (641px - 767px) */
->>>>>>> origin/master
         @media (min-width: 641px) and (max-width: 767px) {
           .blue-cards-container .grid {
             gap: 1.5rem !important;
@@ -2437,10 +2034,6 @@ const Service = ({ setCurrentView }) => {
             max-width: 300px !important;
           }
           
-<<<<<<< HEAD
-=======
-          /* Top row - 3 cards in 2 columns on small tablets */
->>>>>>> origin/master
           .blue-cards-container .grid.lg\\:grid-cols-3 {
             grid-template-columns: repeat(2, 1fr) !important;
           }
@@ -2451,43 +2044,23 @@ const Service = ({ setCurrentView }) => {
           }
         }
 
-<<<<<<< HEAD
-=======
-        /* Additional Fallback with Higher Specificity */
->>>>>>> origin/master
         .blue-cards-container .grid {
           display: grid !important;
         }
 
-<<<<<<< HEAD
-=======
-        /* Force Layout Consistency */
->>>>>>> origin/master
         .blue-cards-container * {
           box-sizing: border-box !important;
         }
 
-<<<<<<< HEAD
-=======
-        /* Prevent Overflow Issues */
->>>>>>> origin/master
         .blue-cards-container .overflow-hidden {
           overflow: hidden !important;
         }
 
-<<<<<<< HEAD
-=======
-        /* Ensure Proper Z-Index Stacking */
->>>>>>> origin/master
         .blue-cards-container .relative.z-10 {
           z-index: 10 !important;
           position: relative !important;
         }
 
-<<<<<<< HEAD
-=======
-        /* DESKTOP SPECIFIC FIX FOR FLIP CARDS */
->>>>>>> origin/master
         @media (max-width: 1399px) {
           .flip-card-container {
             height: 20rem !important;
@@ -2534,10 +2107,6 @@ const Service = ({ setCurrentView }) => {
           }
         }
 
-<<<<<<< HEAD
-=======
-        /* ENHANCED BUTTON STATES */
->>>>>>> origin/master
         button:active {
           transform: scale(0.95);
         }
@@ -2546,10 +2115,6 @@ const Service = ({ setCurrentView }) => {
           transform: none;
         }
 
-<<<<<<< HEAD
-=======
-        /* LOADING STATES */
->>>>>>> origin/master
         .loading-spinner {
           animation: spin 1s linear infinite;
         }
@@ -2559,10 +2124,6 @@ const Service = ({ setCurrentView }) => {
           to { transform: rotate(360deg); }
         }
 
-<<<<<<< HEAD
-=======
-        /* HIGH CONTRAST MODE SUPPORT */
->>>>>>> origin/master
         @media (prefers-contrast: high) {
           .flip-card-container,
           .blue-cards-container .group {
@@ -2571,7 +2132,6 @@ const Service = ({ setCurrentView }) => {
           
           .modal-close-btn {
             border: 2px solid;
-<<<<<<< HEAD
           }
         }
 
@@ -2593,31 +2153,6 @@ const Service = ({ setCurrentView }) => {
           }
         }
 
-=======
-          }
-        }
-
-        /* PRINT STYLES */
-        @media print {
-          .modal-backdrop,
-          .card-modal-backdrop,
-          .blue-card-modal-backdrop {
-            display: none !important;
-          }
-          
-          .flip-card-back {
-            display: block !important;
-            position: static !important;
-            transform: none !important;
-          }
-          
-          .flip-card-front {
-            display: none !important;
-          }
-        }
-
-        /* ACCESSIBILITY IMPROVEMENTS */
->>>>>>> origin/master
         .flip-card-container:focus-within {
           outline: 2px solid #0ea5e9;
           outline-offset: 4px;
@@ -2630,10 +2165,6 @@ const Service = ({ setCurrentView }) => {
           border-radius: 1rem;
         }
 
-<<<<<<< HEAD
-=======
-        /* IMPROVED MODAL BACKDROP */
->>>>>>> origin/master
         .modal-backdrop,
         .card-modal-backdrop,
         .blue-card-modal-backdrop {
@@ -2641,10 +2172,6 @@ const Service = ({ setCurrentView }) => {
           -webkit-backdrop-filter: blur(8px) saturate(180%);
         }
 
-<<<<<<< HEAD
-=======
-        /* CARD HOVER STATES FOR BETTER UX */
->>>>>>> origin/master
         .flip-card-container:hover {
           z-index: 10;
         }
@@ -2653,19 +2180,11 @@ const Service = ({ setCurrentView }) => {
           z-index: 10;
         }
 
-<<<<<<< HEAD
-=======
-        /* SMOOTH SCROLLING FOR MODALS */
->>>>>>> origin/master
         .modal-content-scroll {
           scroll-behavior: smooth;
           -webkit-overflow-scrolling: touch;
         }
 
-<<<<<<< HEAD
-=======
-        /* Performance optimizations for all elements */
->>>>>>> origin/master
         .mirror-card,
         .mirror-element,
         .mirror-shine,
@@ -2697,10 +2216,6 @@ const Service = ({ setCurrentView }) => {
           }
         }
 
-<<<<<<< HEAD
-=======
-        /* Touch-friendly interactions */
->>>>>>> origin/master
         @media (hover: none) and (pointer: coarse) {
           .group:hover .mirror-shine {
             transform: translateX(200%) skewX(12deg);
