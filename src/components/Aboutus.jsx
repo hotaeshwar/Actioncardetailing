@@ -3,6 +3,7 @@ import { Car, Medal, ShieldCheck, Wrench, MapPin } from 'lucide-react';
 import aboutUsVideo from '../assets/images/about us banner.mp4';
 import Footer from '../components/Footer';
 import ContactForm from '../components/ContactForm';
+
 const ActionCarAbout = () => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -43,10 +44,7 @@ const ActionCarAbout = () => {
     'Ceramic Coating',
     'Paint Protection Film (PPF)',
     'Window Tinting',
-    'Paintless Dent Removal',
-    'Paint Protection Film (PPF)',
-    'Paintless Dent Removal',
-
+    'Paintless Dent Removal'
   ];
 
   const commitments = [
@@ -112,7 +110,7 @@ const ActionCarAbout = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Video Section - Simple and Working */}
+      {/* Hero Video Section */}
       <div className="relative w-full overflow-hidden bg-white mobile-video-hero">
         <div className="absolute inset-0">
           <video
@@ -126,17 +124,12 @@ const ActionCarAbout = () => {
             Your browser does not support the video tag.
           </video>
         </div>
-<<<<<<< HEAD
 
         {/* Overlay gradient for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></div>
 
         {/* Desktop Text Overlay */}
         <div className="absolute bottom-0 left-0 right-0 flex-col items-center justify-end px-4 lg:px-8 pb-6 lg:pb-8 z-20 hidden xl:flex">
-=======
-        
-        <div className="absolute bottom-0 left-0 right-0 flex-col items-center justify-end px-1 xs:px-2 sm:px-4 lg:px-8 pb-3 xs:pb-4 sm:pb-6 lg:pb-8 z-20 hidden xl:flex">
->>>>>>> origin/master
           <div className="text-center w-full max-w-full overflow-hidden">
             <h1 className="text-4xl xl:text-5xl font-bold mb-4 leading-tight text-white drop-shadow-2xl">
               ABOUT US
@@ -151,7 +144,7 @@ const ActionCarAbout = () => {
           </div>
         </div>
 
-        {/* Mobile Text Overlay - Simple */}
+        {/* Mobile Text Overlay */}
         <div className="absolute bottom-0 left-0 right-0 text-center pb-6 px-4 z-20 xl:hidden">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white drop-shadow-2xl">
             ABOUT US
@@ -340,11 +333,11 @@ const ActionCarAbout = () => {
           </div>
         </div>
       </section>
+      
       <ContactForm />
       <Footer />
 
-<<<<<<< HEAD
-      {/* Simple Mobile-Responsive Styles */}
+      {/* Custom Styles */}
       <style jsx>{`
         .mobile-video-hero {
           height: 60vh;
@@ -393,9 +386,6 @@ const ActionCarAbout = () => {
           text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
         }
       `}</style>
-=======
-      <Footer />
->>>>>>> origin/master
     </div>
   );
 };
