@@ -9,62 +9,23 @@ const VideoCardCarousel = () => {
   const videoRefs = useRef([]);
   const intervalRef = useRef(null);
 
-<<<<<<< HEAD
   // Video data with titles and descriptions
   const videos = [
     {
-      src: '/src/assets/images/carasoul1.MP4',
-=======
-  // Import your video files - using the same approach as your working code
-  // Replace these paths with your actual video imports
-  const carwashing1 = '/assets/images/carasoul1.MP4';
-  const carwashing2 = '/assets/images/carasoul2.MP4';
-  const carwashing3 = '/assets/images/carasoul3.MP4';
-
-  // Video array using the same structure as your working code
-  const videos = [
-    {
-      src: carwashing1,
->>>>>>> origin/master
+      src: '/assets/images/carasoul1.MP4',
       title: "Premium Detailing",
       description: "Complete exterior detailing"
     },
     {
-<<<<<<< HEAD
-      src: '/src/assets/images/carasoul2.MP4',
-=======
-      src: carwashing2,
->>>>>>> origin/master
+      src: '/assets/images/carasoul2.MP4',
       title: "Complete Exterior and Interior Detailing",
       description: "Professional Detailing services"
     },
     {
-<<<<<<< HEAD
-      src: '/src/assets/images/carasoul3.MP4',
+      src: '/assets/images/carasoul3.MP4',
       title: "Interior Detailing",
       description: "Deep cleaning and protection"
-    },
-    {
-      src: '/src/assets/images/carasoul4.MP4',
-      title: "Paint Correction",
-      description: "Restoring your vehicle's shine"
-    },
-    {
-      src: '/src/assets/images/carasoul5.MP4',
-      title: "Ceramic Coating",
-      description: "Long-lasting protection"
-    },
-    {
-      src: '/src/assets/images/carasoul6.MP4',
-      title: "Window Tinting",
-      description: "UV protection and privacy"
     }
-=======
-      src: carwashing3,
-      title: "Interior Detailing",
-      description: "Deep cleaning and protection"
-    },
->>>>>>> origin/master
   ];
 
   // Memoize callback functions to prevent unnecessary re-renders
@@ -125,11 +86,7 @@ const VideoCardCarousel = () => {
     }
   }, [currentSlide, isPlaying]);
 
-<<<<<<< HEAD
   // Optimized video loading and playback
-=======
-  // Optimized video loading and playback - Same approach as your working code
->>>>>>> origin/master
   useEffect(() => {
     const playCurrentVideo = async () => {
       try {
@@ -142,11 +99,7 @@ const VideoCardCarousel = () => {
         });
 
         const currentVideo = videoRefs.current[currentSlide];
-<<<<<<< HEAD
-        if (currentVideo && isPlaying) {
-=======
         if (currentVideo) {
->>>>>>> origin/master
           if (isMobileDevice) {
             currentVideo.load();
             await new Promise(resolve => {
@@ -160,24 +113,13 @@ const VideoCardCarousel = () => {
           }
 
           try {
-<<<<<<< HEAD
-            await currentVideo.play();
-            setIsVideoLoaded(true);
-          } catch (playError) {
-            console.log("Video play failed, retrying:", playError);
-            setTimeout(async () => {
-              try {
-                await currentVideo.play();
-              } catch (retryError) {
-                console.log("Video play retry failed:", retryError);
-=======
             if (isPlaying) {
               await currentVideo.play();
               setIsVideoLoaded(true);
             }
           } catch (playError) {
             console.log("Video play failed:", playError);
-            // Retry logic similar to your working code
+            // Retry logic
             setTimeout(async () => {
               try {
                 if (isPlaying) {
@@ -187,17 +129,13 @@ const VideoCardCarousel = () => {
               } catch (retryError) {
                 console.log("Video play retry failed:", retryError);
                 setIsVideoLoaded(false);
->>>>>>> origin/master
               }
             }, 500);
           }
         }
       } catch (error) {
         console.log("Video management error:", error);
-<<<<<<< HEAD
-=======
         setIsVideoLoaded(false);
->>>>>>> origin/master
       }
     };
 
@@ -207,11 +145,6 @@ const VideoCardCarousel = () => {
   return (
     <div className="py-8 md:py-12 lg:py-16 xl:py-20 relative overflow-hidden bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/master
         {/* Video Carousel */}
         <div className="relative max-w-6xl mx-auto rounded-3xl shadow-3xl shadow-black/50 overflow-hidden border-4 border-white/20">
           <div className="relative aspect-video bg-black">
@@ -235,10 +168,7 @@ const VideoCardCarousel = () => {
                   }}
                   onError={(e) => {
                     console.log(`Video ${index} error:`, e);
-<<<<<<< HEAD
-=======
                     setIsVideoLoaded(false);
->>>>>>> origin/master
                   }}
                   onWaiting={() => {
                     console.log(`Video ${index} buffering...`);
@@ -258,16 +188,11 @@ const VideoCardCarousel = () => {
 
                 {/* Loading indicator for mobile */}
                 {isMobileDevice && !isVideoLoaded && index === currentSlide && (
-<<<<<<< HEAD
-                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-20">
-                    <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
-=======
                   <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-20">
                     <div className="text-center">
                       <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-2"></div>
                       <p className="text-white/70 text-sm">Loading video...</p>
                     </div>
->>>>>>> origin/master
                   </div>
                 )}
               </div>
@@ -277,11 +202,7 @@ const VideoCardCarousel = () => {
           {/* Previous Button */}
           <button
             onClick={prevSlide}
-<<<<<<< HEAD
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 border border-white/30 shadow-lg hover:scale-110 z-20 group"
-=======
             className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 border border-white/30 shadow-lg hover:scale-110 z-20 group video-nav-btn"
->>>>>>> origin/master
             aria-label="Previous video"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:text-cyan-400 transition-colors duration-300" />
@@ -290,11 +211,7 @@ const VideoCardCarousel = () => {
           {/* Next Button */}
           <button
             onClick={nextSlide}
-<<<<<<< HEAD
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 border border-white/30 shadow-lg hover:scale-110 z-20 group"
-=======
             className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 border border-white/30 shadow-lg hover:scale-110 z-20 group video-nav-btn"
->>>>>>> origin/master
             aria-label="Next video"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:text-cyan-400 transition-colors duration-300" />
@@ -313,13 +230,8 @@ const VideoCardCarousel = () => {
             )}
           </button>
 
-<<<<<<< HEAD
-          {/* Video indicators */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-=======
           {/* Video indicators - Mobile friendly with click functionality */}
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20 video-indicators">
->>>>>>> origin/master
             {videos.map((_, index) => (
               <button
                 key={index}
@@ -327,19 +239,27 @@ const VideoCardCarousel = () => {
                 className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${currentSlide === index
                   ? 'bg-white scale-125'
                   : 'bg-white/50 hover:bg-white/75'
-<<<<<<< HEAD
-                  }`}
-=======
                 }`}
->>>>>>> origin/master
                 aria-label={`Go to video ${index + 1}`}
               />
             ))}
           </div>
+
+          {/* Video Information */}
+          <div className="absolute bottom-16 left-4 right-4 z-20">
+            <div className="bg-black/30 backdrop-blur-md rounded-lg p-4 border border-white/20">
+              <h3 className="text-white text-lg sm:text-xl font-semibold mb-1">
+                {videos[currentSlide].title}
+              </h3>
+              <p className="text-white/80 text-sm sm:text-base">
+                {videos[currentSlide].description}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Styles - Same as your working code */}
+      {/* Styles */}
       <style jsx>{`
         .shadow-3xl {
           box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
