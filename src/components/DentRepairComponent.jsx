@@ -3,6 +3,7 @@ import { CheckCircle, Shield, Clock, Star, ArrowRight, Phone } from 'lucide-reac
 import dentRepairVideo from '../assets/images/Dent Repair.mp4';
 import Footer from '../components/Footer';
 import ContactForm from '../components/ContactForm';
+import Reference1 from '../components/Reference1'; // Added import
 
 const DentRepairComponent = () => {
   const videoRef = useRef(null);
@@ -472,7 +473,11 @@ const DentRepairComponent = () => {
               <span> on your dent repair needs</span>
             </p>
           </div>
-      <ContactForm />
+
+          {/* Reference1 Component - Added above ContactForm */}
+          <Reference1 />
+
+          <ContactForm />
         </div>
       </section>
 
