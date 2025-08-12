@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Car, Clock, Plus, Calendar, ShoppingCart, ChevronLeft, ChevronRight, Check, User, Mail, Phone, MessageSquare } from 'lucide-react';
 
 const BookingForm = () => {
-  const [currentStep, setCurrentStep] = useState(1);
   const [selectedVehicle, setSelectedVehicle] = useState('');
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [selectedAddOns, setSelectedAddOns] = useState([]);
@@ -131,43 +130,18 @@ const BookingForm = () => {
     return checkDate < today;
   };
 
-  const isStepValid = () => {
-    switch (currentStep) {
-      case 1: return selectedVehicle !== '';
-      case 2: return selectedPackage !== null;
-      case 3: return true; // Add-ons are optional
-      case 4: return selectedDate !== '' && selectedTime !== '';
-      case 5: return bookingData.firstName && bookingData.lastName && bookingData.email && bookingData.phone && bookingData.vehicleMake;
-      default: return false;
-    }
-  };
-
   const getTotalPrice = () => {
     const packagePrice = selectedPackage ? selectedPackage.price : 0;
     const addOnPrice = selectedAddOns.reduce((total, addon) => total + addon.price, 0);
     return packagePrice + addOnPrice;
   };
 
-  const handleNext = () => {
-    if (currentStep < 5) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
   const handleVehicleSelect = (vehicle) => {
     setSelectedVehicle(vehicle);
-    handleNext();
   };
 
   const handlePackageSelect = (pkg) => {
     setSelectedPackage(pkg);
-    handleNext();
   };
 
   const handleAddOnToggle = (addon) => {
@@ -190,9 +164,6 @@ const BookingForm = () => {
 
   const handleTimeSelect = (time) => {
     setSelectedTime(time);
-    if (selectedDate) {
-      handleNext();
-    }
   };
 
   const handleInputChange = (e) => {
@@ -203,7 +174,18 @@ const BookingForm = () => {
     }));
   };
 
+  const isFormValid = () => {
+    return selectedVehicle && selectedPackage && selectedDate && selectedTime && 
+           bookingData.firstName && bookingData.lastName && bookingData.email && 
+           bookingData.phone && bookingData.vehicleMake;
+  };
+
   const handleSubmit = async () => {
+    if (!isFormValid()) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
     const formElement = document.createElement('form');
     formElement.action = 'https://formsubmit.co/actioncardetailing@gmail.com';
     formElement.method = 'POST';
@@ -242,14 +224,54 @@ const BookingForm = () => {
     formElement.submit();
   };
 
-  const renderStep = () => {
-    switch (currentStep) {
-      case 1:
-        return (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">VEHICLE TYPE</h2>
-              <p className="text-gray-600 text-sm sm:text-base">Select vehicle type below.</p>
+  return (
+    <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">A La Carte Package Form</h1>
+          <p className="text-gray-600">Complete your booking details below</p>
+        </div>
+
+        {/* Summary Card - Fixed at top */}
+        {(selectedVehicle || selectedPackage || selectedDate || selectedTime) && (
+          <div className="bg-white rounded-xl shadow-lg p-6 mb-8 border-2 border-[#1393c4]">
+            <h3 className="text-xl font-bold text-[#1393c4] mb-4 text-center">Booking Summary</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+              <div className="bg-blue-50 rounded-lg p-4">
+                <div className="text-sm text-gray-600 mb-1">Vehicle</div>
+                <div className="font-semibold text-[#1393c4]">
+                  {selectedVehicle ? selectedVehicle.name : 'Not selected'}
+                </div>
+              </div>
+              <div className="bg-blue-50 rounded-lg p-4">
+                <div className="text-sm text-gray-600 mb-1">Package</div>
+                <div className="font-semibold text-[#1393c4]">
+                  {selectedPackage ? selectedPackage.name : 'Not selected'}
+                </div>
+              </div>
+              <div className="bg-blue-50 rounded-lg p-4">
+                <div className="text-sm text-gray-600 mb-1">Date & Time</div>
+                <div className="font-semibold text-[#1393c4]">
+                  {selectedDate && selectedTime ? `${selectedDate} at ${selectedTime}` : 'Not selected'}
+                </div>
+              </div>
+              <div className="bg-blue-50 rounded-lg p-4">
+                <div className="text-sm text-gray-600 mb-1">Total Price</div>
+                <div className="font-bold text-xl text-[#1393c4]">{getTotalPrice()}.00 CAD</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* All sections in one scrollable form */}
+        <div className="space-y-12">
+          
+          {/* Section 1: Vehicle Type */}
+          <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#1393c4] mb-4">1. VEHICLE TYPE</h2>
+              <p className="text-gray-600">Select your vehicle type below.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               {vehicleTypes.map((vehicle) => (
@@ -265,19 +287,22 @@ const BookingForm = () => {
                   <div className="text-center">
                     <vehicle.icon className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 text-[#1393c4]" />
                     <h3 className="font-semibold text-sm sm:text-base md:text-lg">{vehicle.name}</h3>
+                    {selectedVehicle.id === vehicle.id && (
+                      <div className="mt-2">
+                        <Check className="w-6 h-6 text-[#1393c4] mx-auto" />
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
             </div>
           </div>
-        );
 
-      case 2:
-        return (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">WASH PACKAGES</h2>
-              <p className="text-gray-600 text-sm sm:text-base">Which wash is best for your vehicle?</p>
+          {/* Section 2: Packages */}
+          <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#1393c4] mb-4">2. WASH PACKAGES</h2>
+              <p className="text-gray-600">Which wash is best for your vehicle?</p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
               {washPackages.map((pkg) => (
@@ -295,6 +320,9 @@ const BookingForm = () => {
                     <div className="text-3xl font-bold text-[#1393c4] mb-2">
                       {pkg.price}<span className="text-lg">.00 CAD</span>
                     </div>
+                    {selectedPackage?.id === pkg.id && (
+                      <Check className="w-6 h-6 text-[#1393c4] mx-auto" />
+                    )}
                   </div>
                   <div className="space-y-2">
                     {pkg.features.map((feature, index) => (
@@ -307,14 +335,12 @@ const BookingForm = () => {
               ))}
             </div>
           </div>
-        );
 
-      case 3:
-        return (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">ADD-ON OPTIONS</h2>
-              <p className="text-gray-600 text-sm sm:text-base">Add services to your package.</p>
+          {/* Section 3: Add-ons */}
+          <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#1393c4] mb-4">3. ADD-ON OPTIONS</h2>
+              <p className="text-gray-600">Add services to your package (optional).</p>
             </div>
             <div className="space-y-4">
               {addOnOptions.map((addon) => (
@@ -347,26 +373,16 @@ const BookingForm = () => {
                 </div>
               ))}
             </div>
-            <div className="text-center">
-              <button
-                onClick={handleNext}
-                className="bg-[#1393c4] hover:bg-[#0d7aa1] text-white px-8 py-3 rounded-full font-semibold transition-colors duration-300"
-              >
-                Continue
-              </button>
-            </div>
           </div>
-        );
 
-      case 4:
-        return (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">SELECT DATE AND TIME</h2>
-              <p className="text-gray-600 text-sm sm:text-base">Choose your preferred date and time.</p>
+          {/* Section 4: Date & Time */}
+          <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#1393c4] mb-4">4. SELECT DATE AND TIME</h2>
+              <p className="text-gray-600">Choose your preferred date and time.</p>
             </div>
 
-            <div className="bg-white rounded-xl border-2 border-gray-200 p-6 max-w-4xl mx-auto">
+            <div className="bg-gray-50 rounded-xl border-2 border-gray-200 p-6 max-w-4xl mx-auto">
               <div className="flex items-center justify-between mb-6">
                 <div className="text-2xl font-semibold text-[#1393c4]">
                   {months[currentMonth.getMonth()]} {currentMonth.getFullYear()}
@@ -389,7 +405,7 @@ const BookingForm = () => {
 
               <div className="grid grid-cols-7 gap-2 mb-4">
                 {daysOfWeek.map(day => (
-                  <div key={day} className="text-center text-sm font-medium text-[#1393c4] py-2 bg-gray-50 rounded">
+                  <div key={day} className="text-center text-sm font-medium text-[#1393c4] py-2 bg-gray-100 rounded">
                     {day}
                   </div>
                 ))}
@@ -447,189 +463,100 @@ const BookingForm = () => {
               )}
             </div>
           </div>
-        );
 
-      case 5:
-        return (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">BOOKING SUMMARY</h2>
-              <p className="text-gray-600 text-sm sm:text-base">Please provide us with your contact information.</p>
+          {/* Section 5: Contact Information */}
+          <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#1393c4] mb-4">5. CONTACT INFORMATION</h2>
+              <p className="text-gray-600">Please provide your contact details.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white rounded-xl p-6 text-center border-2 border-gray-200">
-                <Calendar className="w-12 h-12 text-[#1393c4] mx-auto mb-3" />
-                <div className="text-sm text-gray-600 mb-1">Date</div>
-                <div className="font-semibold text-[#1393c4]">{selectedDate || '?'}</div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-[#1393c4] mb-2">First name *</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={bookingData.firstName}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
+                  required
+                />
               </div>
-              <div className="bg-white rounded-xl p-6 text-center border-2 border-gray-200">
-                <Clock className="w-12 h-12 text-[#1393c4] mx-auto mb-3" />
-                <div className="text-sm text-gray-600 mb-1">Time</div>
-                <div className="font-semibold text-[#1393c4]">{selectedTime || '?'}</div>
+              <div>
+                <label className="block text-sm font-medium text-[#1393c4] mb-2">Last name *</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={bookingData.lastName}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
+                  required
+                />
               </div>
-              <div className="bg-white rounded-xl p-6 text-center border-2 border-gray-200">
-                <ShoppingCart className="w-12 h-12 text-[#1393c4] mx-auto mb-3" />
-                <div className="text-sm text-gray-600 mb-1">Total</div>
-                <div className="font-bold text-xl text-[#1393c4]">{getTotalPrice()}.00 CAD</div>
+              <div>
+                <label className="block text-sm font-medium text-[#1393c4] mb-2">Email *</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={bookingData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
+                  required
+                />
               </div>
-            </div>
-
-            <div className="bg-white rounded-xl border-2 border-gray-200 p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-[#1393c4] mb-2">First name *</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={bookingData.firstName}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-[#1393c4] mb-2">Last name *</label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={bookingData.lastName}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-[#1393c4] mb-2">Email *</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={bookingData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-[#1393c4] mb-2">Phone *</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={bookingData.phone}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
-                    required
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-[#1393c4] mb-2">Vehicle Make and Model *</label>
-                  <input
-                    type="text"
-                    name="vehicleMake"
-                    value={bookingData.vehicleMake}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
-                    required
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-[#1393c4] mb-2">Message</label>
-                  <textarea
-                    name="message"
-                    value={bookingData.message}
-                    onChange={handleInputChange}
-                    rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent resize-none"
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-[#1393c4] mb-2">Phone *</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={bookingData.phone}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
+                  required
+                />
               </div>
-
-              <div className="mt-8 text-center">
-                <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-                  We will confirm your appointment within 24 hours.
-                </p>
-                <button
-                  onClick={handleSubmit}
-                  className="bg-[#1393c4] hover:bg-[#0d7aa1] text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
-                >
-                  Confirm Booking
-                </button>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-[#1393c4] mb-2">Vehicle Make and Model *</label>
+                <input
+                  type="text"
+                  name="vehicleMake"
+                  value={bookingData.vehicleMake}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
+                  required
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-[#1393c4] mb-2">Message</label>
+                <textarea
+                  name="message"
+                  value={bookingData.message}
+                  onChange={handleInputChange}
+                  rows={4}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent resize-none"
+                />
               </div>
             </div>
           </div>
-        );
-
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">A La Carte Package Form</h1>
         </div>
 
-        {/* Progress Indicator */}
-        <div className="flex items-center justify-center mb-12">
-          <div className="flex items-center w-full max-w-2xl">
-            {[1, 2, 3, 4, 5].map((step) => (
-              <React.Fragment key={step}>
-                <div className="flex-1 flex items-center">
-                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-bold mx-auto ${
-                    step <= currentStep 
-                      ? 'bg-[#1393c4] text-white shadow-lg' 
-                      : 'bg-white text-[#1393c4] border-2 border-[#1393c4]'
-                  }`}>
-                    {step < currentStep ? <Check className="w-5 h-5 md:w-6 md:h-6" /> : step}
-                  </div>
-                </div>
-                {step < 5 && (
-                  <div className="flex-1 flex items-center px-4">
-                    <div className={`w-full h-2 rounded-full ${step < currentStep ? 'bg-[#1393c4]' : 'bg-gray-300'}`} />
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-
-        {/* Step Content */}
-        <div className="bg-white rounded-xl shadow-xl p-8 border border-gray-200">
-          {renderStep()}
-        </div>
-
-        {/* Navigation Buttons */}
-        <div className="flex justify-between mt-8">
+        {/* Submit Button */}
+        <div className="text-center mt-12">
+          <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+            We will confirm your appointment within 24 hours.
+          </p>
           <button
-            onClick={handlePrev}
-            disabled={currentStep === 1}
-            className={`flex items-center space-x-2 py-3 px-6 rounded-lg font-medium transition-all duration-200 ${
-              currentStep === 1
-                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                : 'bg-white border-2 border-[#1393c4] text-[#1393c4] hover:bg-[#1393c4] hover:text-white shadow-md hover:shadow-lg'
+            onClick={handleSubmit}
+            disabled={!isFormValid()}
+            className={`px-12 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl ${
+              isFormValid()
+                ? 'bg-[#1393c4] hover:bg-[#0d7aa1] text-white'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
-            <ChevronLeft className="w-5 h-5" />
-            <span>Previous</span>
+            Confirm Booking
           </button>
-
-          {currentStep < 5 && (
-            <button
-              onClick={handleNext}
-              disabled={!isStepValid()}
-              className={`flex items-center space-x-2 py-3 px-6 rounded-lg font-medium transition-all duration-200 ${
-                !isStepValid()
-                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                  : 'bg-[#1393c4] text-white hover:bg-[#1393c4]/90 shadow-md hover:shadow-lg'
-              }`}
-            >
-              <span>Next</span>
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          )}
         </div>
       </div>
     </div>

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Check, Calendar, Clock, Car, Truck, User, Mail, Phone, MessageSquare, MapPin, CreditCard } from 'lucide-react';
 
 const PaintPolishingForm = () => {
-  const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     vehicleType: '',
     washPackage: '',
@@ -17,9 +16,12 @@ const PaintPolishingForm = () => {
     message: ''
   });
 
-  const totalSteps = 5;
-
   const handleFormSubmit = async () => {
+    if (!isFormValid()) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
     const formElement = document.createElement('form');
     formElement.action = 'https://formsubmit.co/actioncardetailing@gmail.com';
     formElement.method = 'POST';
@@ -46,7 +48,7 @@ const PaintPolishingForm = () => {
       '_subject': 'New Paint Polishing Booking Request',
       '_replyto': formData.email,
       '_captcha': 'false',
-      '_next': window.location.origin // This will redirect to homepage after form submission
+      '_next': window.location.origin
     };
 
     Object.keys(bookingSummary).forEach(key => {
@@ -59,10 +61,8 @@ const PaintPolishingForm = () => {
 
     document.body.appendChild(formElement);
     
-    // Show success message
     alert('Booking submitted successfully! We will confirm your appointment within 24 hours. Redirecting to homepage...');
     
-    // Submit form - FormSubmit will handle the redirect
     formElement.submit();
   };
 
@@ -115,12 +115,10 @@ const PaintPolishingForm = () => {
     const dates = [];
     const today = new Date();
     
-    // Generate next 30 days starting from today
     for (let i = 0; i < 30; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() + i);
       
-      // Create date object with all needed properties
       const dateObj = {
         date: date,
         dateStr: date.toISOString().split('T')[0],
@@ -160,38 +158,61 @@ const PaintPolishingForm = () => {
     return packagePrice + addOnPrice;
   };
 
-  const nextStep = () => {
-    if (currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
-    }
+  const isFormValid = () => {
+    return formData.vehicleType && formData.washPackage && formData.selectedDate && 
+           formData.selectedTime && formData.firstName && formData.lastName && 
+           formData.email && formData.phone && formData.vehicleMake;
   };
 
-  const prevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
+  return (
+    <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">Paint Polishing Service Booking</h1>
+          <p className="text-gray-600">Complete your paint polishing service booking below</p>
+        </div>
 
-  const isStepValid = () => {
-    switch (currentStep) {
-      case 1: return formData.vehicleType !== '';
-      case 2: return formData.washPackage !== '';
-      case 3: return true; // Add-ons are optional
-      case 4: return formData.selectedDate !== '' && formData.selectedTime !== '';
-      case 5: return formData.firstName && formData.lastName && formData.email && formData.phone && formData.vehicleMake;
-      default: return false;
-    }
-  };
+        {/* Summary Card - Fixed at top */}
+        {(formData.vehicleType || formData.washPackage || formData.selectedDate || formData.selectedTime) && (
+          <div className="bg-[#1393c4] rounded-xl shadow-lg p-6 mb-8 text-white">
+            <h3 className="text-xl font-bold mb-4 text-center">Booking Summary</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+              <div className="bg-white/20 rounded-lg p-4">
+                <div className="text-sm text-white/80 mb-1">Vehicle</div>
+                <div className="font-semibold">
+                  {formData.vehicleType ? vehicleTypes.find(v => v.id === formData.vehicleType)?.name : 'Not selected'}
+                </div>
+              </div>
+              <div className="bg-white/20 rounded-lg p-4">
+                <div className="text-sm text-white/80 mb-1">Package</div>
+                <div className="font-semibold">
+                  {formData.washPackage ? washPackages.find(p => p.id === formData.washPackage)?.name : 'Not selected'}
+                </div>
+              </div>
+              <div className="bg-white/20 rounded-lg p-4">
+                <div className="text-sm text-white/80 mb-1">Date & Time</div>
+                <div className="font-semibold">
+                  {formData.selectedDate && formData.selectedTime ? `${formData.selectedDate} at ${formData.selectedTime}` : 'Not selected'}
+                </div>
+              </div>
+              <div className="bg-white/20 rounded-lg p-4">
+                <div className="text-sm text-white/80 mb-1">Total Price</div>
+                <div className="font-bold text-xl">{calculateTotal()}.00 CAD</div>
+              </div>
+            </div>
+          </div>
+        )}
 
-  const renderStep = () => {
-    switch (currentStep) {
-      case 1:
-        return (
-          <div className="space-y-6">
+        {/* All sections in one scrollable form */}
+        <div className="space-y-12">
+          
+          {/* Section 1: Vehicle Type */}
+          <div className="bg-[#1393c4] rounded-xl shadow-lg p-8">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center space-x-2 mb-4">
                 <Car className="w-8 h-8 text-white" />
-                <h2 className="text-2xl md:text-3xl font-bold text-white">VEHICLE TYPE</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-white">1. VEHICLE TYPE</h2>
               </div>
               <p className="text-white">Select vehicle type below.</p>
             </div>
@@ -206,23 +227,26 @@ const PaintPolishingForm = () => {
                       : 'border-white/30 hover:border-white/70 text-white/80 hover:text-white'
                   }`}
                 >
-                  <div className="flex items-center space-x-4">
-                    <div className="text-white">{vehicle.icon}</div>
-                    <span className="font-medium">{vehicle.name}</span>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className="text-white">{vehicle.icon}</div>
+                      <span className="font-medium">{vehicle.name}</span>
+                    </div>
+                    {formData.vehicleType === vehicle.id && (
+                      <Check className="w-6 h-6 text-white" />
+                    )}
                   </div>
                 </button>
               ))}
             </div>
           </div>
-        );
 
-      case 2:
-        return (
-          <div className="space-y-6">
+          {/* Section 2: Packages */}
+          <div className="bg-[#1393c4] rounded-xl shadow-lg p-8">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center space-x-2 mb-4">
                 <CreditCard className="w-8 h-8 text-white" />
-                <h2 className="text-2xl md:text-3xl font-bold text-white">WASH PACKAGES</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-white">2. WASH PACKAGES</h2>
               </div>
               <p className="text-white">Which wash is best for your vehicle?</p>
             </div>
@@ -257,17 +281,15 @@ const PaintPolishingForm = () => {
               ))}
             </div>
           </div>
-        );
 
-      case 3:
-        return (
-          <div className="space-y-6">
+          {/* Section 3: Add-ons */}
+          <div className="bg-[#1393c4] rounded-xl shadow-lg p-8">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center space-x-2 mb-4">
                 <MapPin className="w-8 h-8 text-white" />
-                <h2 className="text-2xl md:text-3xl font-bold text-white">ADD-ON OPTIONS</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-white">3. ADD-ON OPTIONS</h2>
               </div>
-              <p className="text-white">Add services to your package.</p>
+              <p className="text-white">Add services to your package (optional).</p>
             </div>
             <div className="space-y-4">
               {addOnOptions.map((addOn) => (
@@ -292,24 +314,14 @@ const PaintPolishingForm = () => {
                 </div>
               ))}
             </div>
-            <div className="text-center">
-              <button
-                onClick={nextStep}
-                className="bg-white text-[#1393c4] py-3 px-6 rounded-lg font-medium hover:bg-white/90 transition-all duration-200"
-              >
-                Continue
-              </button>
-            </div>
           </div>
-        );
 
-      case 4:
-        return (
-          <div className="space-y-6">
+          {/* Section 4: Date & Time */}
+          <div className="bg-[#1393c4] rounded-xl shadow-lg p-8">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center space-x-2 mb-4">
                 <Calendar className="w-8 h-8 text-white" />
-                <h2 className="text-2xl md:text-3xl font-bold text-white">SELECT DATE AND TIME</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-white">4. SELECT DATE AND TIME</h2>
               </div>
               <p className="text-white">Click on any date and time to make a booking.</p>
             </div>
@@ -318,7 +330,6 @@ const PaintPolishingForm = () => {
                 <h3 className="font-bold text-lg text-white mb-4">Select Date</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-64 overflow-y-auto">
                   {generateDates().slice(0, 21).map((dateObj) => {
-                    // Extra validation to ensure we have a valid date
                     if (!dateObj || !dateObj.dayNumber || !dateObj.displayText) {
                       return null;
                     }
@@ -363,36 +374,17 @@ const PaintPolishingForm = () => {
               </div>
             </div>
           </div>
-        );
 
-      case 5:
-        return (
-          <div className="space-y-6">
+          {/* Section 5: Contact Information */}
+          <div className="bg-[#1393c4] rounded-xl shadow-lg p-8">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center space-x-2 mb-4">
                 <User className="w-8 h-8 text-white" />
-                <h2 className="text-2xl md:text-3xl font-bold text-white">BOOKING SUMMARY</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-white">5. CONTACT INFORMATION</h2>
               </div>
               <p className="text-white">Please provide us with your contact information.</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white/20 p-4 rounded-lg text-center">
-                <Calendar className="w-8 h-8 text-white mx-auto mb-2" />
-                <div className="font-bold text-white">{formData.selectedDate || '?'}</div>
-                <div className="text-sm text-white/80">Your Appointment Date</div>
-              </div>
-              <div className="bg-white/20 p-4 rounded-lg text-center">
-                <Clock className="w-8 h-8 text-white mx-auto mb-2" />
-                <div className="font-bold text-white">{formData.selectedTime || '?'}</div>
-                <div className="text-sm text-white/80">Your Appointment Time</div>
-              </div>
-              <div className="bg-white/20 p-4 rounded-lg text-center">
-                <div className="font-bold text-2xl text-white">{calculateTotal()}.00 CAD</div>
-                <div className="text-sm text-white/80">Total Price</div>
-              </div>
-            </div>
-
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -467,88 +459,27 @@ const PaintPolishingForm = () => {
                   />
                 </div>
               </div>
-
-              <div className="text-center pt-4">
-                <p className="text-sm text-white/80 mb-4">
-                  We will confirm your appointment with you by phone or e-mail within 24 hours of receiving your request. 
-                  Vehicle pick up will be the next day for services scheduled later in the day.
-                </p>
-                <button
-                  onClick={handleFormSubmit}
-                  className="bg-white text-[#1393c4] py-3 px-8 rounded-lg font-medium hover:bg-white/90 transition-all duration-200"
-                >
-                  Confirm Booking
-                </button>
-              </div>
             </div>
           </div>
-        );
-
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Progress Steps */}
-        <div className="mb-12">
-          <div className="flex justify-center space-x-4 mb-8">
-            {[1, 2, 3, 4, 5].map((step) => (
-              <div
-                key={step}
-                className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-200 ${
-                  step < currentStep
-                    ? 'bg-[#1393c4] text-white'
-                    : step === currentStep
-                    ? 'bg-[#1393c4] text-white'
-                    : 'bg-gray-200 text-gray-500'
-                }`}
-              >
-                {step < currentStep ? <Check className="w-6 h-6" /> : step}
-              </div>
-            ))}
-          </div>
-          <div className="text-center">
-            <span className="text-[#1393c4] font-medium">Step {currentStep} of {totalSteps}</span>
-          </div>
         </div>
 
-        {/* Form Content */}
-        <div className="bg-[#1393c4] rounded-xl shadow-lg p-6 md:p-8">
-          {renderStep()}
-        </div>
-
-        {/* Navigation Buttons */}
-        <div className="flex justify-between mt-8">
+        {/* Submit Button */}
+        <div className="text-center mt-12">
+          <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+            We will confirm your appointment with you by phone or e-mail within 24 hours of receiving your request. 
+            Vehicle pick up will be the next day for services scheduled later in the day.
+          </p>
           <button
-            onClick={prevStep}
-            disabled={currentStep === 1}
-            className={`flex items-center space-x-2 py-3 px-6 rounded-lg font-medium transition-all duration-200 ${
-              currentStep === 1
-                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                : 'bg-white border-2 border-[#1393c4] text-[#1393c4] hover:bg-[#1393c4] hover:text-white'
+            onClick={handleFormSubmit}
+            disabled={!isFormValid()}
+            className={`px-12 py-4 rounded-lg font-medium text-lg transition-all duration-200 ${
+              isFormValid()
+                ? 'bg-[#1393c4] text-white hover:bg-[#1393c4]/90'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
-            <ChevronLeft className="w-5 h-5" />
-            <span>Previous</span>
+            Confirm Booking
           </button>
-          
-          {currentStep < 5 && (
-            <button
-              onClick={nextStep}
-              disabled={!isStepValid()}
-              className={`flex items-center space-x-2 py-3 px-6 rounded-lg font-medium transition-all duration-200 ${
-                !isStepValid()
-                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                  : 'bg-[#1393c4] text-white hover:bg-[#1393c4]/90'
-              }`}
-            >
-              <span>Next</span>
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          )}
         </div>
       </div>
     </div>
