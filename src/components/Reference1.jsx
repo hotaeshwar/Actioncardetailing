@@ -8,19 +8,36 @@ const Reference1 = () => {
       className="relative w-full min-h-screen bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${car6})` }}
     >
-      {/* Light blue transparent overlay */}
-      <div className="absolute inset-0 bg-blue-400 opacity-60"></div>
+      {/* Dark overlay for better text visibility */}
+      <div className="absolute inset-0 bg-black opacity-50"></div>
       
       {/* Content container */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-8 sm:px-6 sm:py-12 md:px-8 md:py-16 lg:px-12 lg:py-20">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-8 sm:px-6 sm:py-12 md:px-8 md:py-16 lg:px-12 lg:py-20 text-center">
         
-        {/* BBB Logo only */}
-        <div className="bg-white bg-opacity-90 backdrop-blur-sm rounded-lg sm:rounded-xl md:rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg sm:shadow-xl md:shadow-2xl">
+        {/* BBB Logo */}
+        <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-lg p-4 sm:p-6 md:p-8 shadow-lg mb-6 sm:mb-8">
           <img 
             src={bbbLogo} 
             alt="Better Business Bureau Logo" 
-            className="h-28 w-auto sm:h-32 md:h-40 lg:h-48 xl:h-56 object-contain mx-auto"
+            className="h-20 w-auto sm:h-24 md:h-28 lg:h-32 object-contain mx-auto"
           />
+        </div>
+
+        {/* Contact Text Section */}
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium mb-6 sm:mb-8 md:mb-10 leading-relaxed">
+            CONTACT US TO REQUEST MORE<br />
+            INFORMATION ON OUR RATES AND<br />
+            SERVICES
+          </h2>
+          
+          {/* Phone number in vivid azure */}
+          <span 
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold inline-block"
+            style={{ color: '#1393ca' }}
+          >
+            (204) 775-0005
+          </span>
         </div>
 
       </div>
