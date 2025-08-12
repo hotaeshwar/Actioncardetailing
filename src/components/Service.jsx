@@ -177,11 +177,11 @@ const Service = ({ setCurrentView }) => {
 
   // UPDATED VIDEO ARRAY - Removed interior detailing (carwashing3) and added new carousel video
   const videos = [
-    {
-      src: carwashing1,
-      title: "Premium Detailing",
-      description: "Complete exterior detailing"
-    },
+    // {
+    //   src: carwashing1,
+    //   title: "Premium Detailing",
+    //   description: "Complete exterior detailing"
+    // },
     {
       src: carwashing2,
       title: "Complete Exterior and Interior Detailing",
@@ -523,7 +523,7 @@ const Service = ({ setCurrentView }) => {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Flip card handler
+  // Flip card handler - IMPROVED TO PREVENT ACCIDENTAL MODAL OPENING DURING SCROLL
   const handleFlipCard = (cardId, isUserAction = true) => {
     if (!isUserAction) return;
 
@@ -754,7 +754,7 @@ const Service = ({ setCurrentView }) => {
     playCurrentVideo();
   }, [currentSlide, isMobileDevice]);
 
-  // Updated renderServiceCard function to handle custom media with animation wrapper
+  // Updated renderServiceCard function to match Action Car Detailing card colors
   const renderServiceCard = (icon, title, description, customIcon = null, index = 0) => {
     const serviceData = servicesData[title];
 
@@ -762,21 +762,24 @@ const Service = ({ setCurrentView }) => {
       <AnimatedSection
         animationId={`service-card-${index}`}
         delay={index * 100}
-        className="group cursor-pointer bg-gradient-to-br from-sky-50 via-sky-100 to-sky-50 backdrop-blur-lg rounded-2xl shadow-xl shadow-sky-300/30 hover:shadow-2xl hover:shadow-sky-500/30 transition-all duration-500 p-6 sm:p-8 text-center transform hover:-translate-y-3 hover:scale-105 relative overflow-hidden border border-sky-200/50"
+        className="group cursor-pointer bg-gradient-to-br from-sky-500 via-sky-600 to-sky-700 backdrop-blur-lg rounded-2xl shadow-xl shadow-sky-500/30 hover:shadow-2xl hover:shadow-sky-600/40 transition-all duration-500 p-6 sm:p-8 text-center transform hover:-translate-y-3 hover:scale-105 relative overflow-hidden border border-sky-400/50"
       >
         <div
           onClick={() => openModal(title)}
           className="w-full h-full"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 via-sky-400/10 to-sky-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          {/* Mirror shine effect like Action Car Detailing cards */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1500 ease-in-out skew-x-12"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 opacity-70"></div>
 
-          <div className="absolute top-4 right-4 w-2 h-2 bg-sky-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div className="absolute bottom-8 left-6 w-1 h-1 bg-sky-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-          <div className="absolute top-1/2 right-8 w-1.5 h-1.5 bg-sky-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          {/* Decorative elements matching Action Car Detailing cards */}
+          <div className="absolute top-4 right-4 w-2 h-2 bg-white/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="absolute bottom-8 left-6 w-1 h-1 bg-white/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+          <div className="absolute top-1/2 right-8 w-1.5 h-1.5 bg-white/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
           <div className="relative z-10">
             <div className="mb-6 flex justify-center">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center shadow-xl shadow-sky-500/30 group-hover:shadow-2xl group-hover:shadow-sky-500/40 transform group-hover:rotate-12 transition-all duration-500 relative overflow-hidden">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shadow-xl shadow-black/30 border border-white/30 group-hover:scale-110 transition-all duration-500 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                 {/* Check if this service has custom media */}
@@ -866,9 +869,9 @@ const Service = ({ setCurrentView }) => {
             </div>
 
             <div className="text-center">
-              <h3 className="text-xl sm:text-2xl font-bold mb-3 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300">{title}</h3>
-              <p className="text-sm sm:text-base text-cyan-400 mb-4 leading-relaxed">{description}</p>
-              <div className="flex items-center justify-center text-cyan-400 hover:text-cyan-300 transition-colors group-hover:scale-110 group-hover:font-semibold">
+              <h3 className="text-xl sm:text-2xl font-bold mb-3 text-white group-hover:text-cyan-100 transition-colors duration-300">{title}</h3>
+              <p className="text-sm sm:text-base text-white/90 mb-4 leading-relaxed">{description}</p>
+              <div className="flex items-center justify-center text-white/80 hover:text-white transition-colors group-hover:scale-110 group-hover:font-semibold">
                 <span className="text-sm sm:text-base mr-2">View Details</span>
                 <FontAwesomeIcon icon={faArrowRight} className="transform group-hover:translate-x-2 transition-transform duration-300" />
               </div>
@@ -879,13 +882,17 @@ const Service = ({ setCurrentView }) => {
     );
   };
 
-  // Blue Card Component - REMOVED ANIMATED SECTION TO STOP AUTO-REFRESH
+  // Blue Card Component - UPDATED TO MATCH ACTION CAR DETAILING CARD COLORS
   const renderBlueCard = (cardData, index = 0) => (
     <div className="group cursor-pointer w-full">
       <div
         onClick={(e) => openBlueCardModal(cardData, e)}
-        className="relative bg-gradient-to-br from-[#1393c4] via-[#1393c4] to-[#0f7ba8] rounded-2xl sm:rounded-3xl shadow-2xl shadow-[#1393c4]/50 group-hover:shadow-3xl group-hover:shadow-[#1393c4]/60 overflow-hidden w-full aspect-square transition-all duration-500"
+        className="relative bg-gradient-to-br from-sky-500 via-sky-600 to-sky-700 rounded-2xl sm:rounded-3xl shadow-2xl shadow-sky-500/30 group-hover:shadow-3xl group-hover:shadow-sky-600/40 overflow-hidden w-full aspect-square transition-all duration-500"
       >
+        {/* Mirror shine effect like Action Car Detailing cards */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1500 ease-in-out skew-x-12"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 opacity-70"></div>
+
         {/* Decorative Circle - Top Right */}
         <div className="absolute top-4 right-4 w-8 h-8 rounded-full border-2 border-white/30 flex items-center justify-center opacity-80">
           <div className="w-3 h-3 bg-white/50 rounded-full"></div>
@@ -895,9 +902,6 @@ const Service = ({ setCurrentView }) => {
         <div className="absolute bottom-6 left-6 w-3 h-3 bg-white/40 rounded-full opacity-60"></div>
         <div className="absolute top-1/3 right-8 w-2 h-2 bg-white/30 rounded-full opacity-50"></div>
         <div className="absolute bottom-1/4 right-1/4 w-1.5 h-1.5 bg-white/25 rounded-full opacity-40"></div>
-
-        {/* Shine Effect - DISABLED AUTO-REFRESH */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 skew-x-12 blue-card-shine"></div>
 
         {/* Content Container */}
         <div className="relative z-10 flex flex-col h-full justify-center text-center p-6">
@@ -967,10 +971,64 @@ const Service = ({ setCurrentView }) => {
     </div>
   );
 
-  // Flip Card Component - MADE SMALLER FOR MOBILE
+  // Flip Card Component - IMPROVED TOUCH HANDLING TO PREVENT SCROLL INTERFERENCE
   const renderFlipCard = (id, frontTitle, iconOrComponent, backTitle, backContent, index = 0) => {
     const isFlipped = flippedCards.has(id);
     const icon = typeof iconOrComponent === 'object' && !React.isValidElement(iconOrComponent) ? iconOrComponent : faThumbsUp;
+
+    const handleTouchStart = useRef({ x: 0, y: 0, time: 0 });
+    const isTouchingRef = useRef(false);
+
+    const handleTouchStartEvent = (e) => {
+      const touch = e.touches[0];
+      handleTouchStart.current = {
+        x: touch.clientX,
+        y: touch.clientY,
+        time: Date.now()
+      };
+      isTouchingRef.current = true;
+    };
+
+    const handleTouchEndEvent = (e) => {
+      if (!isTouchingRef.current) return;
+      
+      const touch = e.changedTouches[0];
+      const touchEnd = {
+        x: touch.clientX,
+        y: touch.clientY,
+        time: Date.now()
+      };
+
+      // Calculate movement distance and time
+      const deltaX = Math.abs(touchEnd.x - handleTouchStart.current.x);
+      const deltaY = Math.abs(touchEnd.y - handleTouchStart.current.y);
+      const deltaTime = touchEnd.time - handleTouchStart.current.time;
+
+      // Only trigger if:
+      // 1. Touch was brief (less than 300ms)
+      // 2. Movement was minimal (less than 10px in any direction)
+      // 3. Not a scroll gesture
+      const isQuickTap = deltaTime < 300;
+      const isMinimalMovement = deltaX < 10 && deltaY < 10;
+      const isNotVerticalScroll = deltaY < 30; // Allow some vertical tolerance but prevent scroll interference
+
+      if (isQuickTap && isMinimalMovement && isNotVerticalScroll) {
+        e.preventDefault();
+        e.stopPropagation();
+        handleFlipCard(id, true);
+      }
+
+      isTouchingRef.current = false;
+    };
+
+    const handleClick = (e) => {
+      // Only handle click events on non-mobile or when not currently touching
+      if (!isMobile || !isTouchingRef.current) {
+        e.preventDefault();
+        e.stopPropagation();
+        handleFlipCard(id, true);
+      }
+    };
 
     return (
       <AnimatedSection
@@ -983,16 +1041,9 @@ const Service = ({ setCurrentView }) => {
         }}
       >
         <div
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            handleFlipCard(id, true);
-          }}
-          onTouchStart={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            handleFlipCard(id, true);
-          }}
+          onClick={handleClick}
+          onTouchStart={handleTouchStartEvent}
+          onTouchEnd={handleTouchEndEvent}
           className={`flip-card-inner relative w-full h-full transition-transform duration-700 transform-gpu ${isFlipped ? 'mobile-flip-card-flipped' : ''} ${!isMobile ? 'group-hover:rotate-y-180' : ''}`}
           style={{
             transformStyle: isMobile ? 'flat' : 'preserve-3d',
@@ -1383,7 +1434,7 @@ const Service = ({ setCurrentView }) => {
     );
   };
 
-  // Blue Card Modal Component
+  // Blue Card Modal Component - UPDATED TO MATCH ACTION CAR DETAILING COLORS
   const BlueCardModal = () => {
     if (!isBlueCardModalOpen || !selectedBlueCard) return null;
 
@@ -1393,7 +1444,7 @@ const Service = ({ setCurrentView }) => {
 
         <div
           ref={blueCardModalRef}
-          className="relative bg-gradient-to-br from-[#1393c4] via-[#1393c4] to-[#0f7ba8] rounded-2xl shadow-3xl max-w-md w-full mx-auto overflow-hidden transform transition-all duration-500 opacity-100 scale-100 border-2 border-white/20"
+          className="relative bg-gradient-to-br from-sky-500 via-sky-600 to-sky-700 rounded-2xl shadow-3xl max-w-md w-full mx-auto overflow-hidden transform transition-all duration-500 opacity-100 scale-100 border-2 border-white/20"
           style={{ maxHeight: '90vh' }}
           onClick={(e) => {
             e.stopPropagation();
