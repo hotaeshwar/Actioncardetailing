@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import References from './References';
+import References from './Reference1';
 import Footer from './Footer';
 
 // Import local media files
