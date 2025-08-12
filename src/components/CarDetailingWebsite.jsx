@@ -16,7 +16,7 @@ const BookingModal = ({ isOpen, onClose }) => {
       <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity" onClick={onClose}></div>
 
       <div className="flex min-h-full items-center justify-center p-2 sm:p-4">
-        <div className="relative bg-gray-50 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
+        <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
           {/* Header */}
           <div className="flex items-center justify-between p-4 sm:p-6 border-b border-[#1393c4]/20 bg-white">
             <h1 className="text-lg sm:text-xl font-bold text-[#1393c4]">Book Your Car Detailing Service</h1>
@@ -225,7 +225,7 @@ const CarDetailingWebsite = () => {
         <div className={`animate-section transition-all duration-1000 ease-in-out ${isVisible[0] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="bg-white py-8 sm:py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight" style={{ color: '#1393c4' }}>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#1393c4]">
                 AUTO DETAILING
               </h1>
             </div>
@@ -238,37 +238,37 @@ const CarDetailingWebsite = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div className="space-y-4">
-              <p className="text-base text-sky-400 leading-relaxed">
+              <p className="text-base text-[#1393c4] leading-relaxed">
                 Action car detailing is made up of a team of experts who can handle any size vehicles in any condition. We are dedicated to getting the job done right, there is no better place in Winnipeg to get your car detailed. Quality products, quality work and quality service is our promise.
               </p>
 
-              <p className="text-base text-sky-400 leading-relaxed">
+              <p className="text-base text-[#1393c4] leading-relaxed">
                 We are passionate about cars that's why we take our time with each vehicle. Our chemical and allergy-free interior cleaning methods will leave your car's interior spotless and scentless- the way it should be.
               </p>
 
-              <div className="bg-sky-50 p-4 rounded-lg border-l-4 border-sky-600">
-                <p className="text-base text-sky-400 font-medium">
+              <div className="bg-white p-4 rounded-lg border-l-4 border-[#1393c4]">
+                <p className="text-base text-[#1393c4] font-medium">
                   Action car Detailing offers a very thorough, deep cleaning of interior and exterior. We specialize in Auto Detailing, Ceramic Coating, Window Tinting, Paint Protection Film (PPF), and Paintless Dent Removal.
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-4 bg-sky-50 rounded-lg">
-                <div className="text-2xl font-bold text-sky-400 mb-1">14+</div>
-                <div className="text-sky-400 text-sm">Years Experience</div>
+              <div className="text-center p-4 bg-white rounded-lg shadow-md border border-[#1393c4]/20">
+                <div className="text-2xl font-bold text-[#1393c4] mb-1">14+</div>
+                <div className="text-[#1393c4] text-sm">Years Experience</div>
               </div>
-              <div className="text-center p-4 bg-sky-50 rounded-lg">
-                <div className="text-2xl font-bold text-sky-400 mb-1">A+</div>
-                <div className="text-sky-400 text-sm">BBB Rating</div>
+              <div className="text-center p-4 bg-white rounded-lg shadow-md border border-[#1393c4]/20">
+                <div className="text-2xl font-bold text-[#1393c4] mb-1">A+</div>
+                <div className="text-[#1393c4] text-sm">BBB Rating</div>
               </div>
-              <div className="text-center p-4 bg-sky-50 rounded-lg">
-                <CheckCircle className="w-6 h-6 text-sky-400 mx-auto mb-1" />
-                <div className="text-sky-400 text-sm">MPI Accredited</div>
+              <div className="text-center p-4 bg-white rounded-lg shadow-md border border-[#1393c4]/20">
+                <CheckCircle className="w-6 h-6 text-[#1393c4] mx-auto mb-1" />
+                <div className="text-[#1393c4] text-sm">MPI Accredited</div>
               </div>
-              <div className="text-center p-4 bg-sky-50 rounded-lg">
-                <Star className="w-6 h-6 text-sky-400 mx-auto mb-1" />
-                <div className="text-sky-400 text-sm">Premium Service</div>
+              <div className="text-center p-4 bg-white rounded-lg shadow-md border border-[#1393c4]/20">
+                <Star className="w-6 h-6 text-[#1393c4] mx-auto mb-1" />
+                <div className="text-[#1393c4] text-sm">Premium Service</div>
               </div>
             </div>
           </div>
@@ -279,76 +279,76 @@ const CarDetailingWebsite = () => {
       <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[2] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-sky-400 mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1393c4] mb-4">
               OUR EXCLUSIVE 5-STEP SYSTEM
             </h2>
-            <p className="text-sky-400 text-base max-w-3xl mx-auto">
+            <p className="text-[#1393c4] text-base max-w-3xl mx-auto">
               Our proven process ensures your vehicle receives the most thorough cleaning possible
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Step 1 */}
-            <div className="bg-sky-600 text-white p-6 rounded-xl shadow-lg">
+            <div className="bg-white border border-[#1393c4]/20 p-4 rounded-xl shadow-lg">
               <div className="flex items-center mb-3">
-                <div className="w-10 h-10 bg-white text-sky-600 rounded-full flex items-center justify-center font-bold text-lg mr-3">
+                <div className="w-8 h-8 bg-[#1393c4] text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                   1
                 </div>
-                <h3 className="text-xl font-bold">Step 1:</h3>
+                <h3 className="text-lg font-bold text-[#1393c4]">Step 1</h3>
               </div>
-              <p className="leading-relaxed text-sm">
+              <p className="text-sm text-[#1393c4] leading-relaxed">
                 Our Forced Air Extractor thoroughly cleans between and under seats, inside the dash seams and venting ducts, and all other hard-to-reach areas.
               </p>
             </div>
 
             {/* Step 2 */}
-            <div className="bg-sky-600 text-white p-6 rounded-xl shadow-lg">
+            <div className="bg-white border border-[#1393c4]/20 p-4 rounded-xl shadow-lg">
               <div className="flex items-center mb-3">
-                <div className="w-10 h-10 bg-white text-sky-600 rounded-full flex items-center justify-center font-bold text-lg mr-3">
+                <div className="w-8 h-8 bg-[#1393c4] text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                   2
                 </div>
-                <h3 className="text-xl font-bold">Step 2:</h3>
+                <h3 className="text-lg font-bold text-[#1393c4]">Step 2</h3>
               </div>
-              <p className="leading-relaxed text-sm">
-                Turbo brush vacuuming removes deeply embedded sand, dirt and pet hair..
+              <p className="text-sm text-[#1393c4] leading-relaxed">
+                Turbo brush vacuuming removes deeply embedded sand, dirt and pet hair.
               </p>
             </div>
 
             {/* Step 3 */}
-            <div className="bg-sky-600 text-white p-6 rounded-xl shadow-lg">
+            <div className="bg-white border border-[#1393c4]/20 p-4 rounded-xl shadow-lg">
               <div className="flex items-center mb-3">
-                <div className="w-10 h-10 bg-white text-sky-600 rounded-full flex items-center justify-center font-bold text-lg mr-3">
+                <div className="w-8 h-8 bg-[#1393c4] text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                   3
                 </div>
-                <h3 className="text-xl font-bold">Step 3:</h3>
+                <h3 className="text-lg font-bold text-[#1393c4]">Step 3</h3>
               </div>
-              <p className="leading-relaxed text-sm">
+              <p className="text-sm text-[#1393c4] leading-relaxed">
                 Dual action brushing and biodegradable shampoo loosens and emulsifies dirt, oils, and stubborn stains.
               </p>
             </div>
 
             {/* Step 4 */}
-            <div className="bg-sky-600 text-white p-6 rounded-xl shadow-lg md:col-span-2 lg:col-span-1">
+            <div className="bg-white border border-[#1393c4]/20 p-4 rounded-xl shadow-lg md:col-span-2 lg:col-span-1">
               <div className="flex items-center mb-3">
-                <div className="w-10 h-10 bg-white text-sky-600 rounded-full flex items-center justify-center font-bold text-lg mr-3">
+                <div className="w-8 h-8 bg-[#1393c4] text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                   4
                 </div>
-                <h3 className="text-xl font-bold">Step 4:</h3>
+                <h3 className="text-lg font-bold text-[#1393c4]">Step 4</h3>
               </div>
-              <p className="leading-relaxed text-sm">
+              <p className="text-sm text-[#1393c4] leading-relaxed">
                 Our exclusive Italian Dry Steam System™ lifts and removes any remaining residue, leaving your carpets and upholstery bright, soft, and dry.
               </p>
             </div>
 
             {/* Step 5 */}
-            <div className="bg-sky-600 text-white p-6 rounded-xl shadow-lg md:col-span-2 lg:col-span-2">
+            <div className="bg-white border border-[#1393c4]/20 p-4 rounded-xl shadow-lg md:col-span-2 lg:col-span-2">
               <div className="flex items-center mb-3">
-                <div className="w-10 h-10 bg-white text-sky-600 rounded-full flex items-center justify-center font-bold text-lg mr-3">
+                <div className="w-8 h-8 bg-[#1393c4] text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                   5
                 </div>
-                <h3 className="text-xl font-bold">Step 5:</h3>
+                <h3 className="text-lg font-bold text-[#1393c4]">Step 5</h3>
               </div>
-              <p className="leading-relaxed text-sm">
+              <p className="text-sm text-[#1393c4] leading-relaxed">
                 Final turbo brush vacuuming removes any remaining residue, leaving your interior perfectly clean and fresh.
               </p>
             </div>
@@ -357,13 +357,13 @@ const CarDetailingWebsite = () => {
       </section>
 
       {/* Services Section */}
-      <section className={`animate-section py-12 sm:py-16 bg-sky-50 transition-all duration-1000 ease-in-out ${isVisible[3] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[3] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-sky-400 mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1393c4] mb-4">
               Our Services
             </h2>
-            <p className="text-sky-400 text-base max-w-3xl mx-auto">
+            <p className="text-[#1393c4] text-base max-w-3xl mx-auto">
               Comprehensive detailing services to keep your vehicle in pristine condition
             </p>
           </div>
@@ -378,7 +378,7 @@ const CarDetailingWebsite = () => {
               {
                 title: "Exterior Detailing",
                 description: "Complete exterior wash, polish, and protection services",
-                features: ["Paint correction", "Ceramic coating", "Wax application",]
+                features: ["Paint correction", "Ceramic coating", "Wax application"]
               },
               {
                 title: "Full Service Package",
@@ -386,13 +386,13 @@ const CarDetailingWebsite = () => {
                 features: ["Interior deep clean", "Exterior polish", "Paint protection", "Quality guarantee"]
               }
             ].map((service, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-sky-600">
-                <h3 className="text-xl font-bold text-sky-400 mb-3">{service.title}</h3>
-                <p className="text-sky-400 mb-4 text-sm">{service.description}</p>
+              <div key={index} className="bg-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-[#1393c4]/20">
+                <h3 className="text-lg font-bold text-[#1393c4] mb-2">{service.title}</h3>
+                <p className="text-[#1393c4] mb-3 text-sm">{service.description}</p>
                 <ul className="space-y-2">
                   {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sky-400 text-sm">
-                      <CheckCircle className="w-4 h-4 text-sky-400 mr-2 flex-shrink-0" />
+                    <li key={idx} className="flex items-center text-[#1393c4] text-sm">
+                      <CheckCircle className="w-4 h-4 text-[#1393c4] mr-2 flex-shrink-0" />
                       {feature}
                     </li>
                   ))}
@@ -404,11 +404,11 @@ const CarDetailingWebsite = () => {
           <div className="text-center mt-8">
             <button
               onClick={openBookingModal}
-              className="bg-sky-600 hover:bg-sky-700 text-white px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="bg-[#1393c4] hover:bg-[#1393c4]/80 text-white px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               Book Now
             </button>
-            <p className="text-sky-500 mt-3 text-sm">
+            <p className="text-[#1393c4] mt-3 text-sm">
               Customize your own detailing package with our interactive booking form
             </p>
           </div>
@@ -419,12 +419,12 @@ const CarDetailingWebsite = () => {
       <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[4] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-sky-400 mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1393c4] mb-4">
               Read some of our Reviews
             </h2>
 
-            <div className="inline-flex items-center justify-center bg-white border-2 border-sky-500 rounded-full p-1 shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-sky-100 rounded-full flex items-center justify-center">
+            <div className="inline-flex items-center justify-center bg-white border-2 border-[#1393c4] rounded-full p-1 shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center">
                 <img
                   src={googlePng}
                   alt="Google Reviews"
@@ -452,16 +452,16 @@ const CarDetailingWebsite = () => {
                 review: "The 5-step system really works. My interior was completely transformed. Worth every penny!"
               }
             ].map((review, index) => (
-              <div key={index} className="bg-sky-50 p-6 rounded-xl border-l-4 border-sky-600">
+              <div key={index} className="bg-white p-4 rounded-xl border border-[#1393c4]/20 shadow-lg">
                 <div className="flex items-center mb-3">
                   <div className="flex">
                     {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-sky-400 fill-current" />
+                      <Star key={i} className="w-4 h-4 text-[#1393c4] fill-current" />
                     ))}
                   </div>
                 </div>
-                <p className="text-sky-400 mb-3 italic text-sm">"{review.review}"</p>
-                <p className="font-semibold text-sky-400 text-sm">- {review.name}</p>
+                <p className="text-[#1393c4] mb-3 italic text-sm">"{review.review}"</p>
+                <p className="font-semibold text-[#1393c4] text-sm">- {review.name}</p>
               </div>
             ))}
           </div>
@@ -472,6 +472,7 @@ const CarDetailingWebsite = () => {
       <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[5] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <Booking isModal={false} />
       </section>
+
       {/* References Section - Added below ContactForm section */}
       <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[7] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="[&>*]:before:hidden [&>*]:after:hidden [&_.loading]:hidden [&_.dots]:hidden [&_.spinner]:hidden [&_*[class*='animate']]:!animation-none">
@@ -480,12 +481,11 @@ const CarDetailingWebsite = () => {
       </section>
 
       {/* ContactForm Section - Added below Booking section */}
-      <section className={`animate-section py-12 sm:py-16 bg-sky-50 transition-all duration-1000 ease-in-out ${isVisible[6] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[6] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="[&>*]:before:hidden [&>*]:after:hidden [&_.loading]:hidden [&_.dots]:hidden [&_.spinner]:hidden [&_*[class*='animate']]:!animation-none">
           <ContactForm />
         </div>
       </section>
-
 
       {/* Footer */}
       <Footer />
