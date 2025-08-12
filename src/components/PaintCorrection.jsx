@@ -3,8 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import Footer from '../components/Footer';
 import PaintPolishingForm from '../components/PaintPolishingForm';
 import ContactForm from '../components/ContactForm';
-// Import Paint Correction Video
-import paintCorrectionVideo from '../assets/images/Paint Correction Polishing.mp4';
+// Import Paint Correction Video - Updated path
+import paintCorrectionVideo from '../assets/images/Paint Correction Polishing (1).mp4';
 import References from '../components/Reference1'; // Added References import
 
 const PaintCorrection = () => {
