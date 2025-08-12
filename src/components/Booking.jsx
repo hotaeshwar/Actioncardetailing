@@ -229,7 +229,7 @@ const BookingForm = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">A La Carte Package Form</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">Car Detailing Booking Form</h1>
           <p className="text-gray-600">Complete your booking details below</p>
         </div>
 
