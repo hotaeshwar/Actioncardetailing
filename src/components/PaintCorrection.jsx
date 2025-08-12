@@ -581,7 +581,8 @@ const PaintCorrection = () => {
           <PaintPolishingForm />
         </div>
       </section>
-      {/* Contact Form Section */}
+      
+      {/* References Section */}
       <section className="py-16 sm:py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
              <References />
@@ -595,21 +596,36 @@ const PaintCorrection = () => {
         </div>
       </section>
 
-      {/* Paint Polishing Form Modal - Keep this for the "Book Now" button functionality */}
+      {/* FIXED MODAL - Paint Polishing Form Modal */}
       {showForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="relative bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50"
+          style={{ zIndex: 9999 }}
+          onClick={(e) => {
+            // Close modal when clicking on backdrop
+            if (e.target === e.currentTarget) {
+              setShowForm(false);
+            }
+          }}
+        >
+          <div 
+            className="relative bg-white rounded-2xl w-full max-w-4xl max-h-[95vh] overflow-hidden shadow-2xl mx-2 sm:mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Close Button */}
             <button
               onClick={() => setShowForm(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl z-10 w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 text-gray-400 hover:text-gray-600 text-2xl sm:text-3xl z-10 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+              style={{ zIndex: 10 }}
             >
               ×
             </button>
             
-            {/* Form Content */}
-            <div className="p-8">
-              <PaintPolishingForm onClose={() => setShowForm(false)} />
+            {/* Scrollable Form Content */}
+            <div className="overflow-y-auto max-h-[95vh]">
+              <div className="p-4 sm:p-6 lg:p-8 pt-12 sm:pt-16">
+                <PaintPolishingForm onClose={() => setShowForm(false)} />
+              </div>
             </div>
           </div>
         </div>
