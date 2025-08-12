@@ -3,17 +3,19 @@ import { Car, Medal, ShieldCheck, Wrench, MapPin } from 'lucide-react';
 import aboutUsVideo from '../assets/images/about us banner.mp4';
 import Footer from '../components/Footer';
 import ContactForm from '../components/ContactForm';
+import References from '../components/Reference1'; // Added References import
 
 const ActionCarAbout = () => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showCursor, setShowCursor] = useState(true);
 
   const phrases = [
-    "Factory-Trained.",
-    "Award-Winning.",
-    "Detail-Obsessed."
+    "About Us - Factory-Trained.",
+    "About Us - Award-Winning.", 
+    "About Us - Detail-Obsessed."
   ];
 
   const videoData = [
@@ -61,6 +63,7 @@ const ActionCarAbout = () => {
     'Clean, modern facility with precision-focused care'
   ];
 
+  // Enhanced typewriter effect
   useEffect(() => {
     const typewriterEffect = () => {
       const currentPhrase = phrases[currentPhraseIndex];
@@ -78,16 +81,25 @@ const ActionCarAbout = () => {
         setCurrentCharIndex(prev => prev + 1);
 
         if (currentCharIndex === currentPhrase.length) {
-          setTimeout(() => setIsDeleting(true), 1500);
+          setTimeout(() => setIsDeleting(true), 2000); // Pause before deleting
         }
       }
     };
 
-    const typingSpeed = isDeleting ? 50 : 100;
+    const typingSpeed = isDeleting ? 75 : 150; // Slower for better readability
     const timer = setTimeout(typewriterEffect, typingSpeed);
 
     return () => clearTimeout(timer);
   }, [currentCharIndex, currentPhraseIndex, isDeleting, phrases]);
+
+  // Cursor blinking effect
+  useEffect(() => {
+    const cursorTimer = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 500);
+
+    return () => clearInterval(cursorTimer);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -125,31 +137,10 @@ const ActionCarAbout = () => {
           </video>
         </div>
 
-        {/* Overlay gradient for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></div>
+        {/* Enhanced overlay gradient for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/40"></div>
 
-        {/* Desktop Text Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 flex-col items-center justify-end px-4 lg:px-8 pb-6 lg:pb-8 z-20 hidden xl:flex">
-          <div className="text-center w-full max-w-full overflow-hidden">
-            <h1 className="text-4xl xl:text-5xl font-bold mb-4 leading-tight text-white drop-shadow-2xl">
-              ABOUT US
-            </h1>
 
-            <div className="min-h-[50px] flex items-center justify-center overflow-hidden">
-              <p className="text-2xl xl:text-3xl font-medium text-sky-400 drop-shadow-lg">
-                {displayedText}
-                <span className="animate-pulse ml-1">|</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Text Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 text-center pb-6 px-4 z-20 xl:hidden">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white drop-shadow-2xl">
-            ABOUT US
-          </h1>
-        </div>
       </div>
 
       {/* Ladder Cards Section */}
@@ -197,7 +188,7 @@ const ActionCarAbout = () => {
                     <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-sky-700 mb-3 sm:mb-4">What Sets Us Apart</h2>
                     <div className="space-y-3 sm:space-y-4 text-sm sm:text-base lg:text-lg text-sky-800">
                       <p className="leading-relaxed">
-                        We're proud to be the <span className="font-semibold text-sky-900">2024 Consumer Choice Award Winner</span> in the Auto Detailing category — the only winner in Winnipeg & the Greater Region.
+                        We're proud to be the <span className="font-semibold text-sky-900">2025 Consumer Choice Award Winner</span> in the Auto Detailing category — the only winner in Winnipeg & the Greater Region.
                       </p>
                       <div className="bg-sky-50 p-4 sm:p-5 lg:p-6 rounded-lg border border-sky-200">
                         <p className="font-semibold text-sky-900 mb-3 text-sm sm:text-base">Our commitment:</p>
@@ -272,18 +263,18 @@ const ActionCarAbout = () => {
 
             {/* Card 5 - Visit Us */}
             <div className="scroll-animate opacity-0 translate-y-12 transition-all duration-800 w-full sm:w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 mx-auto">
-              <div className="bg-sky-500 text-white p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl sm:rounded-2xl shadow-xl transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-3">
-                <div className="flex flex-col lg:flex-row items-center gap-4 sm:gap-6 lg:gap-8">
-                  <div className="bg-white/30 p-3 sm:p-4 rounded-lg flex-shrink-0 border border-white/40">
-                    <MapPin className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-white" />
+              <div className="bg-snow text-white p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl sm:rounded-2xl shadow-xl transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 overflow-hidden relative border border-sky-300">
+                <div className="relative z-10 flex flex-col lg:flex-row items-center gap-4 sm:gap-6 lg:gap-8">
+                  <div className="bg-sky-100 p-3 sm:p-4 rounded-lg flex-shrink-0 border border-sky-300">
+                    <MapPin className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12" style={{ color: '#1393c4' }} />
                   </div>
                   <div className="text-center lg:text-left flex-1">
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4">Visit Us</h2>
-                    <p className="text-white/90 mb-3 sm:mb-4 text-sm sm:text-base lg:text-lg leading-relaxed">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 sm:mb-4" style={{ color: '#1393c4', textShadow: 'none !important' }}>Visit Us</h2>
+                    <p className="mb-3 sm:mb-4 text-sm sm:text-base lg:text-lg leading-relaxed" style={{ color: '#1393c4', textShadow: 'none !important' }}>
                       Come see why Winnipeg trusts us to protect what moves them.
                     </p>
-                    <div className="bg-white/20 p-3 sm:p-4 rounded-lg border border-white/30 max-w-md mx-auto lg:mx-0">
-                      <p className="font-bold text-sm sm:text-base lg:text-lg">
+                    <div className="bg-sky-50 p-3 sm:p-4 rounded-lg border border-sky-200 max-w-md mx-auto lg:mx-0">
+                      <p className="font-semibold text-sm sm:text-base lg:text-lg" style={{ color: '#1393c4', textShadow: 'none !important' }}>
                         Experience detailing — done right.
                       </p>
                     </div>
@@ -334,6 +325,9 @@ const ActionCarAbout = () => {
         </div>
       </section>
       
+      {/* References Section - Added before ContactForm */}
+      <References />
+      
       <ContactForm />
       <Footer />
 
@@ -348,8 +342,8 @@ const ActionCarAbout = () => {
         @media (max-width: 767px) {
           .mobile-video-hero {
             height: 50vh;
-            min-height: 300px;
-            max-height: 450px;
+            min-height: 350px;
+            max-height: 500px;
           }
         }
         
@@ -357,7 +351,7 @@ const ActionCarAbout = () => {
         @media (min-width: 768px) and (max-width: 1023px) {
           .mobile-video-hero {
             height: 70vh;
-            min-height: 400px;
+            min-height: 450px;
           }
         }
         
@@ -375,15 +369,6 @@ const ActionCarAbout = () => {
             height: 90vh;
             min-height: 600px;
           }
-        }
-        
-        /* Text visibility */
-        .text-white {
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-        }
-        
-        .text-sky-400 {
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
         }
       `}</style>
     </div>

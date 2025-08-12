@@ -3,10 +3,12 @@ import { CheckCircle, Shield, Clock, Star, ArrowRight, Phone } from 'lucide-reac
 import dentRepairVideo from '../assets/images/Dent Repair.mp4';
 import Footer from '../components/Footer';
 import ContactForm from '../components/ContactForm';
+
 const DentRepairComponent = () => {
+  const videoRef = useRef(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [activeTab, setActiveTab] = useState('hail');
   const [scrollY, setScrollY] = useState(0);
-  const videoRef = useRef(null);
 
   // Handle scroll for animations
   useEffect(() => {
@@ -15,112 +17,198 @@ const DentRepairComponent = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Check if element should be visible based on scroll position
-  const isVisible = (offset = 400) => {
-    return scrollY > offset;
-  };
-
+  // Video handling effect (same as Hero component)
   useEffect(() => {
-    // Optimized single video handling
+    // Check if screen is small or iPad
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      const isIPad = (
+        (width === 768) || (width === 820) || (width === 834) || (width === 1024) ||
+        navigator.userAgent.includes('iPad') || 
+        (navigator.userAgent.includes('Macintosh') && 'ontouchend' in document)
+      );
+      setIsSmallScreen(width < 768 && !isIPad);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+
+    // Optimized video handling with performance improvements
     const video = videoRef.current;
     
     if (video) {
-      // Essential settings only
+      // Essential settings for smooth playback
       video.muted = true;
       video.defaultMuted = true;
       video.volume = 0;
       video.setAttribute('playsinline', 'true');
       video.setAttribute('webkit-playsinline', 'true');
       
-      // Minimal preload for faster start
-      video.preload = 'none';
+      // Performance optimizations for smoother playback
+      video.preload = 'metadata';
+      video.poster = '';
       
-      // Device-specific object-fit adjustments - 16:10 FOR MOBILE/TABLETS, FULL-SCREEN FOR DESKTOP
+      // Hardware acceleration and smooth rendering
+      video.style.willChange = 'transform';
+      video.style.backfaceVisibility = 'hidden';
+      
+      // iPad-specific video adjustments to prevent stretching
       const adjustVideoFit = () => {
         const width = window.innerWidth;
         const height = window.innerHeight;
         
-        // Mobile screens (below 768px) - Force 16:10 aspect ratio
-        if (width < 768) {
-          const idealHeight = width / (16/10); // Calculate 16:10 height
-          
-          video.style.objectFit = 'cover';
-          video.style.width = '100vw';
-          video.style.height = `${idealHeight}px`;
+        // Detect iPad devices
+        const isIPad = (
+          (width === 768 && height === 1024) ||
+          (width === 820 && height === 1180) ||
+          (width === 834 && height === 1194) ||
+          (width === 1024 && height === 1366) ||
+          (height === 768 && width === 1024) ||
+          (height === 820 && width === 1180) ||
+          (height === 834 && width === 1194) ||
+          (height === 1024 && width === 1366) ||
+          (navigator.userAgent.includes('iPad') || 
+           (navigator.userAgent.includes('Macintosh') && 'ontouchend' in document))
+        );
+        
+        // Calculate aspect ratios
+        const screenRatio = width / height;
+        const videoRatio = 16 / 9; // Assuming your video is 16:9
+        
+        // Base styles for all devices
+        video.style.objectFit = 'cover';
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.position = 'absolute';
+        video.style.top = '0';
+        video.style.left = '0';
+        video.style.transform = 'translateZ(0)';
+        
+        // iPad-specific positioning to prevent stretching
+        if (isIPad) {
           video.style.objectPosition = 'center center';
-          
-          // Center the video container vertically in viewport
-          video.style.top = '50%';
-          video.style.left = '0';
-          video.style.transform = 'translateY(-50%)';
-          video.style.position = 'absolute';
+          // Ensure the video covers properly without stretching
+          video.style.minWidth = '100%';
+          video.style.minHeight = '100%';
         }
-        // iPad Mini: 768x1024, iPad Air: 820x1180 - 16:10 cinematic
-        else if (width >= 768 && width < 1024) {
-          const idealHeight = width / (16/10);
-          
-          video.style.objectFit = 'cover';
-          video.style.width = '100vw';
-          video.style.height = `${idealHeight}px`;
+        // Other devices
+        else if (screenRatio > videoRatio) {
           video.style.objectPosition = 'center center';
-          video.style.top = '50%';
-          video.style.left = '0';
-          video.style.transform = 'translateY(-50%)';
-          video.style.position = 'absolute';
-        }
-        // iPad Pro: 1024x1366 - 16:10 cinematic 
-        else if (width >= 1024 && width < 1280) {
-          const idealHeight = width / (16/10);
-          
-          video.style.objectFit = 'cover';
-          video.style.width = '100vw';
-          video.style.height = `${idealHeight}px`;
-          video.style.objectPosition = 'center center';
-          video.style.top = '50%';
-          video.style.left = '0';
-          video.style.transform = 'translateY(-50%)';
-          video.style.position = 'absolute';
-        }
-        // Desktop and Laptop screens (1280px and above) - Full screen as original
-        else {
-          video.style.objectFit = 'cover';
-          video.style.objectPosition = 'center center';
-          video.style.height = '100vh';
-          video.style.width = '100vw';
-          video.style.top = '0';
-          video.style.left = '0';
-          video.style.transform = 'none';
-          video.style.position = 'absolute';
+        } else {
+          video.style.objectPosition = 'center 40%';
         }
       };
       
       // Apply initial adjustments
       adjustVideoFit();
       
-      // Reapply on orientation change
-      window.addEventListener('resize', adjustVideoFit);
-      window.addEventListener('orientationchange', adjustVideoFit);
+      // Optimized event listeners with throttling
+      let resizeTimeout;
+      const throttledResize = () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(adjustVideoFit, 100);
+      };
       
-      // Simple autoplay with minimal error handling
+      window.addEventListener('resize', throttledResize);
+      window.addEventListener('orientationchange', () => {
+        setTimeout(adjustVideoFit, 300);
+      });
+      
+      // Enhanced autoplay with better error handling
       const playVideo = async () => {
         try {
-          await video.play();
+          if (video.readyState >= 2) {
+            await video.play();
+          } else {
+            video.addEventListener('loadeddata', async () => {
+              try {
+                await video.play();
+              } catch (error) {
+                console.log('Autoplay failed, waiting for user interaction');
+              }
+            }, { once: true });
+          }
         } catch (error) {
-          // Single fallback attempt
-          document.addEventListener('click', () => video.play().catch(() => {}), { once: true });
+          const enableVideo = async () => {
+            try {
+              await video.play();
+              document.removeEventListener('click', enableVideo);
+              document.removeEventListener('touchstart', enableVideo);
+            } catch (err) {
+              console.log('Video play failed:', err);
+            }
+          };
+          
+          document.addEventListener('click', enableVideo, { once: true });
+          document.addEventListener('touchstart', enableVideo, { once: true });
         }
       };
       
-      // Start playing immediately
-      playVideo();
+      setTimeout(playVideo, 100);
       
       // Cleanup
       return () => {
-        window.removeEventListener('resize', adjustVideoFit);
+        window.removeEventListener('resize', throttledResize);
         window.removeEventListener('orientationchange', adjustVideoFit);
+        clearTimeout(resizeTimeout);
       };
     }
+
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
   }, []);
+
+  // iPad-specific height calculation to prevent stretching
+  const getContainerHeight = () => {
+    if (typeof window === 'undefined') return '100vh';
+    
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    // Detect iPad devices by common resolutions
+    const isIPad = (
+      // iPad Mini: 768x1024
+      (width === 768 && height === 1024) ||
+      // iPad Air: 820x1180  
+      (width === 820 && height === 1180) ||
+      // iPad Pro 11": 834x1194
+      (width === 834 && height === 1194) ||
+      // iPad Pro 12.9": 1024x1366
+      (width === 1024 && height === 1366) ||
+      // Landscape orientations
+      (height === 768 && width === 1024) ||
+      (height === 820 && width === 1180) ||
+      (height === 834 && width === 1194) ||
+      (height === 1024 && width === 1366) ||
+      // General iPad detection for other cases
+      (navigator.userAgent.includes('iPad') || 
+       (navigator.userAgent.includes('Macintosh') && 'ontouchend' in document))
+    );
+    
+    // Mobile phones (portrait)
+    if (width < 768) {
+      return Math.min(height * 0.6, 500);
+    }
+    // iPad specific handling
+    else if (isIPad) {
+      // For iPads, use fixed height based on width to maintain proper video aspect ratio
+      return Math.min(width * 0.5625, height * 0.6); // 0.5625 = 9/16 for 16:9 aspect ratio
+    }
+    // Other tablets and small laptops
+    else if (width < 1024) {
+      return Math.min(height * 0.7, 600);
+    }
+    // Desktop
+    else {
+      return '100vh';
+    }
+  };
+
+  // Check if element should be visible based on scroll position
+  const isVisible = (offset = 150) => { // Reduced from 400 to 150
+    return scrollY > offset;
+  };
 
   const services = [
     {
@@ -172,8 +260,8 @@ const DentRepairComponent = () => {
       <style jsx>{`
         .fade-in-up {
           opacity: 0;
-          transform: translateY(50px);
-          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transform: translateY(30px); // Reduced from 50px
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); // Reduced from 0.8s
         }
         
         .fade-in-up.visible {
@@ -183,8 +271,8 @@ const DentRepairComponent = () => {
         
         .fade-in-left {
           opacity: 0;
-          transform: translateX(-50px);
-          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transform: translateX(-30px); // Reduced from -50px
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); // Reduced from 0.8s
         }
         
         .fade-in-left.visible {
@@ -194,8 +282,8 @@ const DentRepairComponent = () => {
         
         .fade-in-right {
           opacity: 0;
-          transform: translateX(50px);
-          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transform: translateX(30px); // Reduced from 50px
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); // Reduced from 0.8s
         }
         
         .fade-in-right.visible {
@@ -205,8 +293,8 @@ const DentRepairComponent = () => {
         
         .scale-in {
           opacity: 0;
-          transform: scale(0.8);
-          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transform: scale(0.9); // Reduced from 0.8
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); // Reduced from 0.8s
         }
         
         .scale-in.visible {
@@ -214,33 +302,67 @@ const DentRepairComponent = () => {
           transform: scale(1);
         }
         
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-1 { transition-delay: 0.05s; } // Reduced from 0.1s
+        .stagger-2 { transition-delay: 0.1s; } // Reduced from 0.2s
+        .stagger-3 { transition-delay: 0.15s; } // Reduced from 0.3s
+        .stagger-4 { transition-delay: 0.2s; } // Reduced from 0.4s
       `}</style>
 
-      {/* Hero Video Section with Responsive Video - Updated to match Hero component */}
-      <section className="relative h-screen w-full overflow-hidden bg-snow">
-        {/* Video background - single optimized video */}
-        <div className="absolute inset-0 z-0">
-          <video
-            ref={videoRef}
-            className="absolute top-0 left-0 w-full h-full object-cover object-center"
-            src={dentRepairVideo}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="none"
-            poster=""
-            controls={false}
-            style={{
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              objectPosition: 'center center'
-            }}
-          />
+      {/* Hero Video Section - FIXED to match Hero component */}
+      <section className="bg-black">
+        <div 
+          className="relative w-full overflow-hidden bg-black"
+          style={{ 
+            height: getContainerHeight(),
+            minHeight: isSmallScreen ? '300px' : '400px'
+          }}
+        >
+          {/* Video background - NO stretching approach */}
+          <div className="absolute inset-0 z-0" style={{ height: '100%', width: '100%' }}>
+            <video
+              ref={videoRef}
+              className="w-full h-full"
+              src={dentRepairVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster=""
+              controls={false}
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center center',
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
+                willChange: 'transform',
+                WebkitTransform: 'translateZ(0)',
+                WebkitBackfaceVisibility: 'hidden',
+                height: '100%',
+                width: '100%',
+                minHeight: '100%',
+                minWidth: '100%'
+              }}
+            />
+          </div>
+
+          {/* Responsive gradient overlay */}
+          <div className="absolute bottom-0 left-0 w-full h-1/4 sm:h-1/3 md:h-1/3 lg:h-1/3 bg-gradient-to-t from-black/40 to-transparent z-10" />
+
+          {/* Responsive scroll indicator */}
+          <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 left-1/2 transform -translate-x-1/2 z-20">
+            <div className="flex flex-col items-center">
+              <span className="text-white text-xs sm:text-sm md:text-base mb-1 sm:mb-2 tracking-widest font-medium drop-shadow-md">SCROLL</span>
+              <div className="relative">
+                <div className="absolute -inset-1 rounded-full bg-[#1393c4]/40 animate-pulse"></div>
+                <div className="animate-bounce bg-[#1393c4]/90 p-1.5 sm:p-2 rounded-full shadow-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -249,7 +371,7 @@ const DentRepairComponent = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Services Section */}
-          <div className={`text-center mb-12 sm:mb-16 fade-in-up ${isVisible(200) ? 'visible' : ''}`}>
+          <div className={`text-center mb-12 sm:mb-16 fade-in-up ${isVisible(50) ? 'visible' : ''}`}>
             <h3 className="text-2xl sm:text-3xl lg:text-4xl mb-0" style={{color: '#1393c4'}}>
               <span className="font-bold">Professional</span>
             </h3>
@@ -264,7 +386,7 @@ const DentRepairComponent = () => {
             <div className="space-y-6">
               
               {/* Tab Navigation */}
-              <div className={`flex flex-col sm:flex-row gap-2 justify-center fade-in-up ${isVisible(400) ? 'visible' : ''}`}>
+              <div className={`flex flex-col sm:flex-row gap-2 justify-center fade-in-up ${isVisible(100) ? 'visible' : ''}`}>
                 {services.map((service, index) => (
                   <button
                     key={service.id}
@@ -282,7 +404,7 @@ const DentRepairComponent = () => {
               </div>
 
               {/* Active Tab Content */}
-              <div className={`bg-white rounded-2xl p-8 sm:p-10 shadow-xl border-2 scale-in ${isVisible(600) ? 'visible' : ''}`} style={{borderColor: '#1393c4'}}>
+              <div className={`bg-white rounded-2xl p-8 sm:p-10 shadow-xl border-2 scale-in ${isVisible(150) ? 'visible' : ''}`} style={{borderColor: '#1393c4'}}>
                 {services.map((service) => (
                   activeTab === service.id && (
                     <div key={service.id} className="space-y-6 text-center">
@@ -295,14 +417,14 @@ const DentRepairComponent = () => {
                       
                       <div className="space-y-4 max-w-md mx-auto">
                         {service.features.map((feature, index) => (
-                          <div key={index} className={`flex items-center space-x-4 p-4 rounded-lg fade-in-left stagger-${index + 1} ${isVisible(700) ? 'visible' : ''}`} style={{backgroundColor: '#e6f3ff'}}>
+                          <div key={index} className={`flex items-center space-x-4 p-4 rounded-lg fade-in-left stagger-${index + 1} ${isVisible(200) ? 'visible' : ''}`} style={{backgroundColor: '#e6f3ff'}}>
                             <CheckCircle className="w-6 h-6 flex-shrink-0" style={{color: '#1393c4'}} />
                             <span className="font-medium text-base sm:text-lg" style={{color: '#1393c4'}}>{feature}</span>
                           </div>
                         ))}
                       </div>
 
-                      <div className={`pt-6 fade-in-up ${isVisible(800) ? 'visible' : ''}`}>
+                      <div className={`pt-6 fade-in-up ${isVisible(250) ? 'visible' : ''}`}>
                         <button className="text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center space-x-3 shadow-lg hover:shadow-xl transform hover:scale-105 mx-auto" style={{backgroundColor: '#1393c4'}}>
                           <span>Get Free Estimate</span>
                           <ArrowRight className="w-5 h-5" />
@@ -320,7 +442,7 @@ const DentRepairComponent = () => {
             {benefits.map((benefit, index) => (
               <div 
                 key={index} 
-                className={`bg-white rounded-2xl p-8 text-center shadow-xl border-2 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 fade-in-up stagger-${index + 1} ${isVisible(900) ? 'visible' : ''}`}
+                className={`bg-white rounded-2xl p-8 text-center shadow-xl border-2 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 fade-in-up stagger-${index + 1} ${isVisible(300) ? 'visible' : ''}`}
                 style={{borderColor: '#1393c4'}}
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 shadow-lg" style={{backgroundColor: '#1393c4'}}>
@@ -339,7 +461,7 @@ const DentRepairComponent = () => {
           </div>
 
           {/* CTA Section */}
-          <div className={`bg-white rounded-3xl p-10 sm:p-16 text-center shadow-2xl border-2 scale-in ${isVisible(1200) ? 'visible' : ''}`} style={{borderColor: '#1393c4'}}>
+          <div className={`bg-white rounded-3xl p-10 sm:p-16 text-center shadow-2xl border-2 scale-in ${isVisible(400) ? 'visible' : ''}`} style={{borderColor: '#1393c4'}}>
             <h3 className="text-3xl sm:text-4xl font-bold mb-6" style={{color: '#1393c4'}}>
               <span className="block">Ready to Restore</span>
               <span>Your Vehicle?</span>

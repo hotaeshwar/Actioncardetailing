@@ -50,8 +50,8 @@ const CarDetailingReference = () => {
   };
 
   return (
-   <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-blue-100 relative overflow-hidden pt-16" style={{background: 'linear-gradient(to bottom right, #e0f2fe, #f0f9ff, #e0f2fe)'}}>
-      
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-blue-100 relative overflow-hidden pt-16" style={{ background: 'linear-gradient(to bottom right, #e0f2fe, #f0f9ff, #e0f2fe)' }}>
+
       {/* Add CSS for scroll animations */}
       <style jsx>{`
         .scroll-animate {
@@ -144,54 +144,54 @@ const CarDetailingReference = () => {
       />
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0" style={{background: 'linear-gradient(to bottom, rgba(224, 242, 254, 0.8), transparent, rgba(240, 249, 255, 0.9))'}} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(224, 242, 254, 0.8), transparent, rgba(240, 249, 255, 0.9))' }} />
 
       {/* Main Content Container */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-6">
 
         {/* Partner Logos Row */}
         <div className="mb-6 md:mb-8 w-full max-w-6xl scroll-animate">
-          <div className="py-3 md:py-4 px-4 md:px-6 rounded-xl shadow-lg border-2" style={{background: 'linear-gradient(to right, #e0f2fe, #f0f9ff)', borderColor: '#1393c4'}}>
+          <div className="py-3 md:py-4 px-4 md:px-6 rounded-xl shadow-lg border-2" style={{ background: 'linear-gradient(to right, #e0f2fe, #f0f9ff)', borderColor: '#1393c4' }}>
             <div className="flex flex-wrap justify-center items-center gap-3 md:gap-6 lg:gap-8">
 
               {/* Rightlook */}
               <div className="relative group scroll-animate scroll-animate-delay-1">
-                <img 
-                  src={refRightlook} 
-                  alt="Rightlook" 
+                <img
+                  src={refRightlook}
+                  alt="Rightlook"
                   className="h-12 md:h-16 lg:h-20 w-auto object-contain transition-all duration-500 cursor-pointer transform hover:scale-110 shadow-md hover:shadow-lg rounded-lg"
                 />
-                <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{backgroundColor: 'rgba(19, 147, 196, 0.2)'}}></div>
+                <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ backgroundColor: 'rgba(19, 147, 196, 0.2)' }}></div>
               </div>
 
               {/* Murray Hyundai */}
               <div className="relative group scroll-animate scroll-animate-delay-2">
-                <img 
-                  src={refMurray} 
-                  alt="Murray Hyundai" 
+                <img
+                  src={refMurray}
+                  alt="Murray Hyundai"
                   className="h-12 md:h-16 lg:h-20 w-auto object-contain transition-all duration-500 cursor-pointer transform hover:scale-110 shadow-md hover:shadow-lg rounded-lg"
                 />
-                <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{backgroundColor: 'rgba(19, 147, 196, 0.2)'}}></div>
+                <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ backgroundColor: 'rgba(19, 147, 196, 0.2)' }}></div>
               </div>
 
               {/* Waverley */}
               <div className="relative group scroll-animate scroll-animate-delay-3">
-                <img 
-                  src={refWaverley} 
-                  alt="Gauthier's Waverley" 
+                <img
+                  src={refWaverley}
+                  alt="Gauthier's Waverley"
                   className="h-12 md:h-16 lg:h-20 w-auto object-contain transition-all duration-500 cursor-pointer transform hover:scale-110 shadow-md hover:shadow-lg rounded-lg"
                 />
-                <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{backgroundColor: 'rgba(19, 147, 196, 0.2)'}}></div>
+                <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ backgroundColor: 'rgba(19, 147, 196, 0.2)' }}></div>
               </div>
 
               {/* BestBuy Auto */}
               <div className="relative group scroll-animate scroll-animate-delay-4">
-                <img 
-                  src={refBestbuy} 
-                  alt="BestBuy Auto" 
+                <img
+                  src={refBestbuy}
+                  alt="BestBuy Auto"
                   className="h-12 md:h-16 lg:h-20 w-auto object-contain transition-all duration-500 cursor-pointer transform hover:scale-110 shadow-md hover:shadow-lg rounded-lg"
                 />
-                <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{backgroundColor: 'rgba(19, 147, 196, 0.2)'}}></div>
+                <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ backgroundColor: 'rgba(19, 147, 196, 0.2)' }}></div>
               </div>
             </div>
           </div>
@@ -199,7 +199,7 @@ const CarDetailingReference = () => {
 
         {/* Privacy Policy Section */}
         <div className="text-center mb-4 md:mb-6 scroll-animate scroll-animate-slide-up">
-          <div className="text-sm md:text-base font-bold mb-3 drop-shadow-lg animate-pulse" style={{color: '#1393c4'}}>
+          <div className="text-sm md:text-base font-bold mb-3 drop-shadow-lg animate-pulse" style={{ color: '#1393c4' }}>
             DOWNLOAD OUR PRIVACY POLICY
           </div>
 
@@ -225,17 +225,17 @@ const CarDetailingReference = () => {
 
         {/* Contact Information with BBB Badge - Responsive Version */}
         <div className="w-full max-w-2xl lg:max-w-3xl scroll-animate scroll-animate-scale">
-          <div className="text-center shadow-xl rounded-xl overflow-hidden border-2" style={{background: 'linear-gradient(to bottom right, #e0f2fe, #f0f9ff, #e0f2fe)', borderColor: '#1393c4', color: '#1393c4'}}>
+          <div className="text-center shadow-xl rounded-xl overflow-hidden border-2" style={{ background: 'linear-gradient(to bottom right, #e0f2fe, #f0f9ff, #e0f2fe)', borderColor: '#1393c4', color: '#1393c4' }}>
 
             {/* BBB Badge - Top Center */}
             <div className="flex justify-center pt-4 pb-2">
-              <div className="rounded-lg p-4 md:p-6 shadow-xl border-2 transform hover:scale-105 transition-transform duration-300" style={{background: 'linear-gradient(to bottom right, #ffffff, #f8fafc)', borderColor: '#1393c4'}}>
+              <div className="rounded-lg p-4 md:p-6 shadow-xl border-2 transform hover:scale-105 transition-transform duration-300" style={{ background: 'linear-gradient(to bottom right, #ffffff, #f8fafc)', borderColor: '#1393c4' }}>
                 <div className="flex flex-col items-center">
                   {/* Only BBB Logo Image - Bigger Size */}
                   <div>
-                    <img 
-                      src={bbbLogo} 
-                      alt="BBB Logo" 
+                    <img
+                      src={bbbLogo}
+                      alt="BBB Logo"
                       className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain drop-shadow-lg"
                     />
                   </div>
@@ -246,19 +246,19 @@ const CarDetailingReference = () => {
             {/* Contact Text Content - Responsive */}
             <div className="px-4 md:px-6 pb-4 md:pb-6 pt-2">
               <div className="space-y-2">
-                <div className="text-sm md:text-base font-bold leading-tight" style={{color: '#1393c4'}}>
+                <div className="text-sm md:text-base font-bold leading-tight" style={{ color: '#1393c4' }}>
                   CONTACT US FOR OUR RATES AND
                 </div>
-                <div className="text-sm md:text-base font-bold mb-4 leading-tight" style={{color: '#1393c4'}}>
+                <div className="text-sm md:text-base font-bold mb-4 leading-tight" style={{ color: '#1393c4' }}>
                   SERVICES
                 </div>
 
                 {/* Phone Number */}
-                <div className="inline-block px-4 md:px-6 py-2 md:py-3 rounded-lg shadow-xl transform hover:scale-105 transition-all duration-300" style={{background: 'linear-gradient(to right, #1393c4, #0f7aa3)', border: '2px solid #1393c4'}}>
+                <div className="inline-block px-4 md:px-6 py-2 md:py-3 rounded-lg shadow-xl transform hover:scale-105 transition-all duration-300" style={{ background: 'linear-gradient(to right, #1393c4, #0f7aa3)', border: '2px solid #1393c4' }}>
                   <a
                     href="tel:+12047750005"
                     className="text-lg md:text-2xl font-bold transition-colors duration-300 drop-shadow-lg"
-                    style={{color: '#ffffff'}}
+                    style={{ color: '#ffffff' }}
                     onMouseEnter={(e) => {
                       e.target.style.color = '#e0f2fe';
                     }}
@@ -274,10 +274,6 @@ const CarDetailingReference = () => {
           </div>
         </div>
 
-      </div>
-  {/* Bottom right corner text */}
-      <div className="absolute bottom-4 right-4 text-xs opacity-70 z-10 scroll-animate scroll-animate-fade" style={{color: '#1393c4'}}>
-        Delta Auto Service
       </div>
     </div>
   );

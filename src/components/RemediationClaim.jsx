@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CheckCircle, AlertTriangle, Droplets, Flame, Shield, Bug, Car, X, ChevronLeft, ChevronRight, ChevronDown, Phone, Mail, MapPin, Clock } from 'lucide-react';
 import Footer from '../components/Footer';
 import ContactForm from '../components/ContactForm';
-import References from '../components/References';
+import References from '../components/Reference1';
 import insuranceLogo from '../assets/images/insurance.png';
 import heroBackground from '../assets/images/car6.jpg';
 

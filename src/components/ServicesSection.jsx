@@ -2,6 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import References from './References';
 import Footer from './Footer';
 
+// Import local media files
+import ceramicCoatingVideo from '../assets/images/ceramic coating.mp4';
+import interiorDetailingVideo from '../assets/images/interior detailing.mp4';
+import headlightRestorationImage from '../assets/images/Headlight Restoration.png';
+import paintCorrectionVideo from '../assets/images/paintcorrectionservice.mp4';
+
 const ServicesSection = () => {
   const [visibleItems, setVisibleItems] = useState(new Set());
   const observerRef = useRef(null);
@@ -10,31 +16,36 @@ const ServicesSection = () => {
     {
       id: 'interior-detailing',
       title: 'Interior Detailing',
-      image: 'https://actioncardetailing.ca/wp-content/uploads/2019/03/interior_detail.jpg.webp',
+      media: interiorDetailingVideo,
+      mediaType: 'video',
       description: 'We use vapor steam to clean the vehicles dashboard, vents, center console, cup holder area and door panels. Shampoo seats and carpet. We also use special vacuum attachments to get between seats and hard to reach areas. We then protect all interior surfaces with a conditioner.'
     },
     {
       id: 'paint-correction',
       title: 'Paint Correction',
-      image: 'https://actioncardetailing.ca/wp-content/uploads/2019/03/paint-correction-img1x1024x684.jpg.webp',
+      media: paintCorrectionVideo,
+      mediaType: 'video',
       description: 'Paint correction is a machine polish process to remove swirl marks, scratches, scuffs, bird dropping etching, acid rain etching, and other imperfections from your vehicle paint work, restoring an incredible high gloss finish.'
     },
     {
       id: 'ceramic-coating',
       title: 'Paint Protection Ceramic Coating',
-      image: 'https://actioncardetailing.ca/wp-content/uploads/2019/03/ceramic-coating-img2.jpg.webp',
+      media: ceramicCoatingVideo,
+      mediaType: 'video',
       description: 'CERAMIC PRO® is a permanent Nano-ceramic coating that will protects your car from damaging environmental fallout and help keep your car cleaner for longer and easier to clean with its slick Hydrophobic Effect. CERAMIC PRO® coating protect your vehicle from UV rays(ultraviolet rays), chemical stain, water spots, scratches and swirls marks.'
     },
     {
       id: 'headlight-restoration',
       title: 'Headlight Restoration',
-      image: 'https://actioncardetailing.ca/wp-content/uploads/2019/03/headlight-restoration.jpeg.webp',
+      media: headlightRestorationImage,
+      mediaType: 'image',
       description: 'Headlight restoration removes dull, yellowed headlight build up. We clean and restore your headlight with our dry sanding, wet sanding techniques then apply clear coat for maximum visibility.'
     },
     {
       id: 'engine-cleaning',
       title: 'Grim to Grime',
-      image: 'https://actioncardetailing.ca/wp-content/uploads/2019/03/Engine_Bay_After_Detail.jpg.webp',
+      media: 'https://actioncardetailing.ca/wp-content/uploads/2019/03/Engine_Bay_After_Detail.jpg.webp', // Keep original since no local file provided
+      mediaType: 'image',
       description: 'An important part of vehicle detailing includes skilled and experienced engine cleaning from auto detailing experts equipped with the necessary knowledge to help ensure the engine appearance. We recommend cleaning your engine compartment to not only help retain the value of your vehicle, but to ultimately help keep your vehicle\'s engine cooler through the removal of grease, grim, and dirt.'
     }
   ];
@@ -64,12 +75,40 @@ const ServicesSection = () => {
     };
   }, []);
 
+  const renderMedia = (service) => {
+    if (service.mediaType === 'video') {
+      return (
+        <video
+          src={service.media}
+          className="w-full h-64 sm:h-72 lg:h-80 xl:h-96 object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110 rounded-xl"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+        />
+      );
+    } else {
+      return (
+        <img
+          src={service.media}
+          alt={service.title}
+          className="w-full h-64 sm:h-72 lg:h-80 xl:h-96 object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+          loading="lazy"
+        />
+      );
+    }
+  };
+
   return (
     <>
       {/* Services Section */}
       <section className="bg-white min-h-screen py-12 lg:py-20">
+        {/* Add top padding to account for fixed navbar */}
+        <div className="pt-16 sm:pt-20 md:pt-24 lg:pt-32"></div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Header */}
+          {/* Section Header - Moved down and centered */}
           <div 
             id="services-header"
             data-animate
@@ -127,19 +166,14 @@ const ServicesSection = () => {
                       </p>
                     </div>
 
-                    {/* Image */}
+                    {/* Media (Video or Image) */}
                     <div className={`${
                       isEven 
                         ? 'order-2 lg:order-2' 
                         : 'order-2 lg:order-1'
                     }`}>
                       <div className="relative overflow-hidden rounded-xl shadow-2xl group">
-                        <img
-                          src={service.image}
-                          alt={service.title}
-                          className="w-full h-64 sm:h-72 lg:h-80 xl:h-96 object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
-                          loading="lazy"
-                        />
+                        {renderMedia(service)}
                         {/* Overlay effect on hover */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#1393c4]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       </div>

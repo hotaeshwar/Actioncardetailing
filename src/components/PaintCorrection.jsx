@@ -1,15 +1,206 @@
 import { RotateCcw, Droplets, Target, RefreshCw, Zap, Car } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Footer from '../components/Footer';
 import PaintPolishingForm from '../components/PaintPolishingForm';
 import ContactForm from '../components/ContactForm';
 // Import Paint Correction Video
-import paintCorrectionVideo from '../assets/images/Paint Correction Polishing (1).mp4';
+import paintCorrectionVideo from '../assets/images/Paint Correction Polishing.mp4';
+import References from '../components/Reference1'; // Added References import
 
 const PaintCorrection = () => {
+  const videoRef = useRef(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [visibleCards, setVisibleCards] = useState([]);
   const [visibleSections, setVisibleSections] = useState([]);
+
+  // Video handling effect (same as Hero component)
+  useEffect(() => {
+    // Check if screen is small or iPad
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      const isIPad = (
+        (width === 768) || (width === 820) || (width === 834) || (width === 1024) ||
+        navigator.userAgent.includes('iPad') || 
+        (navigator.userAgent.includes('Macintosh') && 'ontouchend' in document)
+      );
+      setIsSmallScreen(width < 768 && !isIPad);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+
+    // Optimized video handling with performance improvements
+    const video = videoRef.current;
+    
+    if (video) {
+      // Essential settings for smooth playback
+      video.muted = true;
+      video.defaultMuted = true;
+      video.volume = 0;
+      video.setAttribute('playsinline', 'true');
+      video.setAttribute('webkit-playsinline', 'true');
+      
+      // Performance optimizations for smoother playback
+      video.preload = 'metadata';
+      video.poster = '';
+      
+      // Hardware acceleration and smooth rendering
+      video.style.willChange = 'transform';
+      video.style.backfaceVisibility = 'hidden';
+      
+      // iPad-specific video adjustments to prevent stretching
+      const adjustVideoFit = () => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        
+        // Detect iPad devices
+        const isIPad = (
+          (width === 768 && height === 1024) ||
+          (width === 820 && height === 1180) ||
+          (width === 834 && height === 1194) ||
+          (width === 1024 && height === 1366) ||
+          (height === 768 && width === 1024) ||
+          (height === 820 && width === 1180) ||
+          (height === 834 && width === 1194) ||
+          (height === 1024 && width === 1366) ||
+          (navigator.userAgent.includes('iPad') || 
+           (navigator.userAgent.includes('Macintosh') && 'ontouchend' in document))
+        );
+        
+        // Calculate aspect ratios
+        const screenRatio = width / height;
+        const videoRatio = 16 / 9; // Assuming your video is 16:9
+        
+        // Base styles for all devices
+        video.style.objectFit = 'cover';
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.position = 'absolute';
+        video.style.top = '0';
+        video.style.left = '0';
+        video.style.transform = 'translateZ(0)';
+        
+        // iPad-specific positioning to prevent stretching
+        if (isIPad) {
+          video.style.objectPosition = 'center center';
+          // Ensure the video covers properly without stretching
+          video.style.minWidth = '100%';
+          video.style.minHeight = '100%';
+        }
+        // Other devices
+        else if (screenRatio > videoRatio) {
+          video.style.objectPosition = 'center center';
+        } else {
+          video.style.objectPosition = 'center 40%';
+        }
+      };
+      
+      // Apply initial adjustments
+      adjustVideoFit();
+      
+      // Optimized event listeners with throttling
+      let resizeTimeout;
+      const throttledResize = () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(adjustVideoFit, 100);
+      };
+      
+      window.addEventListener('resize', throttledResize);
+      window.addEventListener('orientationchange', () => {
+        setTimeout(adjustVideoFit, 300);
+      });
+      
+      // Enhanced autoplay with better error handling
+      const playVideo = async () => {
+        try {
+          if (video.readyState >= 2) {
+            await video.play();
+          } else {
+            video.addEventListener('loadeddata', async () => {
+              try {
+                await video.play();
+              } catch (error) {
+                console.log('Autoplay failed, waiting for user interaction');
+              }
+            }, { once: true });
+          }
+        } catch (error) {
+          const enableVideo = async () => {
+            try {
+              await video.play();
+              document.removeEventListener('click', enableVideo);
+              document.removeEventListener('touchstart', enableVideo);
+            } catch (err) {
+              console.log('Video play failed:', err);
+            }
+          };
+          
+          document.addEventListener('click', enableVideo, { once: true });
+          document.addEventListener('touchstart', enableVideo, { once: true });
+        }
+      };
+      
+      setTimeout(playVideo, 100);
+      
+      // Cleanup
+      return () => {
+        window.removeEventListener('resize', throttledResize);
+        window.removeEventListener('orientationchange', adjustVideoFit);
+        clearTimeout(resizeTimeout);
+      };
+    }
+
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, []);
+
+  // iPad-specific height calculation to prevent stretching
+  const getContainerHeight = () => {
+    if (typeof window === 'undefined') return '100vh';
+    
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    // Detect iPad devices by common resolutions
+    const isIPad = (
+      // iPad Mini: 768x1024
+      (width === 768 && height === 1024) ||
+      // iPad Air: 820x1180  
+      (width === 820 && height === 1180) ||
+      // iPad Pro 11": 834x1194
+      (width === 834 && height === 1194) ||
+      // iPad Pro 12.9": 1024x1366
+      (width === 1024 && height === 1366) ||
+      // Landscape orientations
+      (height === 768 && width === 1024) ||
+      (height === 820 && width === 1180) ||
+      (height === 834 && width === 1194) ||
+      (height === 1024 && width === 1366) ||
+      // General iPad detection for other cases
+      (navigator.userAgent.includes('iPad') || 
+       (navigator.userAgent.includes('Macintosh') && 'ontouchend' in document))
+    );
+    
+    // Mobile phones (portrait)
+    if (width < 768) {
+      return Math.min(height * 0.6, 500);
+    }
+    // iPad specific handling
+    else if (isIPad) {
+      // For iPads, use fixed height based on width to maintain proper video aspect ratio
+      return Math.min(width * 0.5625, height * 0.6); // 0.5625 = 9/16 for 16:9 aspect ratio
+    }
+    // Other tablets and small laptops
+    else if (width < 1024) {
+      return Math.min(height * 0.7, 600);
+    }
+    // Desktop
+    else {
+      return '100vh';
+    }
+  };
 
   // Simple scroll event listener for all animations
   useEffect(() => {
@@ -63,111 +254,69 @@ const PaintCorrection = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const video = document.querySelector('video[data-hero-video]');
-    if (!video) return;
-
-    // Device-specific object-fit adjustments - 16:10 FOR MOBILE/TABLETS, FULL-SCREEN FOR DESKTOP
-    const adjustVideoFit = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      
-      // Mobile screens (below 768px) - Force 16:10 aspect ratio
-      if (width < 768) {
-        const idealHeight = width / (16/10); // Calculate 16:10 height
-        
-        video.style.objectFit = 'cover';
-        video.style.width = '100vw';
-        video.style.height = `${idealHeight}px`;
-        video.style.objectPosition = 'center center';
-        
-        // Center the video container vertically in viewport
-        video.style.top = '50%';
-        video.style.left = '0';
-        video.style.transform = 'translateY(-50%)';
-        video.style.position = 'absolute';
-        video.style.margin = '0';
-        video.style.padding = '0';
-      }
-      // iPad Mini: 768x1024, iPad Air: 820x1180 - 16:10 cinematic
-      else if (width >= 768 && width < 1024) {
-        const idealHeight = width / (16/10);
-        
-        video.style.objectFit = 'cover';
-        video.style.width = '100vw';
-        video.style.height = `${idealHeight}px`;
-        video.style.objectPosition = 'center center';
-        video.style.top = '50%';
-        video.style.left = '0';
-        video.style.transform = 'translateY(-50%)';
-        video.style.position = 'absolute';
-        video.style.margin = '0';
-        video.style.padding = '0';
-      }
-      // iPad Pro: 1024x1366 - 16:10 cinematic 
-      else if (width >= 1024 && width < 1280) {
-        const idealHeight = width / (16/10);
-        
-        video.style.objectFit = 'cover';
-        video.style.width = '100vw';
-        video.style.height = `${idealHeight}px`;
-        video.style.objectPosition = 'center center';
-        video.style.top = '50%';
-        video.style.left = '0';
-        video.style.transform = 'translateY(-50%)';
-        video.style.position = 'absolute';
-        video.style.margin = '0';
-        video.style.padding = '0';
-      }
-      // Desktop and Laptop screens (1280px and above) - Full screen as original
-      else {
-        video.style.objectFit = 'cover';
-        video.style.objectPosition = 'center center';
-        video.style.height = '100vh';
-        video.style.width = '100vw';
-        video.style.top = '0';
-        video.style.left = '0';
-        video.style.transform = 'none';
-        video.style.position = 'absolute';
-        video.style.margin = '0';
-        video.style.padding = '0';
-      }
-    };
-    
-    // Apply initial adjustments
-    adjustVideoFit();
-    
-    // Reapply on orientation change
-    window.addEventListener('resize', adjustVideoFit);
-    window.addEventListener('orientationchange', adjustVideoFit);
-    
-    return () => {
-      window.removeEventListener('resize', adjustVideoFit);
-      window.removeEventListener('orientationchange', adjustVideoFit);
-    };
-  }, []);
-
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#0f2027' }}>
       {/* Hero Section with Video */}
-      <section className="bg-white">
-        {/* Hero Video */}
-        <div className="w-full h-screen relative overflow-hidden" style={{ margin: '0', padding: '0' }}>
-          <video 
-            data-hero-video
-            autoPlay 
-            muted 
-            loop 
-            playsInline
-            className="w-full h-full object-cover absolute inset-0"
-            style={{ margin: '0', padding: '0' }}
-          >
-            <source src={paintCorrectionVideo} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+      <section className="bg-black">
+        {/* Hero Video - FIXED to match Hero component */}
+        <div 
+          className="relative w-full overflow-hidden bg-black"
+          style={{ 
+            height: getContainerHeight(),
+            minHeight: isSmallScreen ? '300px' : '400px'
+          }}
+        >
+          {/* Video background - NO stretching approach */}
+          <div className="absolute inset-0 z-0" style={{ height: '100%', width: '100%' }}>
+            <video
+              ref={videoRef}
+              className="w-full h-full"
+              src={paintCorrectionVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster=""
+              controls={false}
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center center',
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
+                willChange: 'transform',
+                WebkitTransform: 'translateZ(0)',
+                WebkitBackfaceVisibility: 'hidden',
+                height: '100%',
+                width: '100%',
+                minHeight: '100%',
+                minWidth: '100%'
+              }}
+            />
+          </div>
+
+          {/* Responsive gradient overlay */}
+          <div className="absolute bottom-0 left-0 w-full h-1/4 sm:h-1/3 md:h-1/3 lg:h-1/3 bg-gradient-to-t from-black/40 to-transparent z-10" />
+
+          {/* Responsive scroll indicator */}
+          <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 left-1/2 transform -translate-x-1/2 z-20">
+            <div className="flex flex-col items-center">
+              <span className="text-white text-xs sm:text-sm md:text-base mb-1 sm:mb-2 tracking-widest font-medium drop-shadow-md">SCROLL</span>
+              <div className="relative">
+                <div className="absolute -inset-1 rounded-full bg-sky-500/40 animate-pulse"></div>
+                <div className="animate-bounce bg-sky-600/90 p-1.5 sm:p-2 rounded-full shadow-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        {/* Hero Content - positioned below video */}
+      </section>
+
+      {/* Hero Content - positioned below video */}
+      <section className="bg-white">
         <div 
           className={`bg-white py-16 sm:py-20 lg:py-24 transition-all duration-1000 ease-out transform ${
             visibleSections.includes('hero') 
@@ -208,7 +357,7 @@ const PaintCorrection = () => {
               </span>
             </h2>
             <p className="text-lg sm:text-xl max-w-4xl mx-auto" style={{ color: '#1393c4' }}>
-              <span className="font-semibold">Eliminate imperfections</span> formed on your vehicle's paint surface back to a true proper shine.
+              <span className="font-semibold">Eliminate imperfections</span> formed on your vehicle's paint surface back to a true shine.
             </p>
           </div>
 
@@ -430,6 +579,12 @@ const PaintCorrection = () => {
       <section className="py-16 sm:py-20 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <PaintPolishingForm />
+        </div>
+      </section>
+      {/* Contact Form Section */}
+      <section className="py-16 sm:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+             <References />
         </div>
       </section>
 

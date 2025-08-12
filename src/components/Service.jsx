@@ -71,11 +71,11 @@ import paintProtectionVideo from '../assets/images/PPFHomepage.mp4';
 import dentRepairVideo from '../assets/images/Dent Repair.mp4';
 import dentRepairImage from '../assets/images/dent repair.png';
 
-// Import videos - ONLY the original 4 car washing videos
+// Import videos - Updated to remove interior detailing and add new carousel video
 import carwashing1 from '../assets/images/carwashing1.mp4';
 import carwashing2 from '../assets/images/carwashing2.mp4';
-import carwashing3 from '../assets/images/carwashing3.mp4';
 import carwashing4 from '../assets/images/carwashing4.mp4';
+import carouselVideo from '../assets/images/carasoulevideo.mp4';
 
 // Import the new award icon - BIGGER VERSION
 import awardHome from '../assets/images/Awardhome.png';
@@ -175,7 +175,7 @@ const Service = ({ setCurrentView }) => {
   // Updated data arrays using imported assets
   const carImages = [car1, car2, car3, car4, car5];
 
-  // CLEANED VIDEO ARRAY - Only original 4 car washing videos
+  // UPDATED VIDEO ARRAY - Removed interior detailing (carwashing3) and added new carousel video
   const videos = [
     {
       src: carwashing1,
@@ -188,10 +188,15 @@ const Service = ({ setCurrentView }) => {
       description: "Professional Detailing services"
     },
     {
-      src: carwashing3,
-      title: "Interior Detailing",
-      description: "Deep cleaning and protection"
+      src: carouselVideo,
+      title: "Ceramic Coating",
+      description: "Long-lasting protection"
     },
+    {
+      src: carwashing4,
+      title: "Professional Service",
+      description: "Expert care for your vehicle"
+    }
   ];
 
   // Professional service data with custom auto detailing
@@ -428,7 +433,7 @@ const Service = ({ setCurrentView }) => {
     }
   ];
 
-  // Card data for Why Choose Us section
+  // Card data for Why Choose Us section - MADE SMALLER FOR MOBILE
   const cardData = {
     'card5': {
       frontTitle: 'Reputable Since 2011',
@@ -874,13 +879,9 @@ const Service = ({ setCurrentView }) => {
     );
   };
 
-  // Blue Card Component
+  // Blue Card Component - REMOVED ANIMATED SECTION TO STOP AUTO-REFRESH
   const renderBlueCard = (cardData, index = 0) => (
-    <AnimatedSection
-      animationId={`blue-card-${index}`}
-      delay={index * 120}
-      className="group cursor-pointer w-full"
-    >
+    <div className="group cursor-pointer w-full">
       <div
         onClick={(e) => openBlueCardModal(cardData, e)}
         className="relative bg-gradient-to-br from-[#1393c4] via-[#1393c4] to-[#0f7ba8] rounded-2xl sm:rounded-3xl shadow-2xl shadow-[#1393c4]/50 group-hover:shadow-3xl group-hover:shadow-[#1393c4]/60 overflow-hidden w-full aspect-square transition-all duration-500"
@@ -895,8 +896,8 @@ const Service = ({ setCurrentView }) => {
         <div className="absolute top-1/3 right-8 w-2 h-2 bg-white/30 rounded-full opacity-50"></div>
         <div className="absolute bottom-1/4 right-1/4 w-1.5 h-1.5 bg-white/25 rounded-full opacity-40"></div>
 
-        {/* Shine Effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 skew-x-12"></div>
+        {/* Shine Effect - DISABLED AUTO-REFRESH */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 skew-x-12 blue-card-shine"></div>
 
         {/* Content Container */}
         <div className="relative z-10 flex flex-col h-full justify-center text-center p-6">
@@ -936,15 +937,12 @@ const Service = ({ setCurrentView }) => {
         {/* Subtle Border Glow */}
         <div className="absolute inset-0 rounded-2xl sm:rounded-3xl border border-white/10 group-hover:border-white/25 transition-all duration-500"></div>
       </div>
-    </AnimatedSection>
+    </div>
   );
 
-  // Blue Cards Grid Section
+  // Blue Cards Grid Section - REMOVED ANIMATED SECTION TO STOP AUTO-REFRESH
   const BlueCardsSection = () => (
-    <AnimatedSection
-      animationId="blue-cards-grid"
-      className="pb-8 md:pb-12 lg:pb-16 xl:pb-20 relative overflow-hidden bg-white -mt-4 blue-cards-container"
-    >
+    <div className="pb-8 md:pb-12 lg:pb-16 xl:pb-20 relative overflow-hidden bg-white -mt-4 blue-cards-container">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10">
           {/* Top Row - 3 Cards */}
@@ -966,10 +964,10 @@ const Service = ({ setCurrentView }) => {
           </div>
         </div>
       </div>
-    </AnimatedSection>
+    </div>
   );
 
-  // Flip Card Component
+  // Flip Card Component - MADE SMALLER FOR MOBILE
   const renderFlipCard = (id, frontTitle, iconOrComponent, backTitle, backContent, index = 0) => {
     const isFlipped = flippedCards.has(id);
     const icon = typeof iconOrComponent === 'object' && !React.isValidElement(iconOrComponent) ? iconOrComponent : faThumbsUp;
@@ -978,10 +976,10 @@ const Service = ({ setCurrentView }) => {
       <AnimatedSection
         animationId={`flip-card-${index}`}
         delay={index * 120}
-        className="flip-card-container group relative cursor-pointer touch-manipulation fixed-flip-card-height"
+        className="flip-card-container group relative cursor-pointer touch-manipulation mobile-smaller-card"
         style={{
           perspective: '1000px',
-          height: '20rem'
+          height: '18rem' // Reduced from 20rem to 18rem for mobile
         }}
       >
         <div
@@ -998,7 +996,7 @@ const Service = ({ setCurrentView }) => {
           className={`flip-card-inner relative w-full h-full transition-transform duration-700 transform-gpu ${isFlipped ? 'mobile-flip-card-flipped' : ''} ${!isMobile ? 'group-hover:rotate-y-180' : ''}`}
           style={{
             transformStyle: isMobile ? 'flat' : 'preserve-3d',
-            height: '20rem'
+            height: '18rem' // Reduced height
           }}
         >
           {/* Front Side */}
@@ -1006,7 +1004,7 @@ const Service = ({ setCurrentView }) => {
             className="flip-card-front w-full h-full rounded-xl sm:rounded-2xl shadow-2xl shadow-sky-900/50 overflow-hidden"
             style={{
               backfaceVisibility: 'hidden',
-              height: '20rem',
+              height: '18rem', // Reduced height
               position: isMobile ? 'relative' : 'absolute'
             }}
           >
@@ -1022,15 +1020,15 @@ const Service = ({ setCurrentView }) => {
                   <div className="w-2 h-2 sm:w-3 sm:h-3 bg-white/30 rounded-full transition-opacity duration-300"></div>
                 </div>
 
-                <div className="mb-4 sm:mb-6">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shadow-xl shadow-black/30 border border-white/30 group-hover:scale-110 transition-all duration-300">
+                <div className="mb-3 sm:mb-4"> {/* Reduced margin */}
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-22 md:h-22 lg:w-24 lg:h-24 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shadow-xl shadow-black/30 border border-white/30 group-hover:scale-110 transition-all duration-300"> {/* Reduced icon sizes */}
                     {cardData[id]?.customImage ? (
                       <img
                         src={cardData[id].customImage}
                         alt={frontTitle}
                         className={`object-contain ${id === 'card7' ?
-                          'w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32' :
-                          'w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20'
+                          'w-12 h-12 sm:w-16 sm:h-16 md:w-18 md:h-18 lg:w-20 lg:h-20' : // Reduced award image size
+                          'w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16' // Reduced other image sizes
                           }`}
                         onError={(e) => {
                           console.log(`${frontTitle} image failed to load, using fallback icon`);
@@ -1041,28 +1039,28 @@ const Service = ({ setCurrentView }) => {
                     ) : (
                       <FontAwesomeIcon
                         icon={icon}
-                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white"
+                        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white" // Reduced icon sizes
                       />
                     )}
                     {cardData[id]?.customImage && (
                       <FontAwesomeIcon
                         icon={icon}
-                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white"
+                        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white" // Reduced icon sizes
                         style={{ display: 'none' }}
                       />
                     )}
                   </div>
                 </div>
 
-                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-cyan-400 mb-3 sm:mb-4 drop-shadow-lg leading-tight px-2 text-center">
+                <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-cyan-400 mb-2 sm:mb-3 drop-shadow-lg leading-tight px-2 text-center"> {/* Reduced text sizes and margins */}
                   {frontTitle}
                 </h3>
 
-                <div className="flex items-center text-cyan-300/80 text-sm sm:text-base group-hover:text-cyan-300 transition-all duration-300">
+                <div className="flex items-center text-cyan-300/80 text-xs sm:text-sm group-hover:text-cyan-300 transition-all duration-300"> {/* Reduced text size */}
                   <span className="mr-2 font-medium">
                     {isMobile ? 'Tap' : 'Hover'} for details
                   </span>
-                  <FontAwesomeIcon icon={faArrowRight} className="text-xs sm:text-sm group-hover:translate-x-1 transition-transform duration-300" />
+                  <FontAwesomeIcon icon={faArrowRight} className="text-xs group-hover:translate-x-1 transition-transform duration-300" />
                 </div>
               </div>
             </div>
@@ -1075,7 +1073,7 @@ const Service = ({ setCurrentView }) => {
               backfaceVisibility: 'hidden',
               transform: 'rotateY(180deg)',
               position: 'absolute',
-              height: '20rem'
+              height: '18rem' // Reduced height
             }}
           >
             <div className="w-full h-full bg-gradient-to-br from-sky-600 via-sky-700 to-sky-800 relative overflow-hidden mirror-card">
@@ -1839,33 +1837,67 @@ const Service = ({ setCurrentView }) => {
           transform: rotateY(180deg) !important;
         }
         
-        .fixed-flip-card-height {
-          height: 20rem !important;
-          min-height: 20rem !important;
-          max-height: 20rem !important;
+        /* UPDATED MOBILE CARD SIZING - SMALLER FOR BETTER SCROLLING */
+        .mobile-smaller-card {
+          height: 16rem !important; /* Reduced from 18rem to 16rem for mobile */
+          min-height: 16rem !important;
+          max-height: 16rem !important;
         }
         
         .flip-card-container {
-          height: 20rem !important;
-          min-height: 20rem !important;
-          max-height: 20rem !important;
+          height: 18rem !important; /* Default desktop size */
+          min-height: 18rem !important;
+          max-height: 18rem !important;
           display: block;
+        }
+        
+        /* Mobile-specific smaller sizing */
+        @media (max-width: 640px) {
+          .mobile-smaller-card {
+            height: 15rem !important; /* Even smaller on very small screens */
+            min-height: 15rem !important;
+            max-height: 15rem !important;
+          }
+          
+          .flip-card-inner,
+          .flip-card-front,
+          .flip-card-back {
+            height: 15rem !important;
+            min-height: 15rem !important;
+            max-height: 15rem !important;
+          }
+        }
+        
+        @media (min-width: 641px) and (max-width: 1024px) {
+          .mobile-smaller-card {
+            height: 17rem !important; /* Medium screens */
+            min-height: 17rem !important;
+            max-height: 17rem !important;
+          }
+          
+          .flip-card-inner,
+          .flip-card-front,
+          .flip-card-back {
+            height: 17rem !important;
+            min-height: 17rem !important;
+            max-height: 17rem !important;
+          }
         }
         
         .flip-card-inner {
           width: 100%;
-          height: 20rem !important;
-          min-height: 20rem !important;
-          max-height: 20rem !important;
+          height: 18rem !important; /* Default */
+          min-height: 18rem !important;
+          max-height: 18rem !important;
           position: relative;
         }
         
         .flip-card-front,
         .flip-card-back {
           width: 100%;
-          height: 20rem !important;
-          min-height: 20rem !important;
-          max-height: 20rem !important;
+          height: 18rem !important; /* Default */
+          min-height: 18rem !important;
+          max-height: 18rem !important;
           border-radius: 0.75rem;
         }
 
@@ -2061,26 +2093,100 @@ const Service = ({ setCurrentView }) => {
           position: relative !important;
         }
 
+        /* COMPLETELY DISABLE ALL AUTOMATIC ANIMATIONS FOR BLUE CARDS */
+        .blue-cards-container .group {
+          animation: none !important;
+        }
+        
+        .blue-cards-container .group > div {
+          animation: none !important;
+        }
+        
+        .blue-cards-container .absolute {
+          animation: none !important;
+        }
+
+        /* Disable the shine effect completely unless hovered */
+        .blue-cards-container .bg-gradient-to-r {
+          transform: translateX(-200%) !important;
+          transition: none !important;
+        }
+
+        .blue-cards-container .group:hover .bg-gradient-to-r {
+          transform: translateX(200%) !important;
+          transition: transform 1000ms ease-in-out !important;
+        }
+
+        /* Disable all transform animations for blue cards */
+        .blue-cards-container .absolute.inset-0.bg-gradient-to-r {
+          animation: none !important;
+          transform: translateX(-200%) skewX(12deg) !important;
+        }
+
+        .blue-cards-container .group:hover .absolute.inset-0.bg-gradient-to-r {
+          transform: translateX(200%) skewX(12deg) !important;
+        }
+
+        /* Stop any automatic scale animations */
+        .blue-cards-container .scale-90,
+        .blue-cards-container .opacity-80 {
+          animation: none !important;
+          transition-delay: 0ms !important;
+        }
+
+        /* Disable AnimatedSection animations for blue cards only */
+        .blue-cards-container .transition-all.duration-1000.ease-out {
+          animation: none !important;
+          opacity: 1 !important;
+          transform: translateY(0) scale(1) !important;
+          transition: none !important;
+        }
+
+        /* ADDITIONAL RULES TO STOP ALL AUTOMATIC ANIMATIONS ON BLUE CARDS */
+        .blue-cards-container * {
+          animation: none !important;
+          animation-duration: 0s !important;
+          animation-delay: 0s !important;
+          animation-iteration-count: 0 !important;
+        }
+
+        /* Only allow hover transitions */
+        .blue-cards-container .group:hover * {
+          animation: none !important;
+          transition: transform 300ms ease, opacity 300ms ease, scale 300ms ease !important;
+        }
+
+        /* Specifically target the shine effect */
+        .blue-cards-container .blue-card-shine {
+          animation: none !important;
+          transform: translateX(-200%) skewX(12deg) !important;
+        }
+
+        .blue-cards-container .group:hover .blue-card-shine {
+          transform: translateX(200%) skewX(12deg) !important;
+          transition: transform 1000ms ease-in-out !important;
+        }
+
         @media (max-width: 1399px) {
           .flip-card-container {
-            height: 20rem !important;
-            min-height: 20rem !important;
-            max-height: 20rem !important;
+            height: 18rem !important;
+            min-height: 18rem !important;
+            max-height: 18rem !important;
           }
           
           .flip-card-inner {
             transform-style: flat !important;
-            height: 20rem !important;
-            min-height: 20rem !important;
-            max-height: 20rem !important;
+            height: 18rem !important;
+            min-height: 18rem !important;
+            max-height: 18rem !important;
           }
           
           .flip-card-front {
             position: relative !important;
             display: block !important;
-            height: 20rem !important;
-            min-height: 20rem !important;
-            max-height: 20rem !important;
+            height: 18rem !important;
+            min-height: 18rem !important;
+            max-height: 18rem !important;
           }
           
           .flip-card-back {
@@ -2320,6 +2426,22 @@ const Service = ({ setCurrentView }) => {
             padding-top: clamp(2rem, 6vw, 4rem);
             padding-bottom: clamp(2rem, 6vw, 4rem);
           }
+        }
+
+        /* ADDITIONAL MOBILE OPTIMIZATIONS FOR BETTER SCROLLING */
+        @media (max-width: 640px) {
+          .py-8 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+          .md\\:py-12 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+          .lg\\:py-16 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+          .xl\\:py-20 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+          
+          .gap-6 { gap: 1rem; }
+          .sm\\:gap-8 { gap: 1rem; }
+          .lg\\:gap-10 { gap: 1rem; }
+          
+          .mb-8 { margin-bottom: 1.5rem; }
+          .sm\\:mb-10 { margin-bottom: 1.5rem; }
+          .lg\\:mb-16 { margin-bottom: 1.5rem; }
         }
       `}</style>
     </>

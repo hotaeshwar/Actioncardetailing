@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Car, Clock, Plus, Calendar, ShoppingCart, ChevronLeft, ChevronRight, Check, User, Mail, Phone, MessageSquare } from 'lucide-react';
 
-const Booking = () => {
+const BookingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedVehicle, setSelectedVehicle] = useState('');
   const [selectedPackage, setSelectedPackage] = useState(null);
@@ -72,11 +72,11 @@ const Booking = () => {
   ];
 
   const addOnOptions = [
-    { id: 'pet-removal', name: 'Pet hairs removal', price: 0, duration: '0min' },
-    { id: 'headlight', name: 'Headlights Restoration (30 min)', price: 80, duration: '0min' },
-    { id: 'odor', name: 'Odor Elimination and sanitization (180 min)', price: 80, duration: '0min' },
-    { id: 'fabric', name: 'Fabric protector (carpet and seats) (40 min)', price: 80, duration: '0min' },
-    { id: 'decontamination', name: 'Decontamination Wash (30 min)', price: 30, duration: '0min' }
+    { id: 'pet-removal', name: 'Pet hairs removal', price: 0, duration: '30min' },
+    { id: 'headlight', name: 'Headlights Restoration (30 min)', price: 80, duration: '30min' },
+    { id: 'odor', name: 'Odor Elimination and sanitization (180 min)', price: 80, duration: '180min' },
+    { id: 'fabric', name: 'Fabric protector (carpet and seats) (40 min)', price: 80, duration: '40min' },
+    { id: 'decontamination', name: 'Decontamination Wash (30 min)', price: 30, duration: '30min' }
   ];
 
   const timeSlots = [
@@ -90,7 +90,7 @@ const Booking = () => {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const getDaysInMonth = (date) => {
     const year = date.getFullYear();
@@ -98,20 +98,18 @@ const Booking = () => {
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
     const daysInMonth = lastDay.getDate();
-    const startingDayOfWeek = (firstDay.getDay() + 6) % 7; // Adjust for Monday start
+    const startingDayOfWeek = firstDay.getDay();
 
     const days = [];
-    
-    // Add empty cells for days before the first day of the month
+
     for (let i = 0; i < startingDayOfWeek; i++) {
       days.push(null);
     }
-    
-    // Add days of the current month only
+
     for (let day = 1; day <= daysInMonth; day++) {
       days.push(day);
     }
-    
+
     return days;
   };
 
@@ -131,6 +129,17 @@ const Booking = () => {
     today.setHours(0, 0, 0, 0);
     const checkDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
     return checkDate < today;
+  };
+
+  const isStepValid = () => {
+    switch (currentStep) {
+      case 1: return selectedVehicle !== '';
+      case 2: return selectedPackage !== null;
+      case 3: return true; // Add-ons are optional
+      case 4: return selectedDate !== '' && selectedTime !== '';
+      case 5: return bookingData.firstName && bookingData.lastName && bookingData.email && bookingData.phone && bookingData.vehicleMake;
+      default: return false;
+    }
   };
 
   const getTotalPrice = () => {
@@ -227,38 +236,35 @@ const Booking = () => {
     });
 
     document.body.appendChild(formElement);
-    formElement.submit();
 
     alert('Booking submitted successfully! We will confirm your appointment within 24 hours.');
+
+    formElement.submit();
   };
 
   const renderStep = () => {
     switch (currentStep) {
       case 1:
         return (
-          <div className="space-y-6 md:space-y-8">
+          <div className="space-y-6">
             <div className="text-center">
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#1393c4] mb-2 md:mb-4">VEHICLE TYPE</h2>
-              <p className="text-[#1393c4] text-xs sm:text-sm md:text-base lg:text-lg">Select vehicle type below.</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">VEHICLE TYPE</h2>
+              <p className="text-gray-600 text-sm sm:text-base">Select vehicle type below.</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               {vehicleTypes.map((vehicle) => (
                 <div
                   key={vehicle.id}
                   onClick={() => handleVehicleSelect(vehicle)}
-                  className={`p-3 sm:p-4 md:p-6 lg:p-8 rounded-xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg transform hover:scale-105 ${
+                  className={`p-6 md:p-8 rounded-xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg transform hover:scale-105 ${
                     selectedVehicle.id === vehicle.id
-                      ? 'border-[#1393c4] bg-[#1393c4] text-white'
-                      : 'border-[#1393c4] hover:border-[#0d7aa1] bg-white'
+                      ? 'border-[#1393c4] bg-blue-50 text-[#1393c4]'
+                      : 'border-[#1393c4] hover:border-[#0d7aa1] text-[#1393c4] hover:bg-blue-50'
                   }`}
                 >
                   <div className="text-center">
-                    <vehicle.icon className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 mx-auto mb-2 sm:mb-3 md:mb-4 ${
-                      selectedVehicle.id === vehicle.id ? 'text-white' : 'text-[#1393c4]'
-                    }`} />
-                    <h3 className={`font-semibold text-xs sm:text-sm md:text-base lg:text-lg ${
-                      selectedVehicle.id === vehicle.id ? 'text-white' : 'text-[#1393c4]'
-                    }`}>{vehicle.name}</h3>
+                    <vehicle.icon className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 text-[#1393c4]" />
+                    <h3 className="font-semibold text-sm sm:text-base md:text-lg">{vehicle.name}</h3>
                   </div>
                 </div>
               ))}
@@ -268,36 +274,35 @@ const Booking = () => {
 
       case 2:
         return (
-          <div className="space-y-6 md:space-y-8">
+          <div className="space-y-6">
             <div className="text-center">
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#1393c4] mb-2 md:mb-4">WASH PACKAGES</h2>
-              <p className="text-[#1393c4] text-xs sm:text-sm md:text-base lg:text-lg">Which wash is best for your vehicle?</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">WASH PACKAGES</h2>
+              <p className="text-gray-600 text-sm sm:text-base">Which wash is best for your vehicle?</p>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
               {washPackages.map((pkg) => (
                 <div
                   key={pkg.id}
-                  className="bg-white rounded-xl border-2 border-[#1393c4] p-4 sm:p-6 md:p-8 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  onClick={() => handlePackageSelect(pkg)}
+                  className={`bg-white rounded-xl border-2 p-6 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 ${
+                    selectedPackage?.id === pkg.id 
+                      ? 'border-[#1393c4] bg-blue-50' 
+                      : 'border-gray-200 hover:border-[#1393c4]'
+                  }`}
                 >
-                  <div className="text-center mb-4 md:mb-6">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-[#1393c4] mb-2">{pkg.name} ({pkg.duration})</h3>
-                    <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1393c4] mb-2">
-                      {pkg.price}<span className="text-lg sm:text-xl md:text-2xl">.00 CAD</span>
+                  <div className="text-center mb-4">
+                    <h3 className="text-xl font-bold text-[#1393c4] mb-2">{pkg.name} ({pkg.duration})</h3>
+                    <div className="text-3xl font-bold text-[#1393c4] mb-2">
+                      {pkg.price}<span className="text-lg">.00 CAD</span>
                     </div>
                   </div>
-                  <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
+                  <div className="space-y-2">
                     {pkg.features.map((feature, index) => (
-                      <p key={index} className="text-xs sm:text-sm md:text-base text-[#1393c4] leading-relaxed">
+                      <p key={index} className="text-sm text-gray-600 leading-relaxed">
                         {feature}
                       </p>
                     ))}
                   </div>
-                  <button
-                    onClick={() => handlePackageSelect(pkg)}
-                    className="w-full bg-[#1393c4] hover:bg-[#0d7aa1] text-white py-2 sm:py-3 px-4 sm:px-6 rounded-full font-semibold transition-colors duration-300 text-sm sm:text-base"
-                  >
-                    Book Now
-                  </button>
                 </div>
               ))}
             </div>
@@ -306,22 +311,22 @@ const Booking = () => {
 
       case 3:
         return (
-          <div className="space-y-6 md:space-y-8">
+          <div className="space-y-6">
             <div className="text-center">
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#1393c4] mb-2 md:mb-4">ADD-ON OPTIONS</h2>
-              <p className="text-[#1393c4] text-xs sm:text-sm md:text-base lg:text-lg">Add services to your package.</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">ADD-ON OPTIONS</h2>
+              <p className="text-gray-600 text-sm sm:text-base">Add services to your package.</p>
             </div>
-            <div className="space-y-3 sm:space-y-4">
+            <div className="space-y-4">
               {addOnOptions.map((addon) => (
                 <div
                   key={addon.id}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 md:p-6 bg-white rounded-xl border-2 border-[#1393c4] hover:border-[#0d7aa1] transition-colors duration-300"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between p-6 bg-white rounded-xl border-2 border-gray-200 hover:border-[#1393c4] transition-colors duration-300"
                 >
                   <div className="flex-1 mb-3 sm:mb-0">
-                    <h3 className="font-semibold text-[#1393c4] text-sm sm:text-base md:text-lg mb-1">{addon.name}</h3>
-                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-[#1393c4]">
+                    <h3 className="font-semibold text-[#1393c4] text-lg mb-1">{addon.name}</h3>
+                    <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
                       <span className="flex items-center">
-                        <Clock className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                        <Clock className="w-4 h-4 mr-1" />
                         {addon.duration}
                       </span>
                       <span className="font-semibold text-[#1393c4]">
@@ -331,10 +336,10 @@ const Booking = () => {
                   </div>
                   <button
                     onClick={() => handleAddOnToggle(addon)}
-                    className={`px-3 sm:px-4 md:px-6 py-2 rounded-full font-semibold transition-colors duration-300 text-xs sm:text-sm md:text-base ${
+                    className={`px-6 py-2 rounded-full font-semibold transition-colors duration-300 ${
                       selectedAddOns.find(item => item.id === addon.id)
                         ? 'bg-[#1393c4] text-white'
-                        : 'bg-white border border-[#1393c4] text-[#1393c4] hover:bg-[#1393c4] hover:text-white'
+                        : 'border-2 border-[#1393c4] text-[#1393c4] hover:bg-[#1393c4] hover:text-white'
                     }`}
                   >
                     {selectedAddOns.find(item => item.id === addon.id) ? 'Selected' : 'Select'}
@@ -345,7 +350,7 @@ const Booking = () => {
             <div className="text-center">
               <button
                 onClick={handleNext}
-                className="bg-[#1393c4] hover:bg-[#0d7aa1] text-white px-6 sm:px-8 py-3 rounded-full font-semibold transition-colors duration-300 text-sm sm:text-base"
+                className="bg-[#1393c4] hover:bg-[#0d7aa1] text-white px-8 py-3 rounded-full font-semibold transition-colors duration-300"
               >
                 Continue
               </button>
@@ -355,102 +360,89 @@ const Booking = () => {
 
       case 4:
         return (
-          <div className="space-y-6 md:space-y-8">
+          <div className="space-y-6">
             <div className="text-center">
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#1393c4] mb-2 md:mb-4">SELECT DATE AND TIME</h2>
-              <p className="text-[#1393c4] text-xs sm:text-sm md:text-base lg:text-lg">Click on any date and time to make a booking.</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">SELECT DATE AND TIME</h2>
+              <p className="text-gray-600 text-sm sm:text-base">Choose your preferred date and time.</p>
             </div>
-            
-            <div className="bg-white rounded-xl border-2 border-[#1393c4] p-3 sm:p-4 md:p-6 max-w-4xl mx-auto">
-              {/* Calendar Header */}
-              <div className="flex items-center justify-between mb-4 md:mb-6">
-                <button
-                  onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}
-                  className="p-2 hover:bg-gray-100 rounded-lg text-[#1393c4] transition-colors"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-[#1393c4]">
+
+            <div className="bg-white rounded-xl border-2 border-gray-200 p-6 max-w-4xl mx-auto">
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-2xl font-semibold text-[#1393c4]">
                   {months[currentMonth.getMonth()]} {currentMonth.getFullYear()}
                 </div>
-                
-                <button
-                  onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}
-                  className="p-2 hover:bg-gray-100 rounded-lg text-[#1393c4] transition-colors"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}
+                    className="p-3 hover:bg-gray-100 rounded-lg text-[#1393c4] transition-colors duration-200"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}
+                    className="p-3 hover:bg-gray-100 rounded-lg text-[#1393c4] transition-colors duration-200"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
 
-              {/* Days of week header */}
-              <div className="grid grid-cols-7 gap-1 mb-3">
+              <div className="grid grid-cols-7 gap-2 mb-4">
                 {daysOfWeek.map(day => (
-                  <div key={day} className="text-center text-sm font-semibold text-[#1393c4] py-2">
+                  <div key={day} className="text-center text-sm font-medium text-[#1393c4] py-2 bg-gray-50 rounded">
                     {day}
                   </div>
                 ))}
               </div>
 
-              {/* Calendar Days */}
-              <div className="grid grid-cols-7 gap-1 mb-6">
-                {getDaysInMonth(currentMonth).map((day, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleDateSelect(day)}
-                    disabled={!day || isPastDate(day)}
-                    className={`
-                      aspect-square flex items-center justify-center text-sm font-medium rounded-lg transition-all duration-200
-                      ${!day ? 'invisible' : ''}
-                      ${isPastDate(day) ? 'text-gray-300 cursor-not-allowed' : 'hover:bg-gray-100 cursor-pointer'}
-                      ${isToday(day) ? 'bg-[#1393c4] text-white font-bold' : ''}
-                      ${selectedDate.includes(`${day}`) && selectedDate.includes(months[currentMonth.getMonth()]) ? 'bg-[#1393c4] text-white font-bold' : day && !isPastDate(day) ? 'text-[#1393c4] hover:text-[#0d7aa1]' : ''}
-                    `}
-                  >
-                    {day}
-                  </button>
-                ))}
-              </div>
+              <div className="grid grid-cols-7 gap-2 mb-8">
+                {getDaysInMonth(currentMonth).map((day, index) => {
+                  const isSelected = selectedDate === `${months[currentMonth.getMonth()]} ${day}, ${currentMonth.getFullYear()}`;
 
-              {/* Selected Date Display */}
-              {selectedDate && (
-                <div className="text-center mb-4">
-                  <p className="text-[#1393c4] font-semibold">Selected Date: {selectedDate}</p>
-                </div>
-              )}
-
-              {/* Time Slots */}
-              <div>
-                <h3 className="text-lg font-bold text-[#1393c4] mb-4 text-center">Available Times</h3>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
-                  {timeSlots.map(time => (
+                  return (
                     <button
-                      key={time}
-                      onClick={() => handleTimeSelect(time)}
-                      disabled={!selectedDate}
-                      className={`py-2 px-3 text-sm border rounded-lg transition-all duration-200 ${
-                        !selectedDate 
-                          ? 'border-gray-200 text-gray-300 cursor-not-allowed'
-                          : selectedTime === time
-                          ? 'bg-[#1393c4] text-white border-[#1393c4] font-bold'
-                          : 'border-[#1393c4] text-[#1393c4] hover:bg-gray-100 hover:border-[#0d7aa1] cursor-pointer'
+                      key={index}
+                      onClick={() => day && handleDateSelect(day)}
+                      disabled={!day || isPastDate(day)}
+                      className={`h-12 w-full rounded-lg text-sm font-medium transition-colors duration-200 ${
+                        !day
+                          ? 'cursor-default'
+                          : isPastDate(day)
+                          ? 'text-gray-300 cursor-not-allowed bg-gray-50'
+                          : isSelected
+                          ? 'bg-[#1393c4] text-white font-bold'
+                          : isToday(day)
+                          ? 'bg-blue-100 text-[#1393c4] border border-[#1393c4]'
+                          : 'hover:bg-blue-50 text-[#1393c4] border border-gray-200 hover:border-[#1393c4]'
                       }`}
                     >
-                      {time}
+                      {day}
                     </button>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
 
-              {/* Continue Button */}
-              {selectedDate && selectedTime && (
-                <div className="text-center mt-6">
-                  <button
-                    onClick={handleNext}
-                    className="bg-[#1393c4] hover:bg-[#0d7aa1] text-white px-8 py-3 rounded-full font-semibold transition-colors duration-300"
-                  >
-                    Continue to Booking Summary
-                  </button>
+              {selectedDate && (
+                <div className="border-t border-gray-200 pt-6">
+                  <div className="text-center mb-4">
+                    <p className="text-[#1393c4] font-semibold text-lg">Selected: {selectedDate}</p>
+                  </div>
+                  <h3 className="text-xl font-semibold text-[#1393c4] mb-4 text-center">Available Times</h3>
+                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                    {timeSlots.map(time => (
+                      <button
+                        key={time}
+                        onClick={() => handleTimeSelect(time)}
+                        className={`py-3 px-4 text-sm font-medium rounded-lg border-2 transition-colors duration-200 ${
+                          selectedTime === time
+                            ? 'bg-[#1393c4] text-white border-[#1393c4]'
+                            : 'bg-white text-[#1393c4] border-[#1393c4] hover:bg-blue-50'
+                        }`}
+                      >
+                        {time}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
@@ -459,108 +451,106 @@ const Booking = () => {
 
       case 5:
         return (
-          <div className="space-y-6 md:space-y-8">
+          <div className="space-y-6">
             <div className="text-center">
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#1393c4] mb-2 md:mb-4">BOOKING SUMMARY</h2>
-              <p className="text-[#1393c4] text-xs sm:text-sm md:text-base lg:text-lg">Please provide us with your contact information.</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">BOOKING SUMMARY</h2>
+              <p className="text-gray-600 text-sm sm:text-base">Please provide us with your contact information.</p>
             </div>
 
-            {/* Booking Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-6 md:mb-8">
-              <div className="bg-white rounded-xl p-3 sm:p-4 md:p-6 text-center border-2 border-[#1393c4]">
-                <Calendar className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 text-[#1393c4] mx-auto mb-2 sm:mb-3" />
-                <div className="text-xs sm:text-sm text-[#1393c4] mb-1">Your Appointment Date</div>
-                <div className="font-semibold text-sm sm:text-base text-[#1393c4]">{selectedDate || '?'}</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="bg-white rounded-xl p-6 text-center border-2 border-gray-200">
+                <Calendar className="w-12 h-12 text-[#1393c4] mx-auto mb-3" />
+                <div className="text-sm text-gray-600 mb-1">Date</div>
+                <div className="font-semibold text-[#1393c4]">{selectedDate || '?'}</div>
               </div>
-              <div className="bg-white rounded-xl p-3 sm:p-4 md:p-6 text-center border-2 border-[#1393c4]">
-                <Clock className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 text-[#1393c4] mx-auto mb-2 sm:mb-3" />
-                <div className="text-xs sm:text-sm text-[#1393c4] mb-1">Your Appointment Time</div>
-                <div className="font-semibold text-sm sm:text-base text-[#1393c4]">{selectedTime || '?'}</div>
+              <div className="bg-white rounded-xl p-6 text-center border-2 border-gray-200">
+                <Clock className="w-12 h-12 text-[#1393c4] mx-auto mb-3" />
+                <div className="text-sm text-gray-600 mb-1">Time</div>
+                <div className="font-semibold text-[#1393c4]">{selectedTime || '?'}</div>
               </div>
-              <div className="bg-white rounded-xl p-3 sm:p-4 md:p-6 text-center border-2 border-[#1393c4]">
-                <ShoppingCart className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 text-[#1393c4] mx-auto mb-2 sm:mb-3" />
-                <div className="text-xs sm:text-sm text-[#1393c4] mb-1">Total Price</div>
-                <div className="font-bold text-lg sm:text-xl md:text-2xl text-[#1393c4]">{getTotalPrice()}.00 CAD</div>
+              <div className="bg-white rounded-xl p-6 text-center border-2 border-gray-200">
+                <ShoppingCart className="w-12 h-12 text-[#1393c4] mx-auto mb-3" />
+                <div className="text-sm text-gray-600 mb-1">Total</div>
+                <div className="font-bold text-xl text-[#1393c4]">{getTotalPrice()}.00 CAD</div>
               </div>
             </div>
 
-            {/* Contact Form */}
-            <div className="bg-white rounded-xl border-2 border-[#1393c4] p-4 sm:p-6 md:p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+            <div className="bg-white rounded-xl border-2 border-gray-200 p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-[#1393c4] mb-2">First name *</label>
+                  <label className="block text-sm font-medium text-[#1393c4] mb-2">First name *</label>
                   <input
                     type="text"
                     name="firstName"
                     value={bookingData.firstName}
                     onChange={handleInputChange}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-[#1393c4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent bg-white text-[#1393c4] text-sm sm:text-base"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-[#1393c4] mb-2">Last name *</label>
+                  <label className="block text-sm font-medium text-[#1393c4] mb-2">Last name *</label>
                   <input
                     type="text"
                     name="lastName"
                     value={bookingData.lastName}
                     onChange={handleInputChange}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-[#1393c4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent bg-white text-[#1393c4] text-sm sm:text-base"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-[#1393c4] mb-2">Your E-mail *</label>
+                  <label className="block text-sm font-medium text-[#1393c4] mb-2">Email *</label>
                   <input
                     type="email"
                     name="email"
                     value={bookingData.email}
                     onChange={handleInputChange}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-[#1393c4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent bg-white text-[#1393c4] text-sm sm:text-base"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-[#1393c4] mb-2">Phone Number *</label>
+                  <label className="block text-sm font-medium text-[#1393c4] mb-2">Phone *</label>
                   <input
                     type="tel"
                     name="phone"
                     value={bookingData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-[#1393c4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent bg-white text-[#1393c4] text-sm sm:text-base"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
                     required
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-xs sm:text-sm font-medium text-[#1393c4] mb-2">Vehicle Make and Model *</label>
+                  <label className="block text-sm font-medium text-[#1393c4] mb-2">Vehicle Make and Model *</label>
                   <input
                     type="text"
                     name="vehicleMake"
                     value={bookingData.vehicleMake}
                     onChange={handleInputChange}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-[#1393c4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent bg-white text-[#1393c4] text-sm sm:text-base"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent"
                     required
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-xs sm:text-sm font-medium text-[#1393c4] mb-2">Message</label>
+                  <label className="block text-sm font-medium text-[#1393c4] mb-2">Message</label>
                   <textarea
                     name="message"
                     value={bookingData.message}
                     onChange={handleInputChange}
                     rows={4}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-[#1393c4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent resize-none bg-white text-[#1393c4] text-sm sm:text-base"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1393c4] focus:border-transparent resize-none"
                   />
                 </div>
               </div>
 
-              <div className="mt-6 md:mt-8 text-center">
-                <p className="text-xs sm:text-sm text-[#1393c4] mb-4 md:mb-6 leading-relaxed">
-                  We will confirm your appointment with you by phone or e-mail within 24 hours of your request. Vehicle pickup will be the next day for services scheduled later in the afternoon.
+              <div className="mt-8 text-center">
+                <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+                  We will confirm your appointment within 24 hours.
                 </p>
                 <button
                   onClick={handleSubmit}
-                  className="bg-[#1393c4] hover:bg-[#0d7aa1] text-white px-6 sm:px-8 md:px-12 py-3 sm:py-4 rounded-full font-semibold text-sm sm:text-base md:text-lg transition-colors duration-300"
+                  className="bg-[#1393c4] hover:bg-[#0d7aa1] text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
                 >
                   Confirm Booking
                 </button>
@@ -575,25 +565,30 @@ const Booking = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-4 sm:py-6 md:py-8 lg:py-12 px-2 sm:px-4 md:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">A La Carte Package Form</h1>
+        </div>
+
         {/* Progress Indicator */}
-        <div className="flex items-center justify-center mb-6 sm:mb-8 md:mb-12 px-4">
+        <div className="flex items-center justify-center mb-12">
           <div className="flex items-center w-full max-w-2xl">
             {[1, 2, 3, 4, 5].map((step) => (
               <React.Fragment key={step}>
                 <div className="flex-1 flex items-center">
-                  <div className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base lg:text-lg mx-auto ${
+                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-bold mx-auto ${
                     step <= currentStep 
                       ? 'bg-[#1393c4] text-white shadow-lg' 
                       : 'bg-white text-[#1393c4] border-2 border-[#1393c4]'
                   }`}>
-                    {step < currentStep ? <Check className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" /> : step}
+                    {step < currentStep ? <Check className="w-5 h-5 md:w-6 md:h-6" /> : step}
                   </div>
                 </div>
                 {step < 5 && (
-                  <div className="flex-1 flex items-center px-2 sm:px-3 md:px-4">
-                    <div className={`w-full h-1 sm:h-1.5 md:h-2 rounded-full ${step < currentStep ? 'bg-[#1393c4]' : 'bg-gray-300'}`} />
+                  <div className="flex-1 flex items-center px-4">
+                    <div className={`w-full h-2 rounded-full ${step < currentStep ? 'bg-[#1393c4]' : 'bg-gray-300'}`} />
                   </div>
                 )}
               </React.Fragment>
@@ -602,25 +597,43 @@ const Booking = () => {
         </div>
 
         {/* Step Content */}
-        <div className="bg-white rounded-xl shadow-xl p-3 sm:p-4 md:p-6 lg:p-8 xl:p-12 border border-[#1393c4]">
+        <div className="bg-white rounded-xl shadow-xl p-8 border border-gray-200">
           {renderStep()}
         </div>
 
         {/* Navigation Buttons */}
-        {currentStep > 1 && currentStep < 5 && (
-          <div className="flex justify-between mt-4 sm:mt-6 md:mt-8">
+        <div className="flex justify-between mt-8">
+          <button
+            onClick={handlePrev}
+            disabled={currentStep === 1}
+            className={`flex items-center space-x-2 py-3 px-6 rounded-lg font-medium transition-all duration-200 ${
+              currentStep === 1
+                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                : 'bg-white border-2 border-[#1393c4] text-[#1393c4] hover:bg-[#1393c4] hover:text-white shadow-md hover:shadow-lg'
+            }`}
+          >
+            <ChevronLeft className="w-5 h-5" />
+            <span>Previous</span>
+          </button>
+
+          {currentStep < 5 && (
             <button
-              onClick={handlePrev}
-              className="flex items-center px-3 sm:px-4 md:px-6 py-2 sm:py-3 text-[#1393c4] hover:text-[#0d7aa1] transition-colors duration-300"
+              onClick={handleNext}
+              disabled={!isStepValid()}
+              className={`flex items-center space-x-2 py-3 px-6 rounded-lg font-medium transition-all duration-200 ${
+                !isStepValid()
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'bg-[#1393c4] text-white hover:bg-[#1393c4]/90 shadow-md hover:shadow-lg'
+              }`}
             >
-              <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 mr-1 sm:mr-2" />
-              <span className="text-xs sm:text-sm md:text-base">Previous</span>
+              <span>Next</span>
+              <ChevronRight className="w-5 h-5" />
             </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Booking;
+export default BookingForm;

@@ -20,7 +20,7 @@ import DentRepairComponent from './components/DentRepairComponent'  // Import th
 import BeforeAfterVideo from './components/BeforeAfterVideo'  // Import the new Before After Video component
 import Booking from './components/Booking'  // Import the new Booking component
 import PaintPolishingForm from './components/PaintPolishingForm'  // Import the new Paint Polishing Form component
-import ServicesSection from './components/ServicesSection'  // Import the new Services Section component
+import ServicesSection from './components/ServicesSection'  // Import the updated Services Section component with local media
 import FusionPlusLite from './components/FusionPlusLite'  // Import the FUSION PLUS LITE component
 import FusionPlusLanding from './components/FusionPlusLanding'  // Import the FUSION PLUS PAINT & PPF component (renamed from Landing)
 import FusionPlusPremium from './components/FusionPlusPremium'  // Import the FUSION PLUS PREMIUM component
@@ -76,7 +76,7 @@ function App() {
         return <Booking />;
       case 'paint-polishing':  // Add the new paint polishing form case
         return <PaintPolishingForm />;
-      case 'services':  // Add the new services section case
+      case 'services':  // Updated services section with local media files (videos & images)
         return <ServicesSection />;
       case 'home':
       default:

@@ -18,19 +18,18 @@ const BusinessDescription = ({ setCurrentView }) => {
             {/* Business description text */}
             <div className="mb-4 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12">
               <span className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-relaxed sm:leading-relaxed md:leading-loose lg:leading-loose xl:leading-loose block" style={{ color: '#1393c4' }}>
-                <span className="font-semibold">Locally owned and operated since 2011</span>, 
-                specialized in <span className="font-medium">Auto Detailing</span>, 
-                <span className="font-medium">Ceramic Coating</span>, 
-                <span className="font-medium">Paint Protection Film (PPF)</span>, and 
-                <span className="font-medium"> Window tinting</span>
-                <span className="font-medium"> Paintless Dent Removal</span>. 
-                We are <span className="font-semibold">MPI accredited auto detailing shop</span>. 
-                We are proud to be member of <span className="font-semibold">CFIB and BBB with A+ rating</span>. 
-                Our reputation is backed up by several accolades that prove our years of commitment to consumer care. 
-                Our most recent has come in the form of a 
-                <span className="font-bold"> 2025 Consumer Choice Award</span>. 
-                We're proud to be the <span className="font-semibold">only winner in our industry</span>. 
-                We have team of <span className="font-medium">factory trained professionals</span> to work on your vehicle. 
+                <span className="font-semibold">Locally owned and operated since 2011</span>,
+                specialized in <span className="font-medium">deep interior cleaning</span>,
+                <span className="font-medium">paint correction</span>,
+                <span className="font-medium">Ceramic coating</span>, and
+                <span className="font-medium">Window tinting</span>.
+                We are <span className="font-semibold">MPI accredited auto detailing shop</span>.
+                We are proud to be member of <span className="font-semibold">CFIB and BBB with A+ rating</span>.
+                Our reputation is backed up by several accolades that prove our years of commitment to consumer care.
+                Our most recent has come in the form of a
+                <span className="font-bold">2025 Consumer Choice Award</span>.
+                We're proud to be the <span className="font-semibold">only winner in our industry</span>.
+                We have team of <span className="font-medium">factory trained professionals</span> to work on your vehicle.
                 We are certified <span className="font-semibold">XPEL certified dealer and installation center</span>.
               </span>
             </div>
@@ -59,17 +58,17 @@ const BusinessDescription = ({ setCurrentView }) => {
                 onMouseEnter={(e) => e.target.style.backgroundColor = '#0f7ba8'}
                 onMouseLeave={(e) => e.target.style.backgroundColor = '#1393c4'}
               >
-                <svg 
-                  className="w-3 h-3 sm:w-4 sm:h-4 md:w-4 md:h-4 lg:w-5 lg:h-5 xl:w-5 xl:h-5 mr-1 sm:mr-2 md:mr-2 lg:mr-2 xl:mr-2" 
-                  fill="none" 
-                  stroke="currentColor" 
+                <svg
+                  className="w-3 h-3 sm:w-4 sm:h-4 md:w-4 md:h-4 lg:w-5 lg:h-5 xl:w-5 xl:h-5 mr-1 sm:mr-2 md:mr-2 lg:mr-2 xl:mr-2"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
                 <span className="hidden sm:inline">Learn More About Us</span>

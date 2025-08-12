@@ -105,7 +105,7 @@ const Navbar = ({ currentView, setCurrentView }) => {
   ];
 
   const serviceItems = [
-    { name: 'ALL SERVICES', href: '#services' }, // Add this as the first item
+    { name: 'OUR SERVICES', href: '#services' }, // Changed from 'ALL SERVICES' to 'OUR SERVICES'
     { name: 'AUTO DETAILING', href: '#auto-detailing' },
     { name: 'PAINT CORRECTION POLISHING', href: '#paint-correction' },
     { name: 'WINDOW TINTING', href: '#window-tinting' },
@@ -215,7 +215,7 @@ const Navbar = ({ currentView, setCurrentView }) => {
                 </a>
               </div>
 
-              {/* Stylish Mobile Menu Button with Black Color */}
+              {/* Stylish Mobile Menu Button with BLACK Color and BOLD */}
               <div className="lg:hidden flex items-center z-50 ml-auto">
                 <button
                   onClick={toggleMenu}
@@ -224,20 +224,20 @@ const Navbar = ({ currentView, setCurrentView }) => {
                 >
                   <span className="sr-only">Open main menu</span>
                   <div className="relative w-6 h-6 flex items-center justify-center">
-                    {/* Simple hamburger lines - now black */}
-                    <div className="absolute w-6 h-0.5 bg-black transition-all duration-300 ease-in-out transform" 
+                    {/* Simple hamburger lines - now BLACK and BOLD */}
+                    <div className="absolute w-6 h-1 bg-black transition-all duration-300 ease-in-out transform font-black" 
                          style={{
                            top: isMenuOpen ? '50%' : '30%',
                            transform: isMenuOpen ? 'translateY(-50%) rotate(45deg)' : 'translateY(-50%)',
                            opacity: isMenuOpen ? 1 : 1
                          }}></div>
-                    <div className="absolute w-6 h-0.5 bg-black transition-all duration-300 ease-in-out" 
+                    <div className="absolute w-6 h-1 bg-black transition-all duration-300 ease-in-out font-black" 
                          style={{
                            top: '50%',
                            transform: 'translateY(-50%)',
                            opacity: isMenuOpen ? 0 : 1
                          }}></div>
-                    <div className="absolute w-6 h-0.5 bg-black transition-all duration-300 ease-in-out transform" 
+                    <div className="absolute w-6 h-1 bg-black transition-all duration-300 ease-in-out transform font-black" 
                          style={{
                            top: isMenuOpen ? '50%' : '70%',
                            transform: isMenuOpen ? 'translateY(-50%) rotate(-45deg)' : 'translateY(-50%)',
@@ -448,8 +448,6 @@ const Navbar = ({ currentView, setCurrentView }) => {
             color: white !important;
             box-shadow: inset 4px 0 0 var(--vivid-ozone-accent), 0 0 20px var(--vivid-ozone-glow);
           }
-
-          /* Mobile Menu Button - Removed completely */
 
           /* Mobile Navigation Items - Updated for #1393c4 background */
           .mobile-nav-link:hover {
