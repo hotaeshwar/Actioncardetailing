@@ -323,8 +323,18 @@ const BookingForm = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#1393c4] mb-4">Booking Form</h1>
-          <p className="text-gray-600">Complete your booking details below</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{color: '#1393c4'}}>Our Packages</h1>
+          <div className="w-24 h-1 bg-gray-300 mx-auto mb-6"></div>
+          <h2 className="text-2xl md:text-3xl font-semibold text-[#1393c4] mb-6">Pick your vehicle and Detailing Package</h2>
+          <p className="text-lg md:text-xl max-w-4xl mx-auto leading-relaxed mb-6" style={{color: '#1393c4'}}>
+            Please note for all the services <span style={{color: '#1393c4'}} className="font-semibold">scheduled</span> later in the <span style={{color: '#1393c4'}} className="font-semibold">afternoon</span>, <span style={{color: '#1393c4'}} className="font-semibold">the vehicle pickup will be the next day.</span>
+          </p>
+          <div className="mt-8 text-sm max-w-5xl mx-auto">
+            <p className="font-semibold mb-2" style={{color: '#1393c4'}}>Features:</p>
+            <p className="leading-relaxed" style={{color: '#1393c4'}}>
+              Booking system with 5 vehicle types, detail packages, displaying 'a la carte' services menu only and calendar time slots shown when the page first loads, Monday – Saturday working days, 24-hour time format and booking allowed up to 30 days in advance.
+            </p>
+          </div>
         </div>
 
         {/* Vehicle Selection - Always at top */}
