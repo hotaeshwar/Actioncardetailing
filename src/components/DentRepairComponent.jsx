@@ -3,7 +3,6 @@ import { CheckCircle, Shield, Clock, Star, ArrowRight, Phone } from 'lucide-reac
 import dentRepairVideo from '../assets/images/Dent Repair.mp4';
 import Footer from '../components/Footer';
 import ContactForm from '../components/ContactForm';
-import Reference1 from '../components/Reference1'; // Added import
 
 const DentRepairComponent = () => {
   const videoRef = useRef(null);
@@ -373,10 +372,10 @@ const DentRepairComponent = () => {
           
           {/* Services Section */}
           <div className={`text-center mb-12 sm:mb-16 fade-in-up ${isVisible(50) ? 'visible' : ''}`}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mb-0" style={{color: '#1393c4'}}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mb-2" style={{color: '#1393c4'}}>
               <span className="font-bold">Professional</span>
             </h3>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6" style={{color: '#1393c4'}}>
+            <h1 className="text-base sm:text-lg lg:text-xl font-bold mb-6" style={{color: '#1393c4'}}>
               <span className="font-bold">Dent Repair Services</span>
             </h1>
           </div>
@@ -409,10 +408,10 @@ const DentRepairComponent = () => {
                 {services.map((service) => (
                   activeTab === service.id && (
                     <div key={service.id} className="space-y-6 text-center">
-                      <h3 className="text-2xl sm:text-3xl font-bold" style={{color: '#1393c4'}}>
+                      <h3 className="text-xl sm:text-2xl font-bold" style={{color: '#1393c4'}}>
                         <span>{service.title}</span>
                       </h3>
-                      <p className="text-lg sm:text-xl leading-relaxed" style={{color: '#1393c4'}}>
+                      <p className="text-base sm:text-lg leading-relaxed" style={{color: '#1393c4'}}>
                         <span>{service.description}</span>
                       </p>
                       
@@ -420,13 +419,13 @@ const DentRepairComponent = () => {
                         {service.features.map((feature, index) => (
                           <div key={index} className={`flex items-center space-x-4 p-4 rounded-lg fade-in-left stagger-${index + 1} ${isVisible(200) ? 'visible' : ''}`} style={{backgroundColor: '#e6f3ff'}}>
                             <CheckCircle className="w-6 h-6 flex-shrink-0" style={{color: '#1393c4'}} />
-                            <span className="font-medium text-base sm:text-lg" style={{color: '#1393c4'}}>{feature}</span>
+                            <span className="font-medium text-sm sm:text-base" style={{color: '#1393c4'}}>{feature}</span>
                           </div>
                         ))}
                       </div>
 
                       <div className={`pt-6 fade-in-up ${isVisible(250) ? 'visible' : ''}`}>
-                        <button className="text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center space-x-3 shadow-lg hover:shadow-xl transform hover:scale-105 mx-auto" style={{backgroundColor: '#1393c4'}}>
+                        <button className="text-white px-8 py-4 rounded-xl font-bold text-base transition-all duration-300 flex items-center space-x-3 shadow-lg hover:shadow-xl transform hover:scale-105 mx-auto" style={{backgroundColor: '#1393c4'}}>
                           <span>Get Free Estimate</span>
                           <ArrowRight className="w-5 h-5" />
                         </button>
@@ -451,10 +450,10 @@ const DentRepairComponent = () => {
                     {benefit.icon}
                   </div>
                 </div>
-                <h4 className="text-xl font-bold mb-3" style={{color: '#1393c4'}}>
+                <h4 className="text-lg font-bold mb-3" style={{color: '#1393c4'}}>
                   <span>{benefit.title}</span>
                 </h4>
-                <p className="leading-relaxed" style={{color: '#1393c4'}}>
+                <p className="text-sm leading-relaxed" style={{color: '#1393c4'}}>
                   <span>{benefit.description}</span>
                 </p>
               </div>
@@ -463,21 +462,17 @@ const DentRepairComponent = () => {
 
           {/* CTA Section */}
           <div className={`bg-white rounded-3xl p-10 sm:p-16 text-center shadow-2xl border-2 scale-in ${isVisible(400) ? 'visible' : ''}`} style={{borderColor: '#1393c4'}}>
-            <h3 className="text-3xl sm:text-4xl font-bold mb-6" style={{color: '#1393c4'}}>
+            <h3 className="text-2xl sm:text-3xl font-bold mb-6" style={{color: '#1393c4'}}>
               <span className="block">Ready to Restore</span>
               <span>Your Vehicle?</span>
             </h3>
-            <p className="text-xl sm:text-2xl mb-10 leading-relaxed" style={{color: '#1393c4'}}>
+            <p className="text-lg sm:text-xl mb-10 leading-relaxed" style={{color: '#1393c4'}}>
               <span className="block">Contact Action Car Wash today for a</span>
               <span className="font-bold">free estimate</span>
               <span> on your dent repair needs</span>
             </p>
           </div>
-
-          {/* Reference1 Component - Added above ContactForm */}
-          <Reference1 />
-
-          <ContactForm />
+      <ContactForm />
         </div>
       </section>
 
