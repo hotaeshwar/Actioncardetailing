@@ -40,7 +40,7 @@ const BookingModal = ({ isOpen, onClose }) => {
 
 const CarDetailingWebsite = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(Array(8).fill(false)); // Updated to 8 for Booking + ContactForm + References sections
+  const [isVisible, setIsVisible] = useState(Array(7).fill(false)); // Updated to 7 sections (removed services)
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -356,67 +356,8 @@ const CarDetailingWebsite = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[3] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1393c4] mb-4">
-              Our Services
-            </h2>
-            <p className="text-[#1393c4] text-base max-w-3xl mx-auto">
-              Comprehensive detailing services to keep your vehicle in pristine condition
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Interior Detailing",
-                description: "Deep cleaning of seats, carpets, dashboard, and all interior surfaces",
-                features: ["Steam cleaning", "Stain removal", "Odor elimination", "Leather conditioning"]
-              },
-              {
-                title: "Exterior Detailing",
-                description: "Complete exterior wash, polish, and protection services",
-                features: ["Paint correction", "Ceramic coating", "Wax application"]
-              },
-              {
-                title: "Full Service Package",
-                description: "Complete interior and exterior detailing for the ultimate clean",
-                features: ["Interior deep clean", "Exterior polish", "Paint protection", "Quality guarantee"]
-              }
-            ].map((service, index) => (
-              <div key={index} className="bg-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-[#1393c4]/20">
-                <h3 className="text-lg font-bold text-[#1393c4] mb-2">{service.title}</h3>
-                <p className="text-[#1393c4] mb-3 text-sm">{service.description}</p>
-                <ul className="space-y-2">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-[#1393c4] text-sm">
-                      <CheckCircle className="w-4 h-4 text-[#1393c4] mr-2 flex-shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-8">
-            <button
-              onClick={openBookingModal}
-              className="bg-[#1393c4] hover:bg-[#1393c4]/80 text-white px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              Book Now
-            </button>
-            <p className="text-[#1393c4] mt-3 text-sm">
-              Customize your own detailing package with our interactive booking form
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Reviews Section */}
-      <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[4] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[3] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1393c4] mb-4">
@@ -469,21 +410,21 @@ const CarDetailingWebsite = () => {
       </section>
 
       {/* Booking Section - Using the existing Booking component */}
-      <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[5] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[4] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <Booking isModal={false} />
       </section>
 
-      {/* References Section - Added below ContactForm section */}
-      <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[7] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      {/* ContactForm Section - Added below Booking section */}
+      <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[5] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="[&>*]:before:hidden [&>*]:after:hidden [&_.loading]:hidden [&_.dots]:hidden [&_.spinner]:hidden [&_*[class*='animate']]:!animation-none">
-          <References />
+          <ContactForm />
         </div>
       </section>
 
-      {/* ContactForm Section - Added below Booking section */}
+      {/* References Section - Added below ContactForm section */}
       <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[6] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="[&>*]:before:hidden [&>*]:after:hidden [&_.loading]:hidden [&_.dots]:hidden [&_.spinner]:hidden [&_*[class*='animate']]:!animation-none">
-          <ContactForm />
+          <References />
         </div>
       </section>
 
