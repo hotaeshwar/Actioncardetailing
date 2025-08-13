@@ -360,19 +360,24 @@ const CarDetailingWebsite = () => {
       <section className={`animate-section py-12 sm:py-16 bg-white transition-all duration-1000 ease-in-out ${isVisible[3] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1393c4] mb-4">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1393c4] mb-4">
               Read some of our Reviews
             </h2>
 
-            <div className="inline-flex items-center justify-center bg-white border-2 border-[#1393c4] rounded-full p-1 shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center">
+            <a 
+              href="https://www.google.com/search?q=Action+Car+Detailing%2C+1143+Sanford+St%2C+Winnipeg%2C+MB+R3E+3A1&rlz=1C1CHBF_enCA782CA782&oq=action&aqs=chrome.1.69i60j69i59l2j69i57j69i60l3j69i65.3647j0j4&sourceid=chrome&ie=UTF-8#lrd=0x52ea739fed0ea273:0x8650232388e22059,1,,,"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-white border-2 border-[#1393c4] rounded-full p-1 shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+            >
+              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white rounded-full flex items-center justify-center">
                 <img
                   src={googlePng}
                   alt="Google Reviews"
-                  className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
+                  className="w-14 h-14 sm:w-16 sm:h-16 object-contain"
                 />
               </div>
-            </div>
+            </a>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
