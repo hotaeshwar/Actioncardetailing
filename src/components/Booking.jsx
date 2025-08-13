@@ -19,29 +19,29 @@ const BookingForm = () => {
   });
 
   const vehicleTypes = [
-    { 
-      id: 'coupe', 
-      name: 'Coupe (2 doors) size car', 
-      icon: Car, 
-      selected: false 
+    {
+      id: 'coupe',
+      name: 'Coupe (2 doors) size car',
+      icon: Car,
+      selected: false
     },
-    { 
-      id: 'sedan', 
-      name: 'Sedan (4 doors)', 
-      icon: Car, 
-      selected: false 
+    {
+      id: 'sedan',
+      name: 'Sedan (4 doors)',
+      icon: Car,
+      selected: false
     },
-    { 
-      id: 'compact-suv', 
-      name: 'Compact Small SUV', 
-      icon: Truck, 
-      selected: false 
+    {
+      id: 'compact-suv',
+      name: 'Compact Small SUV',
+      icon: Truck,
+      selected: false
     },
-    { 
-      id: 'large-suv', 
-      name: 'Large SUV/Van/Truck', 
-      icon: Truck, 
-      selected: false 
+    {
+      id: 'large-suv',
+      name: 'Large SUV/Van/Truck',
+      icon: Truck,
+      selected: false
     }
   ];
 
@@ -58,7 +58,7 @@ const BookingForm = () => {
 
   const getWashPackages = () => {
     const pricing = selectedVehicle ? getPackagePricing(selectedVehicle.id) : getPackagePricing('coupe');
-    
+
     return [
       {
         id: 'silver',
@@ -176,11 +176,11 @@ const BookingForm = () => {
     setSelectedVehicle(vehicle);
     // Reset selected package when vehicle changes to update pricing
     setSelectedPackage(null);
-    
+
     // Trigger price animation
     setPriceAnimation(true);
     setTimeout(() => setPriceAnimation(false), 600);
-    
+
     // Auto-scroll to packages section after vehicle selection
     setTimeout(() => {
       const packagesSection = document.getElementById('packages-section');
@@ -192,7 +192,7 @@ const BookingForm = () => {
 
   const handlePackageSelect = (pkg) => {
     setSelectedPackage(pkg);
-    
+
     // Auto-scroll to add-ons section after package selection
     setTimeout(() => {
       const addonsSection = document.getElementById('addons-section');
@@ -211,7 +211,7 @@ const BookingForm = () => {
         return [...prev, addon];
       }
     });
-    
+
     // Auto-scroll to date section after any add-on interaction
     setTimeout(() => {
       const dateSection = document.getElementById('date-section');
@@ -225,7 +225,7 @@ const BookingForm = () => {
     if (day && !isPastDate(day)) {
       const selected = `${months[currentMonth.getMonth()]} ${day}, ${currentMonth.getFullYear()}`;
       setSelectedDate(selected);
-      
+
       // Auto-scroll to time slots when date is selected
       setTimeout(() => {
         const timeSlots = document.querySelector('.grid.grid-cols-3.sm\\:grid-cols-4.md\\:grid-cols-6');
@@ -238,7 +238,7 @@ const BookingForm = () => {
 
   const handleTimeSelect = (time) => {
     setSelectedTime(time);
-    
+
     // Auto-scroll to contact section when both date and time are selected
     if (selectedDate && time) {
       setTimeout(() => {
@@ -259,15 +259,14 @@ const BookingForm = () => {
   };
 
   const generateBookingId = () => {
-    const timestamp = Date.now().toString(36);
-    const randomStr = Math.random().toString(36).substring(2, 8);
-    return `ACW-${timestamp}-${randomStr}`.toUpperCase();
+    const timestamp = Date.now();
+    const randomNum = Math.floor(Math.random() * 900000) + 100000;
+    return `ACD-${timestamp}-${randomNum}`;
   };
-
   const isFormValid = () => {
-    return selectedVehicle && selectedPackage && selectedDate && selectedTime && 
-           bookingData.firstName && bookingData.lastName && bookingData.email && 
-           bookingData.phone && bookingData.vehicleMake;
+    return selectedVehicle && selectedPackage && selectedDate && selectedTime &&
+      bookingData.firstName && bookingData.lastName && bookingData.email &&
+      bookingData.phone && bookingData.vehicleMake;
   };
 
   const handleSubmit = async () => {
@@ -323,15 +322,15 @@ const BookingForm = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{color: '#1393c4'}}>Our Packages</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#1393c4' }}>Our Packages</h1>
           <div className="w-24 h-1 bg-gray-300 mx-auto mb-6"></div>
           <h2 className="text-2xl md:text-3xl font-semibold text-[#1393c4] mb-6">Pick your vehicle and Detailing Package</h2>
-          <p className="text-lg md:text-xl max-w-4xl mx-auto leading-relaxed mb-6" style={{color: '#1393c4'}}>
-            Please note for all the services <span style={{color: '#1393c4'}} className="font-semibold">scheduled</span> later in the <span style={{color: '#1393c4'}} className="font-semibold">afternoon</span>, <span style={{color: '#1393c4'}} className="font-semibold">the vehicle pickup will be the next day.</span>
+          <p className="text-lg md:text-xl max-w-4xl mx-auto leading-relaxed mb-6" style={{ color: '#1393c4' }}>
+            Please note for all the services <span style={{ color: '#1393c4' }} className="font-semibold">scheduled</span> later in the <span style={{ color: '#1393c4' }} className="font-semibold">afternoon</span>, <span style={{ color: '#1393c4' }} className="font-semibold">the vehicle pickup will be the next day.</span>
           </p>
           <div className="mt-8 text-sm max-w-5xl mx-auto">
-            <p className="font-semibold mb-2" style={{color: '#1393c4'}}>Features:</p>
-            <p className="leading-relaxed" style={{color: '#1393c4'}}>
+            <p className="font-semibold mb-2" style={{ color: '#1393c4' }}>Features:</p>
+            <p className="leading-relaxed" style={{ color: '#1393c4' }}>
               Booking system with 5 vehicle types, detail packages, displaying 'a la carte' services menu only and calendar time slots shown when the page first loads, Monday – Saturday working days, 24-hour time format and booking allowed up to 30 days in advance.
             </p>
           </div>
@@ -350,11 +349,10 @@ const BookingForm = () => {
                 <div
                   key={vehicle.id}
                   onClick={() => handleVehicleSelect(vehicle)}
-                  className={`p-6 md:p-8 rounded-xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg transform hover:scale-105 ${
-                    selectedVehicle.id === vehicle.id
+                  className={`p-6 md:p-8 rounded-xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg transform hover:scale-105 ${selectedVehicle.id === vehicle.id
                       ? 'border-[#1393c4] bg-blue-50 text-[#1393c4]'
                       : 'border-[#1393c4] hover:border-[#0d7aa1] text-[#1393c4] hover:bg-blue-50'
-                  }`}
+                    }`}
                 >
                   <div className="text-center">
                     <IconComponent className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 text-[#1393c4]" />
@@ -385,21 +383,18 @@ const BookingForm = () => {
               <div
                 key={pkg.id}
                 onClick={() => selectedVehicle && handlePackageSelect(pkg)}
-                className={`bg-white rounded-xl border-2 p-6 transition-all duration-300 transform ${
-                  !selectedVehicle 
-                    ? 'opacity-50 cursor-not-allowed' 
+                className={`bg-white rounded-xl border-2 p-6 transition-all duration-300 transform ${!selectedVehicle
+                    ? 'opacity-50 cursor-not-allowed'
                     : 'hover:shadow-xl cursor-pointer hover:scale-105'
-                } ${
-                  selectedPackage?.id === pkg.id 
-                    ? 'border-[#1393c4] bg-blue-50' 
+                  } ${selectedPackage?.id === pkg.id
+                    ? 'border-[#1393c4] bg-blue-50'
                     : 'border-gray-200 hover:border-[#1393c4]'
-                }`}
+                  }`}
               >
                 <div className="text-center mb-4">
                   <h3 className="text-xl font-bold text-[#1393c4] mb-2">{pkg.name} ({pkg.duration})</h3>
-                  <div className={`text-3xl font-bold text-[#1393c4] mb-2 transition-all duration-500 ease-in-out ${
-                    priceAnimation ? 'transform scale-110 text-sky-400' : 'transform scale-100'
-                  }`}>
+                  <div className={`text-3xl font-bold text-[#1393c4] mb-2 transition-all duration-500 ease-in-out ${priceAnimation ? 'transform scale-110 text-sky-400' : 'transform scale-100'
+                    }`}>
                     <span className="inline-block">{pkg.price}</span><span className="text-lg">.00 CAD</span>
                   </div>
                   {selectedPackage?.id === pkg.id && selectedVehicle && (
@@ -447,11 +442,10 @@ const BookingForm = () => {
                   </div>
                   <button
                     onClick={() => handleAddOnToggle(addon)}
-                    className={`px-6 py-2 rounded-full font-semibold transition-colors duration-300 ${
-                      selectedAddOns.find(item => item.id === addon.id)
+                    className={`px-6 py-2 rounded-full font-semibold transition-colors duration-300 ${selectedAddOns.find(item => item.id === addon.id)
                         ? 'bg-[#1393c4] text-white'
                         : 'border-2 border-[#1393c4] text-[#1393c4] hover:bg-[#1393c4] hover:text-white'
-                    }`}
+                      }`}
                   >
                     {selectedAddOns.find(item => item.id === addon.id) ? 'Selected' : 'Select'}
                   </button>
@@ -513,17 +507,16 @@ const BookingForm = () => {
                     key={index}
                     onClick={() => day && selectedPackage && handleDateSelect(day)}
                     disabled={!day || isPastDate(day) || !selectedPackage}
-                    className={`h-12 w-full rounded-lg text-sm font-medium transition-colors duration-200 ${
-                      !day
+                    className={`h-12 w-full rounded-lg text-sm font-medium transition-colors duration-200 ${!day
                         ? 'cursor-default'
                         : !selectedPackage || isPastDate(day)
-                        ? 'text-gray-300 cursor-not-allowed bg-gray-50'
-                        : isSelected
-                        ? 'bg-[#1393c4] text-white font-bold'
-                        : isToday(day)
-                        ? 'bg-blue-100 text-[#1393c4] border border-[#1393c4]'
-                        : 'hover:bg-blue-50 text-[#1393c4] border border-gray-200 hover:border-[#1393c4]'
-                    }`}
+                          ? 'text-gray-300 cursor-not-allowed bg-gray-50'
+                          : isSelected
+                            ? 'bg-[#1393c4] text-white font-bold'
+                            : isToday(day)
+                              ? 'bg-blue-100 text-[#1393c4] border border-[#1393c4]'
+                              : 'hover:bg-blue-50 text-[#1393c4] border border-gray-200 hover:border-[#1393c4]'
+                      }`}
                   >
                     {day}
                   </button>
@@ -542,11 +535,10 @@ const BookingForm = () => {
                     <button
                       key={time}
                       onClick={() => handleTimeSelect(time)}
-                      className={`py-3 px-4 text-sm font-medium rounded-lg border-2 transition-colors duration-200 ${
-                        selectedTime === time
+                      className={`py-3 px-4 text-sm font-medium rounded-lg border-2 transition-colors duration-200 ${selectedTime === time
                           ? 'bg-[#1393c4] text-white border-[#1393c4]'
                           : 'bg-white text-[#1393c4] border-[#1393c4] hover:bg-blue-50'
-                      }`}
+                        }`}
                     >
                       {time}
                     </button>
@@ -670,11 +662,10 @@ const BookingForm = () => {
           <button
             onClick={handleSubmit}
             disabled={!isFormValid()}
-            className={`px-12 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl ${
-              isFormValid()
+            className={`px-12 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl ${isFormValid()
                 ? 'bg-[#1393c4] hover:bg-[#0d7aa1] text-white'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
+              }`}
           >
             Confirm Booking
           </button>
