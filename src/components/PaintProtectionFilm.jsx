@@ -498,12 +498,12 @@ const PaintProtectionFilm = () => {
       {/* Text Content Below Video */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-[#1393c4] via-[#1393c4] to-[#1393c4] bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 bg-gradient-to-r from-[#1393c4] via-[#1393c4] to-[#1393c4] bg-clip-text text-transparent">
             PAINT PROTECTION FILM
           </h1>
-          <p className="text-xl md:text-2xl mb-4" style={{ color: '#1393c4' }}>Say Goodbye To...</p>
+          <p className="text-lg md:text-xl mb-4" style={{ color: '#1393c4' }}>Say Goodbye To...</p>
           <div className="h-12 md:h-16 mb-8">
-            <h2 className="text-3xl md:text-5xl font-bold animate-pulse" style={{ color: '#1393c4' }}>
+            <h2 className="text-2xl md:text-3xl font-bold animate-pulse" style={{ color: '#1393c4' }}>
               {runningTexts[currentText]}
             </h2>
           </div>
@@ -514,7 +514,7 @@ const PaintProtectionFilm = () => {
       {/* Service Cards Section */}
       <section className="py-16" style={{ backgroundColor: '#f8fafc' }}>
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16" style={{ color: '#1393c4' }}>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-16" style={{ color: '#1393c4' }}>
             SELECT YOUR SERVICE
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -535,7 +535,7 @@ const PaintProtectionFilm = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold text-center mb-4" style={{ color: '#1393c4' }}>
+                  <h3 className="text-xl font-bold text-center mb-4" style={{ color: '#1393c4' }}>
                     {card.title}
                   </h3>
                   <p className="text-center leading-relaxed mb-6" style={{ color: '#1393c4' }}>
@@ -568,7 +568,7 @@ const PaintProtectionFilm = () => {
 
           {/* Video Section */}
           <div className="max-w-4xl mx-auto mb-16">
-            <h3 className="text-2xl md:text-3xl font-bold text-center mb-8" style={{ color: '#1393c4' }}>
+            <h3 className="text-xl md:text-2xl font-bold text-center mb-8" style={{ color: '#1393c4' }}>
               WATCH VIDEO
             </h3>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl" style={{ backgroundColor: '#1393c4' }}>
@@ -590,7 +590,7 @@ const PaintProtectionFilm = () => {
       {/* Why PPF Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16" style={{ color: '#1393c4' }}>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-16" style={{ color: '#1393c4' }}>
             WHY PAINT PROTECTION FILM?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
@@ -607,7 +607,7 @@ const PaintProtectionFilm = () => {
                 <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4" style={{ color: '#1393c4' }}>
                   {benefit.icon}
                 </div>
-                <h3 className="text-lg font-bold mb-3">
+                <h3 className="text-base font-bold mb-3">
                   {benefit.title}
                 </h3>
                 <p className="text-sky-100 text-sm leading-relaxed">
@@ -623,7 +623,7 @@ const PaintProtectionFilm = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold mb-8" style={{ color: '#1393c4' }}>
+            <h2 className="text-2xl md:text-3xl font-bold mb-8" style={{ color: '#1393c4' }}>
               Enjoy Peace of Mind and Protect Your Investment
             </h2>
             <p className="max-w-4xl mx-auto text-lg leading-relaxed mb-8" style={{ color: '#1393c4' }}>
@@ -643,13 +643,13 @@ const PaintProtectionFilm = () => {
             </div>
             <div className="space-y-8">
               <div>
-                <h3 className="text-2xl font-bold mb-4" style={{ color: '#1393c4' }}>INCREASE AND RETAIN RESELL VALUE</h3>
+                <h3 className="text-xl font-bold mb-4" style={{ color: '#1393c4' }}>INCREASE AND RETAIN RESELL VALUE</h3>
                 <p className="leading-relaxed" style={{ color: '#1393c4' }}>
                   Enhance the long-term value of your vehicle with our premium protection solutions. Our cutting-edge products not only shield your car from the elements but also ensure that it's resell value remains at its peak, making it a smart investment for years to come.
                 </p>
               </div>
               <div>
-                <h3 className="text-2xl font-bold mb-4" style={{ color: '#1393c4' }}>HIGHEST LEVEL OF PROTECTION</h3>
+                <h3 className="text-xl font-bold mb-4" style={{ color: '#1393c4' }}>HIGHEST LEVEL OF PROTECTION</h3>
                 <p className="leading-relaxed" style={{ color: '#1393c4' }}>
                   Experience unmatched defense. Our advanced solutions provide the utmost protection against chips, scratches, and the elements.
                 </p>
@@ -667,7 +667,7 @@ const PaintProtectionFilm = () => {
                     alt="XPEL Ultimate Plus"
                     className="h-16 mb-4"
                   />
-                  <h3 className="text-3xl font-bold mb-4">Why XPEL?</h3>
+                  <h3 className="text-2xl font-bold mb-4">Why XPEL?</h3>
                   <p className="text-sky-100 mb-6 leading-relaxed">
                     Not all Paint Protection Film is created equally. XPEL ULTIMATE PLUS is the industry leader for a reason. A trusted non-yellowing paint protection film that can self-heal minor scratches and swirls in the top coat.
                   </p>
@@ -689,27 +689,23 @@ const PaintProtectionFilm = () => {
 
               <div className="space-y-6">
                 <div className="bg-white/20 backdrop-blur-sm p-6 rounded-xl">
-                  <h4 className="text-xl font-bold text-sky-200 mb-3">Self-Healing Topcoat</h4>
-                  <p className="text-sky-100">Constructed from a polyurethane, ULTIMATE PLUS will self-heal light scratches & swirls</p>
-                </div>
-                <div className="bg-white/20 backdrop-blur-sm p-6 rounded-xl">
-                  <h4 className="text-xl font-bold text-sky-200 mb-3">Non-Yellowing</h4>
+                  <h4 className="text-lg font-bold text-sky-200 mb-3">Non-Yellowing</h4>
                   <p className="text-sky-100">Proprietary film will not yellow from UV exposure, staying nearly invisible</p>
                 </div>
                 <div className="bg-white/20 backdrop-blur-sm p-6 rounded-xl">
-                  <h4 className="text-xl font-bold text-sky-200 mb-3">Stain Resistant</h4>
+                  <h4 className="text-lg font-bold text-sky-200 mb-3">Stain Resistant</h4>
                   <p className="text-sky-100">ULTIMATE PLUS is stain resistant & will maintain clarity against contaminants</p>
                 </div>
                 <div className="bg-white/20 backdrop-blur-sm p-6 rounded-xl">
-                  <h4 className="text-xl font-bold text-sky-200 mb-3">Prevents Wear & Tear</h4>
+                  <h4 className="text-lg font-bold text-sky-200 mb-3">Prevents Wear & Tear</h4>
                   <p className="text-sky-100">Stop rock chips, nicks & scratches in the paint, and keep your vehicle looking new</p>
                 </div>
                 <div className="bg-white/20 backdrop-blur-sm p-6 rounded-xl">
-                  <h4 className="text-xl font-bold text-sky-200 mb-3">Edge Seal Technology</h4>
+                  <h4 className="text-lg font-bold text-sky-200 mb-3">Edge Seal Technology</h4>
                   <p className="text-sky-100">Lifting & delamination are a thing of the past as our Edge Seal Technology ensures film stays stuck & keeps surfaces protected</p>
                 </div>
                 <div className="bg-white/20 backdrop-blur-sm p-6 rounded-xl">
-                  <h4 className="text-xl font-bold text-sky-200 mb-3">Warranty and Durability</h4>
+                  <h4 className="text-lg font-bold text-sky-200 mb-3">Warranty and Durability</h4>
                   <p className="text-sky-100">Superior Impact Protection and Industry Leading 10 Year Warranty</p>
                 </div>
               </div>
@@ -721,7 +717,7 @@ const PaintProtectionFilm = () => {
       {/* Financing Section */}
       <section className="py-16 bg-sky-50">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ color: '#1393c4' }}>
+          <h2 className="text-2xl md:text-3xl font-bold mb-8" style={{ color: '#1393c4' }}>
             FINANCING AVAILABLE
           </h2>
           <p className="mb-8" style={{ color: '#1393c4' }}>Click below to learn more</p>
@@ -737,7 +733,7 @@ const PaintProtectionFilm = () => {
       {/* Packages Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16" style={{ color: '#1393c4' }}>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-16" style={{ color: '#1393c4' }}>
             SELECT YOUR COVERAGE
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -757,8 +753,8 @@ const PaintProtectionFilm = () => {
                     alt={pkg.name}
                     className="w-full h-32 object-contain mb-4"
                   />
-                  <h3 className="text-xl font-bold text-sky-200 mb-2">{pkg.name}</h3>
-                  <div className="text-2xl font-bold mb-2">Starting at {pkg.price}</div>
+                  <h3 className="text-lg font-bold text-sky-200 mb-2">{pkg.name}</h3>
+                  <div className="text-xl font-bold mb-2">Starting at {pkg.price}</div>
                   <div className="text-sky-100">Service Time {pkg.serviceTime}</div>
                 </div>
 
@@ -797,17 +793,17 @@ const PaintProtectionFilm = () => {
               />
             </div>
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#1393c4' }}>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6" style={{ color: '#1393c4' }}>
                 THE ROAD DOESN'T HAVE TO WIN...
               </h2>
               <div className="space-y-4 mb-8" style={{ color: '#1393c4' }}>
                 <p>We get it. The thought of rock chips, scratches, weathering, oxidation, UV rays, stains, and fading create STRESS and ANXIETY.</p>
                 <p>Fact- There is 100% chance that doing nothing will ensure inevitable damage!</p>
-                <p className="text-xl font-semibold">We Provide The Peace of mind you and your vehicle deserve</p>
+                <p className="text-lg font-semibold">We Provide The Peace of mind you and your vehicle deserve</p>
               </div>
               <button
                 onClick={handleGetQuote}
-                className="text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                className="text-white px-8 py-4 rounded-full text-base font-semibold transition-all duration-300 transform hover:scale-105"
                 style={{ background: `linear-gradient(to right, #1393c4, #0e7aa3)` }}
               >
                 Get A Free Quote
@@ -830,7 +826,7 @@ const PaintProtectionFilm = () => {
           </p>
           <button
             onClick={handleGetQuote}
-            className="text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105"
+            className="text-white px-8 py-4 rounded-full text-base font-semibold transition-all duration-300 transform hover:scale-105"
             style={{ background: `linear-gradient(to right, #1393c4, #0e7aa3)` }}
           >
             Get A Free Quote
@@ -842,10 +838,10 @@ const PaintProtectionFilm = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4" style={{ color: '#1393c4' }}>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: '#1393c4' }}>
               DISCOVER THE HIGHEST LEVEL OF PAINT PROTECTION FILM IN WINNIPEG
             </h2>
-            <h3 className="text-2xl font-bold mb-8" style={{ color: '#1393c4' }}>
+            <h3 className="text-xl font-bold mb-8" style={{ color: '#1393c4' }}>
               WHY DO I NEED PAINT PROTECTION FILM?
             </h3>
           </div>
@@ -865,7 +861,7 @@ const PaintProtectionFilm = () => {
                   onClick={() => toggleFAQ(index)}
                   className="w-full p-6 text-left flex justify-between items-center hover:bg-sky-500/50 transition-colors duration-300 text-white"
                 >
-                  <h4 className="text-xl font-semibold">{faq.question}</h4>
+                  <h4 className="text-lg font-semibold">{faq.question}</h4>
                   {openFAQ === index ? (
                     <ChevronUp className="w-6 h-6 text-sky-200" />
                   ) : (
