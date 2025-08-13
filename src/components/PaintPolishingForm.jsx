@@ -8,7 +8,6 @@ const PaintPolishingForm = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [priceAnimation, setPriceAnimation] = useState(false);
   const [bookingData, setBookingData] = useState({
     firstName: '',
     lastName: '',
@@ -135,9 +134,6 @@ const PaintPolishingForm = () => {
     setSelectedVehicle(vehicle);
     setSelectedPackage(null);
     
-    setPriceAnimation(true);
-    setTimeout(() => setPriceAnimation(false), 600);
-    
     setTimeout(() => {
       const packagesSection = document.getElementById('packages-section');
       if (packagesSection) {
@@ -211,9 +207,9 @@ const PaintPolishingForm = () => {
   };
 
   const generateBookingId = () => {
-    const timestamp = Date.now().toString(36);
-    const randomStr = Math.random().toString(36).substring(2, 8);
-    return `PPB-${timestamp}-${randomStr}`.toUpperCase();
+    const timestamp = Date.now();
+    const randomNum = Math.floor(Math.random() * 10000);
+    return `PPF-${timestamp}${randomNum}`;
   };
 
   const isFormValid = () => {
@@ -318,7 +314,7 @@ const PaintPolishingForm = () => {
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1393c4] mb-4">2. PAINT POLISHING PACKAGES</h2>
             <p className="text-gray-600">Which paint polishing service is best for your vehicle?</p>
             {!selectedVehicle && (
-              <p className="text-orange-500 text-sm mt-2">Please select a vehicle type above first</p>
+              <p className="text-blue-400 text-sm mt-2">Please select a vehicle type above first</p>
             )}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -339,13 +335,11 @@ const PaintPolishingForm = () => {
                 <div className="text-center mb-4">
                   <h3 className="text-xl font-bold text-[#1393c4] mb-2">{pkg.name}</h3>
                   <div className="text-sm text-gray-600 mb-2">({pkg.duration})</div>
-                  <div className={`text-3xl font-bold text-[#1393c4] mb-2 transition-all duration-500 ease-in-out ${
-                    priceAnimation ? 'transform scale-110 text-blue-400 shadow-lg' : 'transform scale-100'
-                  }`}>
-                    <span className="inline-block">{pkg.price}</span><span className="text-lg">.00 CAD</span>
+                  <div className="text-3xl font-bold text-[#1393c4] mb-2">
+                    <span>{pkg.price}</span><span className="text-lg">.00 CAD</span>
                   </div>
                   {selectedPackage?.id === pkg.id && selectedVehicle && (
-                    <div className="animate-bounce">
+                    <div>
                       <Check className="w-6 h-6 text-[#1393c4] mx-auto" />
                     </div>
                   )}
@@ -407,7 +401,7 @@ const PaintPolishingForm = () => {
             </h2>
             <p className="text-gray-600">Choose your preferred date and time.</p>
             {!selectedPackage && (
-              <p className="text-orange-500 text-sm mt-2">Please select a package first</p>
+              <p className="text-blue-400 text-sm mt-2">Please select a package first</p>
             )}
           </div>
 
@@ -502,7 +496,7 @@ const PaintPolishingForm = () => {
             </h2>
             <p className="text-gray-600">Please provide your contact details.</p>
             {(!selectedDate || !selectedTime) && (
-              <p className="text-orange-500 text-sm mt-2">Please select date and time first</p>
+              <p className="text-gray-500 text-sm mt-2">Please select date and time first</p>
             )}
           </div>
 
