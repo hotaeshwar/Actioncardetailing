@@ -215,30 +215,40 @@ const Navbar = ({ currentView, setCurrentView }) => {
                 </a>
               </div>
 
-              {/* Stylish Mobile Menu Button with BLACK Color and BOLD */}
+              {/* Stylish Mobile Menu Button with #1393c4 Color and BOLD */}
               <div className="lg:hidden flex items-center z-50 ml-auto">
                 <button
                   onClick={toggleMenu}
-                  className="relative inline-flex items-center justify-center p-2 text-black focus:outline-none"
+                  className="relative inline-flex items-center justify-center p-2 focus:outline-none"
+                  style={{ color: '#1393c4' }}
                   aria-expanded={isMenuOpen}
                 >
                   <span className="sr-only">Open main menu</span>
                   <div className="relative w-6 h-6 flex items-center justify-center">
-                    {/* Simple hamburger lines - now BLACK and BOLD */}
-                    <div className="absolute w-6 h-1 bg-black transition-all duration-300 ease-in-out transform font-black" 
+                    {/* Hamburger lines - now #1393c4 and BOLD */}
+                    <div className="absolute w-6 h-1 transition-all duration-300 ease-in-out transform" 
                          style={{
+                           backgroundColor: '#1393c4',
+                           fontWeight: 'bold',
+                           height: '3px',
                            top: isMenuOpen ? '50%' : '30%',
                            transform: isMenuOpen ? 'translateY(-50%) rotate(45deg)' : 'translateY(-50%)',
                            opacity: isMenuOpen ? 1 : 1
                          }}></div>
-                    <div className="absolute w-6 h-1 bg-black transition-all duration-300 ease-in-out font-black" 
+                    <div className="absolute w-6 h-1 transition-all duration-300 ease-in-out" 
                          style={{
+                           backgroundColor: '#1393c4',
+                           fontWeight: 'bold',
+                           height: '3px',
                            top: '50%',
                            transform: 'translateY(-50%)',
                            opacity: isMenuOpen ? 0 : 1
                          }}></div>
-                    <div className="absolute w-6 h-1 bg-black transition-all duration-300 ease-in-out transform font-black" 
+                    <div className="absolute w-6 h-1 transition-all duration-300 ease-in-out transform" 
                          style={{
+                           backgroundColor: '#1393c4',
+                           fontWeight: 'bold',
+                           height: '3px',
                            top: isMenuOpen ? '50%' : '70%',
                            transform: isMenuOpen ? 'translateY(-50%) rotate(-45deg)' : 'translateY(-50%)',
                            opacity: isMenuOpen ? 1 : 1
