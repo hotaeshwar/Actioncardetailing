@@ -3,6 +3,7 @@ import { CheckCircle, Shield, Clock, Star, ArrowRight, Phone } from 'lucide-reac
 import dentRepairVideo from '../assets/images/Dent Repair.mp4';
 import Footer from '../components/Footer';
 import ContactForm from '../components/ContactForm';
+import Reference1 from '../components/Reference1';
 
 const DentRepairComponent = () => {
   const videoRef = useRef(null);
@@ -367,15 +368,15 @@ const DentRepairComponent = () => {
       </section>
 
       {/* Content Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-50 to-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Services Section */}
           <div className={`text-center mb-12 sm:mb-16 fade-in-up ${isVisible(50) ? 'visible' : ''}`}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mb-2" style={{color: '#1393c4'}}>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-2" style={{color: '#1393c4'}}>
               <span className="font-bold">Professional</span>
             </h3>
-            <h1 className="text-base sm:text-lg lg:text-xl font-bold mb-6" style={{color: '#1393c4'}}>
+            <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-6" style={{color: '#1393c4'}}>
               <span className="font-bold">Dent Repair Services</span>
             </h1>
           </div>
@@ -472,9 +473,14 @@ const DentRepairComponent = () => {
               <span> on your dent repair needs</span>
             </p>
           </div>
-      <ContactForm />
         </div>
       </section>
+
+      {/* Reference Section */}
+      <Reference1 />
+
+      {/* Contact Form Section */}
+      <ContactForm />
 
       {/* Footer Component */}
       <Footer />
