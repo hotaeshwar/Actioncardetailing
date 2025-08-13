@@ -492,7 +492,7 @@ const WindowTintingSite = () => {
       <section className="bg-white">
         <div className="bg-white py-16 sm:py-20 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight" style={{ color: '#1393c4' }}>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight" style={{ color: '#1393c4' }}>
               WINDOW TINTING
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl mb-4 font-medium" style={{ color: '#1393c4' }}>Say Goodbye To...</p>
