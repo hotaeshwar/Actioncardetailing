@@ -40,13 +40,29 @@ const BookingModal = ({ isOpen, onClose }) => {
 
 const CarDetailingWebsite = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(Array(7).fill(false)); // Updated to 7 sections (removed services)
+  const [isVisible, setIsVisible] = useState(Array(7).fill(false));
   const videoRef = useRef(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
+  // FIXED: Add proper video handling like Hero component
   useEffect(() => {
-    // Video handling with responsive sizing like Hero component
-    const video = videoRef.current;
+    // Check if screen is small or iPad - COPIED FROM HERO
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      const isIPad = (
+        (width === 768) || (width === 820) || (width === 834) || (width === 1024) ||
+        navigator.userAgent.includes('iPad') || 
+        (navigator.userAgent.includes('Macintosh') && 'ontouchend' in document)
+      );
+      setIsSmallScreen(width < 768 && !isIPad);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
 
+    // Optimized video handling with performance improvements - COPIED FROM HERO
+    const video = videoRef.current;
+    
     if (video) {
       // Essential settings for smooth playback
       video.muted = true;
@@ -54,20 +70,20 @@ const CarDetailingWebsite = () => {
       video.volume = 0;
       video.setAttribute('playsinline', 'true');
       video.setAttribute('webkit-playsinline', 'true');
-
+      
       // Performance optimizations for smoother playback
       video.preload = 'metadata';
       video.poster = '';
-
+      
       // Hardware acceleration and smooth rendering
       video.style.willChange = 'transform';
       video.style.backfaceVisibility = 'hidden';
-
-      // FIXED: iPad-specific video adjustments to prevent stretching
+      
+      // iPad-specific video adjustments to prevent stretching - COPIED FROM HERO
       const adjustVideoFit = () => {
         const width = window.innerWidth;
         const height = window.innerHeight;
-
+        
         // Detect iPad devices
         const isIPad = (
           (width === 768 && height === 1024) ||
@@ -78,14 +94,14 @@ const CarDetailingWebsite = () => {
           (height === 820 && width === 1180) ||
           (height === 834 && width === 1194) ||
           (height === 1024 && width === 1366) ||
-          (navigator.userAgent.includes('iPad') ||
-            (navigator.userAgent.includes('Macintosh') && 'ontouchend' in document))
+          (navigator.userAgent.includes('iPad') || 
+           (navigator.userAgent.includes('Macintosh') && 'ontouchend' in document))
         );
-
+        
         // Calculate aspect ratios
         const screenRatio = width / height;
         const videoRatio = 16 / 9; // Assuming your video is 16:9
-
+        
         // Base styles for all devices
         video.style.objectFit = 'cover';
         video.style.width = '100%';
@@ -94,9 +110,7 @@ const CarDetailingWebsite = () => {
         video.style.top = '0';
         video.style.left = '0';
         video.style.transform = 'translateZ(0)';
-        video.style.WebkitTransform = 'translateZ(0)';
-        video.style.WebkitBackfaceVisibility = 'hidden';
-
+        
         // iPad-specific positioning to prevent stretching
         if (isIPad) {
           video.style.objectPosition = 'center center';
@@ -111,22 +125,22 @@ const CarDetailingWebsite = () => {
           video.style.objectPosition = 'center 40%';
         }
       };
-
+      
       // Apply initial adjustments
       adjustVideoFit();
-
+      
       // Optimized event listeners with throttling
       let resizeTimeout;
       const throttledResize = () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(adjustVideoFit, 100);
       };
-
+      
       window.addEventListener('resize', throttledResize);
       window.addEventListener('orientationchange', () => {
         setTimeout(adjustVideoFit, 300);
       });
-
+      
       // Enhanced autoplay with better error handling
       const playVideo = async () => {
         try {
@@ -151,14 +165,14 @@ const CarDetailingWebsite = () => {
               console.log('Video play failed:', err);
             }
           };
-
+          
           document.addEventListener('click', enableVideo, { once: true });
           document.addEventListener('touchstart', enableVideo, { once: true });
         }
       };
-
+      
       setTimeout(playVideo, 100);
-
+      
       // Cleanup
       return () => {
         window.removeEventListener('resize', throttledResize);
@@ -166,7 +180,57 @@ const CarDetailingWebsite = () => {
         clearTimeout(resizeTimeout);
       };
     }
+
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
   }, []);
+
+  // FIXED: Add proper height calculation from Hero component
+  const getContainerHeight = () => {
+    if (typeof window === 'undefined') return '100vh';
+    
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    // Detect iPad devices by common resolutions
+    const isIPad = (
+      // iPad Mini: 768x1024
+      (width === 768 && height === 1024) ||
+      // iPad Air: 820x1180  
+      (width === 820 && height === 1180) ||
+      // iPad Pro 11": 834x1194
+      (width === 834 && height === 1194) ||
+      // iPad Pro 12.9": 1024x1366
+      (width === 1024 && height === 1366) ||
+      // Landscape orientations
+      (height === 768 && width === 1024) ||
+      (height === 820 && width === 1180) ||
+      (height === 834 && width === 1194) ||
+      (height === 1024 && width === 1366) ||
+      // General iPad detection for other cases
+      (navigator.userAgent.includes('iPad') || 
+       (navigator.userAgent.includes('Macintosh') && 'ontouchend' in document))
+    );
+    
+    // Mobile phones (portrait)
+    if (width < 768) {
+      return Math.min(height * 0.6, 500);
+    }
+    // iPad specific handling
+    else if (isIPad) {
+      // For iPads, use fixed height based on width to maintain proper video aspect ratio
+      return Math.min(width * 0.5625, height * 0.6); // 0.5625 = 9/16 for 16:9 aspect ratio
+    }
+    // Other tablets and small laptops
+    else if (width < 1024) {
+      return Math.min(height * 0.7, 600);
+    }
+    // Desktop
+    else {
+      return '100vh';
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -198,27 +262,62 @@ const CarDetailingWebsite = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section with Video */}
+      {/* Hero Section with Video - FIXED with proper responsive sizing */}
       <section className="relative">
-        {/* Video Container with responsive sizing */}
-        <div className="relative w-full h-screen sm:h-auto sm:aspect-video lg:h-screen overflow-hidden">
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              objectPosition: 'center center'
-            }}
-          >
-            <source src={autoDetailingVideo} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+        {/* FIXED: Video Container with proper responsive sizing like Hero */}
+        <div 
+          className="relative w-full overflow-hidden bg-black"
+          style={{ 
+            height: getContainerHeight(),
+            minHeight: isSmallScreen ? '300px' : '400px'
+          }}
+        >
+          {/* FIXED: Video background with proper positioning */}
+          <div className="absolute inset-0 z-0" style={{ height: '100%', width: '100%' }}>
+            <video
+              ref={videoRef}
+              className="w-full h-full"
+              src={autoDetailingVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster=""
+              controls={false}
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center center',
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
+                willChange: 'transform',
+                WebkitTransform: 'translateZ(0)',
+                WebkitBackfaceVisibility: 'hidden',
+                height: '100%',
+                width: '100%',
+                minHeight: '100%',
+                minWidth: '100%'
+              }}
+            />
+          </div>
+
+          {/* Responsive gradient overlay */}
+          <div className="absolute bottom-0 left-0 w-full h-1/4 sm:h-1/3 md:h-1/3 lg:h-1/3 bg-gradient-to-t from-black/40 to-transparent z-10" />
+
+          {/* Responsive scroll indicator */}
+          <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 left-1/2 transform -translate-x-1/2 z-20">
+            <div className="flex flex-col items-center">
+              <span className="text-white text-xs sm:text-sm md:text-base mb-1 sm:mb-2 tracking-widest font-medium drop-shadow-md">SCROLL</span>
+              <div className="relative">
+                <div className="absolute -inset-1 rounded-full bg-sky-500/40 animate-pulse"></div>
+                <div className="animate-bounce bg-sky-600/90 p-1.5 sm:p-2 rounded-full shadow-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Hero Content - positioned below video with reduced spacing */}
@@ -370,11 +469,11 @@ const CarDetailingWebsite = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-white border-2 border-[#1393c4] rounded-full p-1 shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
             >
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white rounded-full flex items-center justify-center">
+              <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 bg-white rounded-full flex items-center justify-center">
                 <img
                   src={googlePng}
                   alt="Google Reviews"
-                  className="w-14 h-14 sm:w-16 sm:h-16 object-contain"
+                  className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain"
                 />
               </div>
             </a>
