@@ -419,11 +419,11 @@ const CeramicCoatings = ({ setCurrentView }) => {
           {/* Responsive scroll indicator */}
           <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 left-1/2 transform -translate-x-1/2 z-20">
             <div className="flex flex-col items-center">
-              <span className="text-white text-xs sm:text-sm md:text-base mb-1 sm:mb-2 tracking-widest font-medium drop-shadow-md">SCROLL</span>
+              <span className="text-white text-sm mb-2 tracking-widest font-medium drop-shadow-md">SCROLL</span>
               <div className="relative">
                 <div className="absolute -inset-1 rounded-full bg-sky-500/40 animate-pulse"></div>
-                <div className="animate-bounce bg-sky-600/90 p-1.5 sm:p-2 rounded-full shadow-lg">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="animate-bounce bg-sky-600/90 p-2 rounded-full shadow-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>
                 </div>
@@ -435,9 +435,9 @@ const CeramicCoatings = ({ setCurrentView }) => {
 
       {/* Hero Content - positioned below video */}
       <section className="bg-white">
-        <div className="bg-white py-8 sm:py-10 lg:py-12">
+        <div className="bg-white py-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: '#1393c4' }}>
+            <h1 className="text-4xl font-bold mb-4" style={{ color: '#1393c4' }}>
               Ceramic Coatings
             </h1>
             <div className="h-1 w-32 bg-gradient-to-r from-[#1393c4] to-[#1393c4] mx-auto rounded-full opacity-70"></div>
@@ -446,13 +446,13 @@ const CeramicCoatings = ({ setCurrentView }) => {
       </section>
 
       {/* Video Section */}
-      <section className="py-8 md:py-12 bg-gradient-to-br from-white via-sky-50 to-sky-100">
+      <section className="py-12 bg-gradient-to-br from-white via-sky-50 to-sky-100">
         <div className="container mx-auto px-4">
           <div className="text-center mb-4">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1393c4] mb-2">
+            <h2 className="text-3xl font-bold text-[#1393c4] mb-2">
               NO OTHER COATING COMES CLOSE
             </h2>
-            <h3 className="text-lg md:text-xl font-semibold" style={{ color: '#1393c4' }}>
+            <h3 className="text-xl font-semibold" style={{ color: '#1393c4' }}>
               WATCH VIDEO
             </h3>
           </div>
@@ -496,20 +496,20 @@ const CeramicCoatings = ({ setCurrentView }) => {
       {/* Protection Description */}
       <section className="py-12 bg-gradient-to-r from-sky-100 via-sky-50 to-white">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-lg md:text-xl max-w-4xl mx-auto" style={{ color: '#1393c4' }}>
+          <p className="text-lg max-w-4xl mx-auto" style={{ color: '#1393c4' }}>
             <span className="font-semibold" style={{ color: '#1393c4' }}>Protect paint and surfaces</span> from wear and tear and harsh elements, exponentially reducing scratches, rock chips and maintenance.
           </p>
         </div>
       </section>
 
       {/* Look New Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-white via-sky-50 to-sky-100">
+      <section className="py-16 bg-gradient-to-br from-white via-sky-50 to-sky-100">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1393c4] mb-8">
+            <h2 className="text-3xl font-bold text-[#1393c4] mb-8">
               LOOK NEW ALL THE TIME
             </h2>
-            <p className="text-lg md:text-xl max-w-4xl mx-auto" style={{ color: '#1393c4' }}>
+            <p className="text-lg max-w-4xl mx-auto" style={{ color: '#1393c4' }}>
               XPEL Ceramic Coating is a <span className="font-semibold" style={{ color: '#1393c4' }}>liquid nano-ceramic clear coat</span>, with 3 times the hardness and self cleaning properties.
             </p>
           </div>
@@ -560,7 +560,7 @@ const CeramicCoatings = ({ setCurrentView }) => {
 
           {/* Warranty Text */}
           <div className="text-center mt-16">
-            <p className="text-lg md:text-xl max-w-5xl mx-auto bg-white p-6 rounded-xl shadow-lg" style={{ color: '#1393c4' }}>
+            <p className="text-lg max-w-5xl mx-auto bg-white p-6 rounded-xl shadow-lg" style={{ color: '#1393c4' }}>
               Each XPEL Ceramic Coating package comes with a manufacturer-backed warranty, and can be modified to include add-on protection with a layer of Ceramic Coating, or combined with interior treatments.
             </p>
           </div>
@@ -570,7 +570,7 @@ const CeramicCoatings = ({ setCurrentView }) => {
       {/* Financing Section */}
       <section className="py-12 bg-gradient-to-r from-white via-sky-50 to-sky-100 border-t border-sky-200">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#1393c4] mb-8">
+          <h2 className="text-3xl font-bold text-[#1393c4] mb-8">
             FINANCING AVAILABLE
           </h2>
 
@@ -589,21 +589,21 @@ const CeramicCoatings = ({ setCurrentView }) => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: '#1393c4' }}>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: '#1393c4' }}>
               INSTALLATION PRICING
             </h2>
-            <h3 className="text-xl md:text-2xl font-bold mb-4" style={{ color: '#1393c4' }}>
+            <h3 className="text-xl font-bold mb-4" style={{ color: '#1393c4' }}>
               BEST CERAMIC COATING PROTECTION
             </h3>
             <p className="text-lg mb-8" style={{ color: '#1393c4' }}>
               All of our Ceramic Coating packages include:
             </p>
-            <div className="text-xl space-y-2">
+            <div className="text-lg space-y-2">
               <div className="transition-colors" style={{ color: '#1393c4' }}>Exterior Wash</div>
               <div className="transition-colors" style={{ color: '#1393c4' }}>Paint Decontamination</div>
               <div className="transition-colors" style={{ color: '#1393c4' }}>Paint Prep</div>
             </div>
-            <p className="text-sm mt-8 max-w-4xl mx-auto bg-sky-50 p-4 rounded-lg" style={{ color: '#1393c4' }}>
+            <p className="text-sm mt-8 max-w-4xl mx-auto bg-white p-4 rounded-lg border border-sky-200" style={{ color: '#1393c4' }}>
               ** Paint Correction will be charged additionally. For a more accurate quote on a Paint Correction, schedule 15 minutes appointment to have your paint evaluated (free of charge and no obligation)**
             </p>
 
@@ -689,7 +689,7 @@ const CeramicCoatings = ({ setCurrentView }) => {
       {/* Add-ons Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-12" style={{ color: '#1393c4' }}>
+          <h2 className="text-3xl font-bold text-center mb-12" style={{ color: '#1393c4' }}>
             ADD-ONS
           </h2>
 
@@ -725,7 +725,7 @@ const CeramicCoatings = ({ setCurrentView }) => {
                       <div className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-1" style={{ background: '#1393c4' }}>
                         <Check className="w-2.5 h-2.5 text-white" />
                       </div>
-                      <span className="text-xs" style={{ color: '#1393c4' }}>{feature}</span>
+                      <span className="text-sm" style={{ color: '#1393c4' }}>{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -743,7 +743,7 @@ const CeramicCoatings = ({ setCurrentView }) => {
             <div className="p-8 lg:p-12">
               <div className="flex flex-col lg:flex-row items-center">
                 <div className="lg:w-1/2 mb-8 lg:mb-0">
-                  <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#1393c4] mb-8">
+                  <h2 className="text-3xl font-bold text-[#1393c4] mb-8">
                     PROTECT YOUR VEHICLE WITH XPEL FUSION PLUS CERAMIC COATING
                   </h2>
                   <div className="space-y-4">
@@ -829,12 +829,12 @@ const CeramicCoatings = ({ setCurrentView }) => {
             <div className="text-white p-8 lg:p-12" style={{ background: 'linear-gradient(45deg, #1393c4 0%, #0f7a9c 50%, #1393c4 100%)' }}>
               <div className="flex flex-col lg:flex-row items-center">
                 <div className="lg:w-1/2 mb-8 lg:mb-0">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6 drop-shadow-lg">
+                  <h2 className="text-3xl font-bold mb-6 drop-shadow-lg">
                     FUSION PLUS
-                    <span className="block text-2xl md:text-3xl">CERAMIC COATING</span>
+                    <span className="block text-2xl">CERAMIC COATING</span>
                   </h2>
 
-                  <div className="space-y-4 text-sm md:text-base">
+                  <div className="space-y-4 text-base">
                     <p className="leading-relaxed bg-white/20 backdrop-blur-sm p-4 rounded-lg">
                       Developed to perform in a wide variety of surface types, <span className="font-bold">FUSION PLUS</span> Ceramic Coating offers unrivaled gloss, superior hydrophobic protection, and improved scratch resistance.
                     </p>
