@@ -301,11 +301,11 @@ const PaintCorrection = () => {
           {/* Responsive scroll indicator */}
           <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 left-1/2 transform -translate-x-1/2 z-20">
             <div className="flex flex-col items-center">
-              <span className="text-white text-xs sm:text-sm md:text-base mb-1 sm:mb-2 tracking-widest font-medium drop-shadow-md">SCROLL</span>
+              <span className="text-white text-sm mb-2 tracking-widest font-medium drop-shadow-md">SCROLL</span>
               <div className="relative">
                 <div className="absolute -inset-1 rounded-full bg-sky-500/40 animate-pulse"></div>
-                <div className="animate-bounce bg-sky-600/90 p-1.5 sm:p-2 rounded-full shadow-lg">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="animate-bounce bg-sky-600/90 p-2 rounded-full shadow-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>
                 </div>
@@ -318,7 +318,7 @@ const PaintCorrection = () => {
       {/* Hero Content - positioned below video */}
       <section className="bg-white">
         <div 
-          className={`bg-white py-8 sm:py-12 lg:py-16 transition-all duration-1000 ease-out transform ${
+          className={`bg-white py-10 transition-all duration-1000 ease-out transform ${
             visibleSections.includes('hero') 
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-10'
@@ -326,13 +326,13 @@ const PaintCorrection = () => {
           data-section="hero"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight" style={{ color: '#1393c4' }}>
+            <h1 className="text-4xl font-bold mb-6 tracking-tight" style={{ color: '#1393c4' }}>
               PAINT CORRECTION
-              <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl mt-2" style={{ color: '#1393c4' }}>
+              <span className="block text-3xl mt-2" style={{ color: '#1393c4' }}>
                 POLISHING
               </span>
             </h1>
-            <p className="text-base sm:text-lg md:text-xl mb-8 max-w-3xl mx-auto font-medium px-6 py-4 rounded-lg border-2 bg-blue-50" style={{ color: '#1393c4', borderColor: '#1393c4' }}>
+            <p className="text-lg mb-8 max-w-3xl mx-auto font-medium px-6 py-4 rounded-lg border-2 bg-white" style={{ color: '#1393c4', borderColor: '#1393c4' }}>
               Transform your vehicle's paint to showroom perfection with our professional correction services
             </p>
           </div>
@@ -341,7 +341,7 @@ const PaintCorrection = () => {
 
       {/* Main Content Section */}
       <section 
-        className={`py-8 sm:py-12 bg-white relative overflow-hidden transition-all duration-1000 ease-out transform ${
+        className={`py-12 bg-white relative overflow-hidden transition-all duration-1000 ease-out transform ${
           visibleSections.includes('services') 
             ? 'opacity-100 translate-y-0' 
             : 'opacity-0 translate-y-10'
@@ -349,20 +349,20 @@ const PaintCorrection = () => {
         data-section="services"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style={{ color: '#1393c4' }}>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4" style={{ color: '#1393c4' }}>
               GET THAT CAR PAINT LOOKING
               <span className="block" style={{ color: '#1393c4' }}>
                 NEW AGAIN!
               </span>
             </h2>
-            <p className="text-base sm:text-lg max-w-4xl mx-auto" style={{ color: '#1393c4' }}>
+            <p className="text-lg max-w-4xl mx-auto" style={{ color: '#1393c4' }}>
               <span className="font-semibold">Eliminate imperfections</span> formed on your vehicle's paint surface back to a true shine.
             </p>
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
             {[
               {
                 icon: RotateCcw,
@@ -401,23 +401,22 @@ const PaintCorrection = () => {
                 <div 
                   key={index}
                   data-card-index={index}
-                  className={`group rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl border-2 transform transition-all duration-800 ease-out hover:-translate-y-2 ${
+                  className={`group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl border-2 transform transition-all duration-800 ease-out hover:-translate-y-2 ${
                     isVisible 
                       ? 'opacity-100 translate-y-0 scale-100' 
                       : 'opacity-0 translate-y-16 scale-95'
                   }`}
                   style={{ 
-                    backgroundColor: '#1393c4', 
                     borderColor: '#1393c4'
                   }}
                 >
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <IconComponent className="w-8 h-8" style={{ color: '#1393c4' }} />
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#1393c4' }}>
+                      <IconComponent className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-white mb-4">{service.title}</h3>
+                    <h3 className="text-lg font-bold mb-4" style={{ color: '#1393c4' }}>{service.title}</h3>
                   </div>
-                  <p className="text-white leading-relaxed text-center">{service.description}</p>
+                  <p className="leading-relaxed text-center text-sm" style={{ color: '#1393c4' }}>{service.description}</p>
                 </div>
               );
             })}
@@ -427,7 +426,7 @@ const PaintCorrection = () => {
 
       {/* Process Section */}
       <section 
-        className={`py-6 sm:py-8 bg-white relative transition-all duration-1000 ease-out transform ${
+        className={`py-12 bg-white relative transition-all duration-1000 ease-out transform ${
           visibleSections.includes('process') 
             ? 'opacity-100 translate-y-0' 
             : 'opacity-0 translate-y-10'
@@ -435,11 +434,11 @@ const PaintCorrection = () => {
         data-section="process"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6 sm:mb-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3" style={{ color: '#1393c4' }}>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-3" style={{ color: '#1393c4' }}>
               OUR PROCESS
             </h2>
-            <p className="text-base sm:text-lg max-w-3xl mx-auto" style={{ color: '#1393c4' }}>
+            <p className="text-lg max-w-3xl mx-auto" style={{ color: '#1393c4' }}>
               Professional paint correction through our proven 4-step process
             </p>
           </div>
@@ -491,8 +490,8 @@ const PaintCorrection = () => {
                     {process.step}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg sm:text-xl font-bold mb-2" style={{ color: '#1393c4' }}>{process.title}</h3>
-                    <p className="leading-relaxed" style={{ color: '#1393c4' }}>{process.description}</p>
+                    <h3 className="text-lg font-bold mb-2" style={{ color: '#1393c4' }}>{process.title}</h3>
+                    <p className="leading-relaxed text-sm" style={{ color: '#1393c4' }}>{process.description}</p>
                   </div>
                 </div>
               ))}
@@ -503,7 +502,7 @@ const PaintCorrection = () => {
 
       {/* Pricing Section */}
       <section 
-        className={`py-16 sm:py-20 bg-blue-50 relative transition-all duration-1000 ease-out transform ${
+        className={`py-16 bg-white relative transition-all duration-1000 ease-out transform ${
           visibleSections.includes('pricing') 
             ? 'opacity-100 translate-y-0' 
             : 'opacity-0 translate-y-10'
@@ -511,31 +510,40 @@ const PaintCorrection = () => {
         data-section="pricing"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style={{ color: '#1393c4' }}>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4" style={{ color: '#1393c4' }}>
               PAINT CORRECTION COSTS
             </h2>
-            <p className="text-xl sm:text-2xl font-bold mb-8" style={{ color: '#1393c4' }}>
+            <p className="text-xl font-bold mb-8" style={{ color: '#1393c4' }}>
               GET A FLAWLESS FINISH
             </p>
           </div>
 
           {/* Main Pricing Card */}
           <div className="max-w-4xl mx-auto mb-12">
-            <div className="rounded-2xl p-8 sm:p-12 text-center text-white shadow-2xl transform hover:scale-105 transition-all duration-300" 
-                 style={{ background: `linear-gradient(135deg, #1393c4 0%, #0f8bb8 100%)` }}>
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
+            <div className="bg-white rounded-2xl p-12 text-center shadow-2xl transform hover:scale-105 transition-all duration-300 border-2" 
+                 style={{ borderColor: '#1393c4' }}>
+              <h3 className="text-2xl font-bold mb-4" style={{ color: '#1393c4' }}>
                 PAINT CORRECTION AND POLISHING
               </h3>
               <div className="flex items-center justify-center space-x-2 mb-6">
-                <span className="text-base sm:text-lg">starting at</span>
-                <span className="text-3xl sm:text-4xl md:text-5xl font-bold">$200</span>
+                <span className="text-lg" style={{ color: '#1393c4' }}>starting at</span>
+                <span className="text-4xl font-bold" style={{ color: '#1393c4' }}>$200</span>
               </div>
               
               <button
                 onClick={() => setShowForm(true)}
-                className="inline-block bg-white px-8 py-4 rounded-full font-semibold text-base hover:bg-blue-50 transition-colors duration-300 transform hover:scale-105"
-                style={{ color: '#1393c4' }}
+                className="inline-block px-8 py-4 rounded-full font-semibold text-base transition-colors duration-300 transform hover:scale-105"
+                style={{ 
+                  backgroundColor: '#1393c4',
+                  color: 'white'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#0f8bb8';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = '#1393c4';
+                }}
               >
                 Book Now
               </button>
@@ -543,9 +551,9 @@ const PaintCorrection = () => {
           </div>
 
           {/* Packages Section */}
-          <div className="text-center bg-white rounded-2xl p-8 sm:p-12 shadow-xl border-2" style={{ borderColor: '#1393c4' }}>
-            <h3 className="text-xl sm:text-2xl font-bold mb-6" style={{ color: '#1393c4' }}>Our Packages</h3>
-            <p className="text-lg sm:text-xl font-semibold mb-6" style={{ color: '#1393c4' }}>
+          <div className="text-center bg-white rounded-2xl p-12 shadow-xl border-2" style={{ borderColor: '#1393c4' }}>
+            <h3 className="text-xl font-bold mb-6" style={{ color: '#1393c4' }}>Our Packages</h3>
+            <p className="text-lg font-semibold mb-6" style={{ color: '#1393c4' }}>
               Pick your vehicle and Detailing Package
             </p>
             <p className="text-base" style={{ color: '#1393c4' }}>
@@ -557,7 +565,7 @@ const PaintCorrection = () => {
 
       {/* Call to Action */}
       <section 
-        className={`py-16 sm:py-20 bg-white transition-all duration-1000 ease-out transform ${
+        className={`py-16 bg-white transition-all duration-1000 ease-out transform ${
           visibleSections.includes('cta') 
             ? 'opacity-100 translate-y-0' 
             : 'opacity-0 translate-y-10'
@@ -565,31 +573,31 @@ const PaintCorrection = () => {
         data-section="cta"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6" style={{ color: '#1393c4' }}>
+          <h2 className="text-3xl font-bold mb-6" style={{ color: '#1393c4' }}>
             Ready to Transform Your Vehicle?
           </h2>
-          <p className="text-base sm:text-lg mb-8 max-w-2xl mx-auto" style={{ color: '#1393c4' }}>
+          <p className="text-lg mb-8 max-w-2xl mx-auto" style={{ color: '#1393c4' }}>
             Get professional paint correction that brings back your car's showroom shine
           </p>
         </div>
       </section>
 
       {/* Paint Polishing Form Section */}
-      <section className="py-16 sm:py-20 bg-gray-50">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <PaintPolishingForm />
         </div>
       </section>
       
       {/* References Section */}
-      <section className="py-16 sm:py-20 bg-white">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
              <References />
         </div>
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-16 sm:py-20 bg-white">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <ContactForm />
         </div>
@@ -598,7 +606,7 @@ const PaintCorrection = () => {
       {/* FIXED MODAL - Paint Polishing Form Modal */}
       {showForm && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50"
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
           style={{ zIndex: 9999 }}
           onClick={(e) => {
             // Close modal when clicking on backdrop
@@ -608,13 +616,13 @@ const PaintCorrection = () => {
           }}
         >
           <div 
-            className="relative bg-white rounded-2xl w-full max-w-4xl max-h-[95vh] overflow-hidden shadow-2xl mx-2 sm:mx-4"
+            className="relative bg-white rounded-2xl w-full max-w-4xl max-h-[95vh] overflow-hidden shadow-2xl mx-4"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={() => setShowForm(false)}
-              className="absolute top-3 right-3 sm:top-4 sm:right-4 text-gray-400 hover:text-gray-600 text-2xl sm:text-3xl z-10 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl z-10 w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
               style={{ zIndex: 10 }}
             >
               ×
@@ -622,7 +630,7 @@ const PaintCorrection = () => {
             
             {/* Scrollable Form Content */}
             <div className="overflow-y-auto max-h-[95vh]">
-              <div className="p-4 sm:p-6 lg:p-8 pt-12 sm:pt-16">
+              <div className="p-8 pt-16">
                 <PaintPolishingForm onClose={() => setShowForm(false)} />
               </div>
             </div>
