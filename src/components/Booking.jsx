@@ -51,7 +51,7 @@ const BookingForm = () => {
       'coupe': { silver: 180, gold: 250, diamond: 390 },
       'sedan': { silver: 195, gold: 270, diamond: 420 },
       'compact-suv': { silver: 195, gold: 270, diamond: 420 },
-      'large-suv': { silver: 225, gold: 320, diamond: 480 }
+      'large-suv': { silver: 205, gold: 290, diamond: 450 }
     };
     return pricingMap[vehicleId] || pricingMap['coupe'];
   };
