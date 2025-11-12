@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import CustomScrollbar from './components/CustomScrollbar'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -152,12 +152,18 @@ function AppContent() {
   );
 }
 
-// Main App component with Router
+// Detect if we should use HashRouter or BrowserRouter
 function App() {
+  // Use HashRouter if URL contains hash, otherwise use BrowserRouter
+  const useHashRouter = window.location.hash.includes('#/') || 
+                        window.location.pathname === '/' && window.location.hash;
+  
+  const Router = useHashRouter ? HashRouter : BrowserRouter;
+  
   return (
-    <BrowserRouter>
+    <Router>
       <AppContent />
-    </BrowserRouter>
+    </Router>
   );
 }
 
